@@ -167,3 +167,40 @@
     transform: translateY(40px) scaleY(1);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.star-bg-container {
+  background-color: #00010f; /* deeper cosmic blue-black */
+}
+
+.star-bg-gradient {
+  background: radial-gradient(
+    circle at center,
+    #0f0c29 0%,
+    #090721 40%,
+    #02010a 70%,
+    #000000 100%
+  );
+}
+
+
+
+
+
+

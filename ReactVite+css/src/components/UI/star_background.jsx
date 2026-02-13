@@ -261,17 +261,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useRef } from "react";
 import "../../CSS/UI-CSS/star_background.css";
+import Aurora from "./Aurora";
 
 const StarBackground = () => {
   const canvasRef = useRef(null);
@@ -283,126 +275,244 @@ const StarBackground = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const resize = () => {
+    const updateSize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
 
-    resize();
-    window.addEventListener("resize", resize);
+    updateSize();
+    window.addEventListener("resize", updateSize);
 
-    /* ==============================
-        CONFIG & COLORS
-    ============================== */
-    const STAR_COUNT = window.innerWidth < 768 ? 150 : 250;
-    const STAR_COLORS = ["#ffffff", "#e0f2fe", "#fff7ed", "#fafaf9", "#bae6fd"]; 
+    /* =========================
+       NORMAL STARS
+    ========================== */
+
     const stars = [];
-    let shootingStar = null;
+    const numStars = 400;
 
-    const createStar = (isInitial = false) => {
-      return {
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
         x: Math.random() * canvas.width,
-        y: isInitial ? Math.random() * canvas.height : canvas.height + 10,
-        radius: Math.random() * 0.9 + 0.3,
-        color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
-        speedY: Math.random() * 0.4 + 0.1, // Slow upward drift
-        driftX: (Math.random() - 0.5) * 0.15,
-        twinkleSpeed: Math.random() * 0.03 + 0.01,
-        alpha: Math.random(), // Random starting opacity
-      };
-    };
-
-    // Initialize stars
-    for (let i = 0; i < STAR_COUNT; i++) {
-      stars.push(createStar(true));
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.2 + 0.5,
+        alpha: Math.random(),
+        fading: Math.random() > 0.5,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+      });
     }
 
-    const spawnShootingStar = () => {
-      const side = Math.random() > 0.5;
-      shootingStar = {
-        x: side ? 0 : Math.random() * canvas.width,
-        y: Math.random() * (canvas.height * 0.5),
-        vx: Math.random() * 10 + 10, // Fast
-        vy: Math.random() * 4 + 2,
-        size: Math.random() * 2 + 1,
+    /* =========================
+       RARE CINEMATIC METEOR
+    ========================== */
+
+    let meteor = null;
+    let meteorTimer = null;
+    let sparks = [];
+    let shakeIntensity = 0;
+
+    const createMeteor = () => {
+      const startX = Math.random() * canvas.width * 0.5;
+      const startY = Math.random() * canvas.height * 0.25;
+
+      meteor = {
+        x: startX,
+        y: startY,
+        vx: 4 + Math.random() * 2,   // SLOWER
+        vy: 4 + Math.random() * 2,
+        length: 260,
+        life: 0,
+        maxLife: 140,
         opacity: 1,
-        trail: [] // Array to store previous positions for a tail
       };
+
+      // Trigger camera shake
+      shakeIntensity = 8;
     };
 
-    let raf;
-    const draw = () => {
-      // Create a slight trail effect by not clearing perfectly (optional)
-      // ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; 
-      // ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const scheduleNextMeteor = () => {
+      const delay = 12000 + Math.random() * 12000; // rare
+      meteorTimer = setTimeout(createMeteor, delay);
+    };
 
-      /* 1. DRAW BACKGROUND STARS */
-      stars.forEach((star) => {
-        // Movement
-        star.y -= star.speedY;
-        star.x += star.driftX;
-        
-        // Twinkle Effect
-        star.alpha += star.twinkleSpeed;
-        if (star.alpha > 1 || star.alpha < 0.2) {
-          star.twinkleSpeed *= -1;
-        }
+    const createSpark = (x, y) => {
+      sparks.push({
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 4,
+        vy: (Math.random() - 0.5) * 4,
+        life: 0,
+        maxLife: 40,
+        size: Math.random() * 2 + 1,
+      });
+    };
 
+    const drawMeteor = () => {
+      if (!meteor) return;
+
+      const m = meteor;
+
+      /* ---- Plasma Trail ---- */
+      const gradient = ctx.createLinearGradient(
+        m.x,
+        m.y,
+        m.x - m.length,
+        m.y - m.length
+      );
+
+      gradient.addColorStop(0, "rgba(255,255,255,1)");
+      gradient.addColorStop(0.2, "rgba(180,220,255,0.9)");
+      gradient.addColorStop(0.5, "rgba(99,102,241,0.6)");
+      gradient.addColorStop(1, "rgba(0,0,0,0)");
+
+      ctx.save();
+      ctx.globalAlpha = m.opacity;
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 3;
+      ctx.shadowColor = "rgba(180,220,255,0.8)";
+      ctx.shadowBlur = 25;
+
+      ctx.beginPath();
+      ctx.moveTo(m.x, m.y);
+      ctx.lineTo(m.x - m.length, m.y - m.length);
+      ctx.stroke();
+      ctx.restore();
+
+      /* ---- Meteor Head ---- */
+      ctx.save();
+      ctx.globalAlpha = m.opacity;
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.shadowColor = "#ffffff";
+      ctx.shadowBlur = 40;
+      ctx.fill();
+      ctx.restore();
+
+      // Create spark particles
+      if (m.life % 3 === 0) {
+        createSpark(m.x, m.y);
+      }
+
+      /* ---- Movement ---- */
+      m.x += m.vx;
+      m.y += m.vy;
+
+      m.life++;
+      m.opacity = 1 - m.life / m.maxLife;
+
+      if (
+        m.life >= m.maxLife ||
+        m.x > canvas.width ||
+        m.y > canvas.height
+      ) {
+        meteor = null;
+        scheduleNextMeteor();
+      }
+    };
+
+    const drawSparks = () => {
+      sparks.forEach((s, index) => {
+        ctx.save();
+        ctx.globalAlpha = 1 - s.life / s.maxLife;
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = star.color;
-        ctx.globalAlpha = Math.max(0, star.alpha);
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
         ctx.fill();
-        ctx.globalAlpha = 1.0;
+        ctx.restore();
 
-        // Reset if star goes off screen
-        if (star.y < -10 || star.x < -10 || star.x > canvas.width + 10) {
-          Object.assign(star, createStar(false));
+        s.x += s.vx;
+        s.y += s.vy;
+        s.life++;
+
+        if (s.life >= s.maxLife) {
+          sparks.splice(index, 1);
         }
       });
+    };
 
-      /* 2. SHOOTING STAR LOGIC */
-      if (!shootingStar && Math.random() < 0.005) {
-        spawnShootingStar();
+    scheduleNextMeteor();
+
+    /* =========================
+       MAIN DRAW LOOP
+    ========================== */
+
+    let animationFrameId;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      /* ---- Camera Shake ---- */
+      if (shakeIntensity > 0) {
+        const dx = (Math.random() - 0.5) * shakeIntensity;
+        const dy = (Math.random() - 0.5) * shakeIntensity;
+        ctx.save();
+        ctx.translate(dx, dy);
+        shakeIntensity *= 0.92; // decay
       }
 
-      if (shootingStar) {
-        // Draw the trail
+      /* ---- Stars ---- */
+      stars.forEach((star) => {
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(186, 230, 253, ${shootingStar.opacity})`;
-        ctx.lineWidth = shootingStar.size;
-        ctx.lineCap = "round";
-        ctx.moveTo(shootingStar.x, shootingStar.y);
-        ctx.lineTo(shootingStar.x - shootingStar.vx * 3, shootingStar.y - shootingStar.vy * 3);
-        ctx.stroke();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.fill();
 
-        // Update Position
-        shootingStar.x += shootingStar.vx;
-        shootingStar.y += shootingStar.vy;
-        shootingStar.opacity -= 0.02; // Fade out
-
-        if (shootingStar.opacity <= 0 || shootingStar.x > canvas.width) {
-          shootingStar = null;
+        if (star.fading) {
+          star.alpha -= 0.008;
+          if (star.alpha <= 0.1) star.fading = false;
+        } else {
+          star.alpha += 0.008;
+          if (star.alpha >= 1) star.fading = true;
         }
+
+        star.x += star.vx;
+        star.y += star.vy;
+
+        if (star.x < 0) star.x = canvas.width;
+        if (star.x > canvas.width) star.x = 0;
+        if (star.y < 0) star.y = canvas.height;
+        if (star.y > canvas.height) star.y = 0;
+      });
+
+      drawMeteor();
+      drawSparks();
+
+      if (shakeIntensity > 0) {
+        ctx.restore();
       }
 
-      raf = requestAnimationFrame(draw);
+      animationFrameId = requestAnimationFrame(draw);
     };
 
     draw();
 
     return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", updateSize);
+      cancelAnimationFrame(animationFrameId);
+      if (meteorTimer) clearTimeout(meteorTimer);
     };
   }, []);
 
   return (
     <div className="star-bg-container">
-      {/* Visual Depth Gradients */}
-      <div className="space-nebula" />
+      <div className="star-bg-gradient" />
       <canvas ref={canvasRef} className="star-canvas" />
+
+      <div className="aurora-wrapper">
+        <Aurora
+          colorStops={["#0ea5e9", "#6366f1", "#a855f7"]}
+          blend={0.9}
+          amplitude={1.5}
+          speed={0.25}
+        />
+      </div>
+
+      <div className="horizon-container">
+        <div className="horizon-curve">
+          <div className="horizon-line" />
+        </div>
+      </div>
     </div>
   );
 };
