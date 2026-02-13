@@ -1,0 +1,86 @@
+:root {
+  --accent-pink: #ff3385;
+  --bg-dark: #000;
+  --card-bg: #111;
+  --text-gray: #a1a1aa;
+}
+
+.stage {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  perspective: 2000px;
+  overflow: hidden;
+  background: black;
+}
+
+.bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20vw;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  white-space: nowrap;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.viewport-item {
+  position: absolute;
+  top: 50%;
+  transform-style: preserve-3d;
+}
+
+.card {
+  width: 700px;
+  height: 450px;
+  margin-top: -225px;
+  background: var(--card-bg);
+  border-radius: 32px;
+  padding: 20px;
+}
+
+.card-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details {
+  width: 500px;
+  transform: translateY(-50%);
+}
+
+.details h2 {
+  font-size: 3rem;
+}
+
+.features li::before {
+  content: "✦";
+  color: var(--accent-pink);
+  margin-right: 8px;
+}
+
+.nav-container {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-dot.active {
+  background: var(--accent-pink);
+}
+
+.spacer {
+  height: 1800vh;
+}

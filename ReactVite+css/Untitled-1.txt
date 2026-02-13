@@ -1,0 +1,52 @@
+ 
+├── 📁 public/
+│   └── 🖼️ vite.svg
+├── 📁 src/
+│   ├── 📁 CSS/
+│   │   ├── 📁 UI-CSS/
+│   │   │   ├── 🎨 Aurora.css
+│   │   │   ├── 🎨 LightRays.css
+│   │   │   ├── 🎨 RotatingText.css
+│   │   │   └── 🎨 star_background.css
+│   │   ├── 🎨 BentoGrid.css
+│   │   ├── 🎨 ProjectsScroll.css
+│   │   ├── 🎨 ScrollExperience.css
+│   │   ├── 🎨 home.css
+│   │   └── 🎨 navbar.css
+│   ├── 📁 assets/
+│   │   ├── 📁 images/
+│   │   │   ├── 🖼️ bento-a.png
+│   │   │   └── 🖼️ download.webp
+│   │   ├── 📁 lottie/
+│   │   │   ├── ⚙️ RobotSaludando.json
+│   │   │   └── ⚙️ cta-circle.json
+│   │   └── 🖼️ react.svg
+│   ├── 📁 components/
+│   │   ├── 📁 Layout/
+│   │   │   ├── 📄 layout.jsx
+│   │   │   └── 📄 navbar.jsx
+│   │   ├── 📁 UI/
+│   │   │   ├── 📄 Aurora.jsx
+│   │   │   ├── 📄 LightRays.jsx
+│   │   │   ├── 📄 RotatingText.jsx
+│   │   │   ├── 📄 SplitText.jsx
+│   │   │   └── 📄 star_background.jsx
+│   │   ├── 📄 Bento_grid.jsx
+│   │   ├── 📄 HomePage.jsx
+│   │   ├── 📄 ProjectsScroll.jsx
+│   │   ├── 📄 ScrollExperience.jsx
+│   │   └── 📄 home.jsx
+│   ├── 🎨 App.css
+│   ├── 📄 App.jsx
+│   ├── 🎨 index.css
+│   └── 📄 main.jsx
+├── ⚙️ .gitignore
+├── 📝 README.md
+├── 📄 Untitled-1.txt
+├── 📄 eslint.config.js
+├── 🌐 index.html
+├── ⚙️ package-lock.json
+├── ⚙️ package.json
+└── 📄 vite.config.js
+
+ 

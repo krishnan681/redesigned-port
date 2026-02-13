@@ -1,0 +1,851 @@
+:root {
+  --accent-pink: #ff3385;
+}
+
+/* .experience-root {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0d0d2b 0%, #050505 60%, #000000 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+} */
+
+.experience-root {
+  position: relative;
+  height: 100vh;        /* only viewport height */
+  overflow: hidden;    /* internal animations */
+}
+
+
+.stars-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 15% 25%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 65%, #fff, transparent),
+    radial-gradient(2px 2px at 85% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 75% 85%, #fff, transparent);
+  background-size: 400px 400px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Updated: Removed Flex centering to allow images to scatter */
+.camera {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* .stage-3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+} */
+
+/* Updated: Keeps absolute positioning, removed transition for GSAP smoothness */
+.floating-image {
+  position: absolute;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+/* Updated: Centered using Absolute positioning since parent is no longer Flex */
+.glass-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  /* Half of width/height for perfect center */
+  margin-top: -160px;
+  margin-left: -160px;
+  
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  border-radius: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 50px;
+}
+
+.edge-icon {
+  width: 38px;
+  height: 38px;
+}
+
+.brand-name {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.next-button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 16px 54px;
+  border-radius: 100px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.next-button:hover {
+  transform: scale(1.05);
+  background: #f0f0f0;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+
+
+
+/* ROOT owns perspective */
+.experience-root {
+  perspective: 1800px;
+  overflow: hidden;
+}
+
+/* Camera ONLY transforms (no layout) */
+.camera {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Stage ONLY depth movement */
+.stage-3d {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* WORLD = your old UI coordinate system */
+.world {
+  position: absolute;
+  inset: 0;
+}
+
+/* These live in world space */
+.floating-image,
+.glass-modal {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* :root {
+  --accent-pink: #ff3385;
+}
+
+.experience-root {
+ width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at center,
+    #0d0d2b 0%,
+    #050505 60%,
+    #000000 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.stars-overlay {
+    position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(1px 1px at 15% 25%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 65%, #fff, transparent),
+    radial-gradient(2px 2px at 85% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 75% 85%, #fff, transparent);
+  background-size: 400px 400px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+ 
+.floating-image {
+   position: absolute;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+ 
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  pointer-events: none;
+}
+
+.glass-modal {
+  width: 320px;
+  height: 320px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  border-radius: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  will-change: transform, opacity;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 50px;
+}
+
+.edge-icon {
+  width: 38px;
+  height: 38px;
+}
+
+.brand-name {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.next-button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 16px 54px;
+  border-radius: 100px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  
+  transition: all 0.3s ease;
+}
+
+.next-button:hover {
+  transform: scale(1.05);
+  background: #f0f0f0;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+
+
+.camera {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.stage-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+:root {
+  --accent-pink: #ff3385;
+  --bg-dark: #000000;
+  --card-bg: #111111;
+  --text-gray: #a1a1aa;
+}
+ 
+.experience-root {
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-image {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: transform 0.1s ease-out;
+}
+
+.glass-modal {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  padding: 40px 60px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  z-index: 100;
+}
+
+.next-button {
+  background: var(--accent-pink);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.next-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--accent-pink);
+}
+
+ 
+.stage-3d {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  perspective: 2000px;
+  overflow: hidden;
+  z-index: -1; 
+}
+ 
+.spacer-3d {
+  height: 1200vh;
+}
+
+.bg-text-3d {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20vw;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  text-transform: uppercase;
+}
+
+.container-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.viewport-item {
+  position: absolute;
+  top: 50%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.card {
+  width: 700px;
+  height: 450px;
+  margin-top: -225px;
+  background: var(--card-bg);
+  border-radius: 32px;
+  padding: 20px;
+}
+.card-inner {
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.details h2 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+.details h2::before {
+  content: "—";
+  color: var(--accent-pink);
+  margin-right: 15px;
+}
+.features-list {
+  list-style: none;
+  margin-bottom: 25px;
+}
+.features-list li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+.features-list li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--accent-pink);
+}
+
+.tech-tag {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin: 0 8px 8px 0;
+  font-size: 0.7rem;
+  color: var(--text-gray);
+}
+
+ 
+.nav-container {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 200;
+}
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+.nav-dot.active {
+  background: var(--accent-pink);
+  transform: scale(1.5);
+  box-shadow: 0 0 10px var(--accent-pink);
+}
+.nav-label {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  color: var(--accent-pink);
+  font-size: 10px;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+.nav-dot.active .nav-label {
+  opacity: 1;
+  right: 35px;
+}
+
+.camera {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+:root {
+  --accent-pink: #ff3385;
+  --bg-dark: #000000;
+  --text-gray: #a1a1aa;
+}
+
+.experience-root {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at center,
+    #0d0d2b 0%,
+    #050505 60%,
+    #000000 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.stars-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 25%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 65%, #fff, transparent),
+    radial-gradient(2px 2px at 85% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 75% 85%, #fff, transparent);
+  background-size: 400px 400px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.camera {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stage-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.floating-image {
+  position: absolute;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  pointer-events: none;
+}
+
+.glass-modal {
+  width: 320px;
+  height: 320px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  border-radius: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 50px;
+}
+
+.edge-icon {
+  width: 38px;
+  height: 38px;
+}
+
+.brand-name {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.next-button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 16px 54px;
+  border-radius: 100px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.next-button:hover {
+  transform: scale(1.05);
+  background: #f0f0f0;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* :root {
+  --accent-pink: #ff3385;
+}
+
+.experience-root {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0d0d2b 0%, #050505 60%, #000000 100%);
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.stars-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 15% 25%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 65%, #fff, transparent),
+    radial-gradient(2px 2px at 85% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 75% 85%, #fff, transparent);
+  background-size: 400px 400px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.camera {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.stage-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+}
+
+.floating-image {
+  position: absolute;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.glass-modal {
+  position: relative; 
+  width: 320px;
+  height: 320px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  border-radius: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-out;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 50px;
+}
+
+.edge-icon {
+  width: 38px;
+  height: 38px;
+}
+
+.brand-name {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.next-button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 16px 54px;
+  border-radius: 100px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.next-button:hover {
+  transform: scale(1.05);
+  background: #f0f0f0;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+} */

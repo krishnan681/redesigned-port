@@ -1,0 +1,169 @@
+.star-bg-container {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background-color: #02010a; /* Darkest purple-black */
+}
+
+/* Dark vignette from center */
+.star-bg-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, #000 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.star-bg-gradient {
+  position: absolute;
+  inset: 0;
+  /* Radiant glow: Deep Purple -> Deep Blue -> Black */
+  background: radial-gradient(circle at center, #1e1b4b 0%, #0c0a21 60%, #000000 90%);
+  z-index: 0;
+}
+
+.star-canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.aurora-wrapper {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 85%;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Horizon container */
+.horizon-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  transform: translateY(38%);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.horizon-curve {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 140%;
+  height: 1000px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background-color: #02010a;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Updated Horizon Line for Purple/Blue/White Theme */
+.horizon-line {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border-top: 14px solid rgba(255, 255, 255, 0.95);
+  filter: blur(16px);
+
+  /* Multi-layered glow using your colors */
+  box-shadow:
+    0 -2px 8px rgba(255, 255, 255, 1),
+    0 -6px 20px rgba(59, 130, 246, 0.7), /* Blue */
+    0 -12px 40px rgba(139, 92, 246, 0.4); /* Purple */
+
+  mask-image: radial-gradient(
+    ellipse 1200px 380px at 50% 0%,
+    black 10%,
+    rgba(0, 0, 0, 0.9) 25%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.2) 60%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 1200px 380px at 50% 0%,
+    black 10%,
+    rgba(0, 0, 0, 0.9) 25%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.2) 60%,
+    transparent 75%
+  );
+}
+
+/* Updated Heartbeat with Purple shadow */
+.horizon-thick-line {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 140%;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  filter: blur(14px);
+  opacity: 0.8;
+  z-index: 3;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
+  animation: heartbeatGlow 2s ease-in-out infinite;
+}
+
+@keyframes heartbeatGlow {
+  0%, 100% {
+    opacity: 0.7;
+    filter: blur(12px);
+  }
+  25% {
+    opacity: 1;
+    filter: blur(18px);
+  }
+  50% {
+    opacity: 0.75;
+    filter: blur(14px);
+  }
+  75% {
+    opacity: 1;
+    filter: blur(18px);
+  }
+}
+
+.horizon-curve::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 0%, rgba(88, 28, 135, 0.3) 0%, transparent 70%);
+  mask-image: radial-gradient(
+    ellipse 1400px 800px at 50% 100%,
+    black 60%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 1400px 800px at 50% 100%,
+    black 60%,
+    transparent 100%
+  );
+  animation: riseGlow 12s ease-in-out infinite alternate;
+}
+
+@keyframes riseGlow {
+  0% {
+    opacity: 0.4;
+    transform: translateY(80px) scaleY(0.9);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-40px) scaleY(1.15);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateY(40px) scaleY(1);
+  }
+}
