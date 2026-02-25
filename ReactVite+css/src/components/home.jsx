@@ -3,17 +3,15 @@ import "../CSS/home.css";
 import Lottie from "lottie-react";
 import ctaCircleAnimation from "../assets/lottie/cta-circle.json";
 
-import StarBackground from "./UI/star_background";
-import SplitText from "../components/UI/SplitText"; 
+import SplitText from "../components/UI/SplitText";
 import RotatingText from "../components/UI/RotatingText";
+import StarBackground from "./UI/star_background";
 
 const Home = () => {
   return (
+    <div style={{ position: 'relative', overflow: 'hidden' }}>
+      <StarBackground />
 
-
-    <>
-
-    <StarBackground/>
       <div className="portfolio-container">
         <section className="hero">
           <div className="hero-content">
@@ -89,7 +87,7 @@ const Home = () => {
           </div>
         </section>
       </div>
-    </>
+    </div >
   );
 };
 

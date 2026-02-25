@@ -3,7 +3,8 @@
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background-color: #02010a; /* Darkest purple-black */
+  background-color: #02010a;
+  /* Darkest purple-black */
 }
 
 /* Dark vignette from center */
@@ -77,25 +78,23 @@
   /* Multi-layered glow using your colors */
   box-shadow:
     0 -2px 8px rgba(255, 255, 255, 1),
-    0 -6px 20px rgba(59, 130, 246, 0.7), /* Blue */
-    0 -12px 40px rgba(139, 92, 246, 0.4); /* Purple */
+    0 -6px 20px rgba(59, 130, 246, 0.7),
+    /* Blue */
+    0 -12px 40px rgba(139, 92, 246, 0.4);
+  /* Purple */
 
-  mask-image: radial-gradient(
-    ellipse 1200px 380px at 50% 0%,
-    black 10%,
-    rgba(0, 0, 0, 0.9) 25%,
-    rgba(0, 0, 0, 0.55) 45%,
-    rgba(0, 0, 0, 0.2) 60%,
-    transparent 75%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 1200px 380px at 50% 0%,
-    black 10%,
-    rgba(0, 0, 0, 0.9) 25%,
-    rgba(0, 0, 0, 0.55) 45%,
-    rgba(0, 0, 0, 0.2) 60%,
-    transparent 75%
-  );
+  mask-image: radial-gradient(ellipse 1200px 380px at 50% 0%,
+      black 10%,
+      rgba(0, 0, 0, 0.9) 25%,
+      rgba(0, 0, 0, 0.55) 45%,
+      rgba(0, 0, 0, 0.2) 60%,
+      transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 1200px 380px at 50% 0%,
+      black 10%,
+      rgba(0, 0, 0, 0.9) 25%,
+      rgba(0, 0, 0, 0.55) 45%,
+      rgba(0, 0, 0, 0.2) 60%,
+      transparent 75%);
 }
 
 /* Updated Heartbeat with Purple shadow */
@@ -116,18 +115,23 @@
 }
 
 @keyframes heartbeatGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.7;
     filter: blur(12px);
   }
+
   25% {
     opacity: 1;
     filter: blur(18px);
   }
+
   50% {
     opacity: 0.75;
     filter: blur(14px);
   }
+
   75% {
     opacity: 1;
     filter: blur(18px);
@@ -140,16 +144,12 @@
   inset: 0;
   border-radius: 50%;
   background: radial-gradient(circle at 50% 0%, rgba(88, 28, 135, 0.3) 0%, transparent 70%);
-  mask-image: radial-gradient(
-    ellipse 1400px 800px at 50% 100%,
-    black 60%,
-    transparent 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 1400px 800px at 50% 100%,
-    black 60%,
-    transparent 100%
-  );
+  mask-image: radial-gradient(ellipse 1400px 800px at 50% 100%,
+      black 60%,
+      transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 1400px 800px at 50% 100%,
+      black 60%,
+      transparent 100%);
   animation: riseGlow 12s ease-in-out infinite alternate;
 }
 
@@ -158,10 +158,12 @@
     opacity: 0.4;
     transform: translateY(80px) scaleY(0.9);
   }
+
   50% {
     opacity: 0.8;
     transform: translateY(-40px) scaleY(1.15);
   }
+
   100% {
     opacity: 0.5;
     transform: translateY(40px) scaleY(1);
@@ -186,21 +188,14 @@
 
 
 .star-bg-container {
-  background-color: #00010f; /* deeper cosmic blue-black */
+  background-color: #00010f;
+  /* deeper cosmic blue-black */
 }
 
 .star-bg-gradient {
-  background: radial-gradient(
-    circle at center,
-    #0f0c29 0%,
-    #090721 40%,
-    #02010a 70%,
-    #000000 100%
-  );
+  background: radial-gradient(circle at center,
+      #0f0c29 0%,
+      #090721 40%,
+      #02010a 70%,
+      #000000 100%);
 }
-
-
-
-
-
-

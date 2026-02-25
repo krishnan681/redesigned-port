@@ -56,7 +56,7 @@ const ScrollExperience = () => {
 
   return (
     <div
-      className="experience-root"
+      className="experience-root experience-root-camera"
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setMouse({ x: 0, y: 0 })}
     >
@@ -107,11 +107,8 @@ const ScrollExperience = () => {
                   className="edge-icon"
                   alt="logo"
                 />
-                <span className="brand-name">Let's Jump In</span>
+                <span className="brand-name">Portfolio Experience</span>
               </div>
-              <button className="next-button" onClick={startDive}>
-                Explore
-              </button>
             </div>
 
           </div>

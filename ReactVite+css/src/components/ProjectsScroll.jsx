@@ -6,36 +6,7 @@ import "../CSS/ProjectsScroll.css";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-const dataSet = [
-  {
-    title: "Next Ventures",
-    bg: "NEXT",
-    desc: "A platform for entrepreneurs.",
-    features: ["Leveraged PPR.", "Clean design.", "Optimization."],
-    tech: ["Next.js", "React"],
-  },
-  {
-    title: "Nova Mobile",
-    bg: "NOVA",
-    desc: "Financial tracking app.",
-    features: ["State management.", "Beautiful charts.", "Biometrics."],
-    tech: ["Flutter", "Android Studio"],
-  },
-  {
-    title: "CyberMesh",
-    bg: "CYBER",
-    desc: "Networking hub.",
-    features: ["Node monitoring.", "Smart contracts.", "Terminal."],
-    tech: ["TypeScript", "Rust"],
-  },
-  {
-    title: "FitPulse App",
-    bg: "PULSE",
-    desc: "Health companion.",
-    features: ["Native modules.", "Offline-first.", "Adaptive UI."],
-    tech: ["Flutter", "Android Studio"],
-  },
-];
+import { dataSet } from "../data/projectsData";
 
 const ProjectsScroll = () => {
   const wrapperRef = useRef(null);
@@ -97,65 +68,29 @@ const ProjectsScroll = () => {
 
     const dots = gsap.utils.toArray(".nav-dot");
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".spacer",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 2,
-        onUpdate: (self) => {
-          const index = Math.min(
-            Math.floor(self.progress * dataSet.length),
-            dataSet.length - 1
-          );
-
-          if (bgText) bgText.innerText = dataSet[index].bg;
-
-          dots.forEach((dot, i) =>
-            dot.classList.toggle("active", i === index)
-          );
-        },
-      },
-    });
-
-    dataSet.forEach((_, i) => {
-      const targets = `.project-${i}`;
-      tl.to(targets, { z: 0, opacity: 1, duration: 2 }, i * 3).to(
-        targets,
-        { z: 1500, opacity: 0, duration: 1.5 },
-        i * 3 + 2.5
-      );
-    });
-
-    if (bgText) {
-      gsap.to(bgText, {
-        y: -150,
-        scrollTrigger: { trigger: ".spacer", scrub: true },
-      });
-    }
+    // We no longer need an internal timeline here as HomePage master timeline handles it.
+    // However, we still want the bgText update logic if possible? 
+    // Actually, HomePage handles bgText in its onUpdate too.
 
     return () => {
-      if (tl) tl.kill();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
 
   return (
     <>
-      <div className="nav-container" ref={navRef}>
+      <div className="nav-container" ref={navRef} style={{ position: 'absolute', zIndex: 100 }}>
         <div className="nav-line" />
       </div>
 
       <div className="scroll-hint">Scroll to Explore</div>
 
-      <div className="stage">
+      <div className="stage projects-3d-root" style={{ opacity: 0 }}>
         <div className="bg-text" ref={bgTextRef}>
           NEXT
         </div>
         <div className="container" ref={wrapperRef} />
       </div>
-
-      <div className="spacer" />
     </>
   );
 };
