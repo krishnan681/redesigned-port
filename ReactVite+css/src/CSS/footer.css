@@ -1,0 +1,112 @@
+/* 1. Base Footer Styles */
+.footer-root {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  padding: 0 0 40px 0; /* No top padding so big text touches the top */
+  overflow: hidden;
+  font-family: serif; /* Matches the elegant serif look in your image */
+}
+
+/* 2. The Massive "KRISHNA" text section */
+.footer-big-text {
+  width: 100%;
+
+  background-color: #f8f9fa; /* Keeping it white to match your image */
+  text-align: center;
+  line-height: 0.8;
+  position: relative;
+  margin-bottom: 60px;
+  overflow: hidden; /* Ensures no overflow from giant letters */
+}
+
+.footer-big-text h1 {
+  margin: 0;
+  font-family: "Arial Black", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  font-style: italic;
+  position: relative;
+  top: 20px;
+  color: #000;
+  background: #000;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 16vw; /* Scales perfectly with screen width */
+  font-family: "Arial Black", Gadget, sans-serif; /* Heavy, bold font */
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+/* 3. The Grid Layout */
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 40px 40px 0; /* 👈 adds top spacing */
+  gap: 20px;
+}
+
+/* 4. Column Specific Styles */
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.sub-text {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.footer-center,
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-center a,
+.footer-right a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-center a:hover,
+.footer-right a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* 5. Copyright Section */
+.footer-bottom {
+  margin-top: 80px;
+  text-align: center;
+  color: #555;
+  font-size: 12px;
+  font-family: sans-serif; /* Copyright usually looks better in sans-serif */
+}
+
+/* 6. Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr; /* Stack columns on mobile */
+    text-align: left;
+    gap: 40px;
+  }
+
+  .footer-big-text h1 {
+    font-size: 20vw; /* Slightly smaller for mobile readability */
+  }
+
+  .footer-bottom {
+    margin-top: 40px;
+  }
+}

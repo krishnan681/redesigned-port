@@ -8,6 +8,7 @@ import BentoGridSection from "./Bento_grid";
 import ScrollExperience from "./ScrollExperience";
 import ProjectsScroll from "./ProjectsScroll";
 import AboutMe from "./AboutMe";
+import Footer from "./Footer";
 import { dataSet } from "../data/projectsData";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -101,8 +102,8 @@ const HomePage = () => {
 
         </div>
       </div>
-
       <AboutMe />
+      <Footer />
     </div>
   );
 };
