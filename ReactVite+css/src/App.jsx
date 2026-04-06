@@ -44,12 +44,15 @@
 
 
 import { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout/layout";
 import HomePage from "./components/HomePage";
-import ScrollExperience from "./components/ScrollExperience";
-import ProjectsScroll from "./components/ProjectsScroll";
-import AboutMe from "./components/AboutMe";
 import TerminalSplash from "./components/UI/TerminalSplash";
+
+// Separate Pages
+import AboutPage from "./pages/AboutPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import LinksPage from "./pages/LinksPage";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -60,7 +63,18 @@ function App() {
 
   return (
     <Layout>
-      <HomePage />
+      <Routes>
+        {/* Main continuous scroll page */}
+        <Route path="/" element={<HomePage />} />
+        
+        {/* Separate Navigation Pages */}
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/links" element={<LinksPage />} />
+        
+        {/* Fallback route */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </Layout>
   );
 }
