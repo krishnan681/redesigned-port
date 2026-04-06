@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Next Ventures | 3D Nav Scroll</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
+
+  <style>
+    :root {
+      --accent-pink: #ff3385;
+      --bg-dark: #000000;
+      --card-bg: #111111;
+      --text-gray: #a1a1aa;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Inter", sans-serif; }
+    body { background: var(--bg-dark); color: white; overflow-x: hidden; }
+
+    .stage {
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0; left: 0;
+      perspective: 2000px;
+      overflow: hidden;
+    }
+
+    .bg-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20vw; font-weight: 900;
+      color: rgba(255, 255, 255, 0.03);
+      white-space: nowrap; pointer-events: none;
+      text-transform: uppercase;
+    }
+
+    .container {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d; z-index: 1;
+    }
+
+    .viewport-item {
+      position: absolute; top: 50%;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+    }
+
+    /* CARD STYLING */
+    .card {
+      width: 700px; height: 450px; margin-top: -225px; 
+      background: var(--card-bg); border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden; padding: 20px;
+    }
+    .card-inner { width: 100%; height: 100%; background: #1a1a1a; border-radius: 20px; overflow: hidden; }
+    .card-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+
+    /* DETAILS STYLING */
+    .details { width: 500px; transform: translateY(-50%); }
+    .details h2 { font-size: 3rem; margin-bottom: 10px; letter-spacing: -2px; display: flex; align-items: center; }
+    .details h2::before { content: '—'; color: var(--accent-pink); margin-right: 15px; }
+    .details .main-desc { color: var(--text-gray); font-size: 1.05rem; line-height: 1.5; margin-bottom: 25px; }
+    .features { list-style: none; margin-bottom: 30px; }
+    .features li { margin-bottom: 12px; padding-left: 25px; position: relative; color: #efeff1; font-size: 0.95rem; }
+    .features li::before { content: '✦'; position: absolute; left: 0; color: var(--accent-pink); }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 6px; font-size: 0.65rem; color: var(--text-gray); }
+
+    /* NAVIGATION STYLING */
+    .nav-container {
+      position: fixed; right: 40px; top: 50%;
+      transform: translateY(-50%); z-index: 100;
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
+    }
+    .nav-line {
+      position: absolute; width: 1px; height: 100%;
+      background: rgba(255,255,255,0.1); z-index: -1;
+    }
+    .nav-dot {
+      width: 10px; height: 10px; background: #333;
+      border-radius: 50%; cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+    .nav-dot:hover { background: var(--accent-pink); transform: scale(1.5); }
+    .nav-dot.active {
+      background: var(--accent-pink); transform: scale(1.8);
+      box-shadow: 0 0 15px var(--accent-pink);
+    }
+    .nav-label {
+      position: absolute; right: 25px; top: 50%; transform: translateY(-50%);
+      font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--accent-pink); opacity: 0; pointer-events: none; transition: 0.3s;
+      white-space: nowrap;
+    }
+    .nav-dot.active .nav-label { opacity: 1; right: 35px; }
+
+    .scroll-hint {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; letter-spacing: 4px; color: var(--text-gray);
+      text-transform: uppercase; animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+    .spacer { height: 1800vh; }
+  </style>
+</head>
+<body>
+
+  <div class="nav-container">
+    <div class="nav-line"></div>
+    </div>
+
+  <div class="scroll-hint">Scroll to Explore</div>
+
+  <div class="stage">
+    <div id="bgText" class="bg-text">NEXT</div>
+    <div class="container" id="mainWrapper"></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    const dataSet = [
+      { title: "Next Ventures", bg: "NEXT", desc: "A platform for entrepreneurs.", features: ["Leveraged PPR.", "Clean design.", "Optimization."], tech: ["Next.js", "React"] },
+      { title: "Nova Mobile", bg: "NOVA", desc: "Financial tracking app.", features: ["State management.", "Beautiful charts.", "Biometrics."], tech: ["Flutter", "Android Studio"] },
+      { title: "CyberMesh", bg: "CYBER", desc: "Networking hub.", features: ["Node monitoring.", "Smart contracts.", "Terminal."], tech: ["TypeScript", "Rust"] },
+      { title: "FitPulse App", bg: "PULSE", desc: "Health companion.", features: ["Native modules.", "Offline-first.", "Adaptive UI."], tech: ["Flutter", "Android Studio"] },
+      { title: "AlphaFlow", bg: "ALPHA", desc: "Workflow automation.", features: ["Drag-and-drop.", "Multi-tenant.", "Auto-reports."], tech: ["Next.js", "AWS"] },
+      { title: "Zenith Delivery", bg: "ZENITH", desc: "Logistics tracking.", features: ["Maps API.", "Push notifications.", "Stripe."], tech: ["Flutter", "Android Studio"] }
+    ];
+
+    const wrapper = document.getElementById("mainWrapper");
+    const bgDisplay = document.getElementById("bgText");
+    const navContainer = document.querySelector(".nav-container");
+
+    // Initialize Elements and Nav
+    dataSet.forEach((item, i) => {
+      const isOdd = i % 2 === 0;
+
+      // Create Navigation Dot
+      const dot = document.createElement("div");
+      dot.className = `nav-dot ${i === 0 ? 'active' : ''}`;
+      dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
+      dot.onclick = () => {
+        gsap.to(window, { scrollTo: (i * (document.body.scrollHeight / dataSet.length)) + 10, duration: 2 });
+      };
+      navContainer.appendChild(dot);
+
+      // Create Card
+      const card = document.createElement("div");
+      card.className = "viewport-item card project-" + i;
+      card.style.left = isOdd ? "8%" : "52%";
+      card.innerHTML = `<div class="card-inner"><img src="https://picsum.photos/seed/${i+105}/800/600" class="card-img"></div>`;
+
+      // Create Details
+      const detail = document.createElement("div");
+      detail.className = "viewport-item details project-" + i;
+      detail.style.left = isOdd ? "58%" : "8%";
+      detail.innerHTML = `
+        <h2>${item.title}</h2>
+        <p class="main-desc">${item.desc}</p>
+        <ul class="features">${item.features.map(f => `<li>${f}</li>`).join('')}</ul>
+        <div class="tech-stack">${item.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+      `;
+
+      wrapper.appendChild(card);
+      wrapper.appendChild(detail);
+      gsap.set([card, detail], { z: -5000, opacity: 0 });
+    });
+
+    const dots = gsap.utils.toArray(".nav-dot");
+
+    const masterTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".spacer",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 2,
+        onUpdate: (self) => {
+          const index = Math.min(Math.floor(self.progress * dataSet.length), dataSet.length - 1);
+          
+          // Update BG Text
+          if(bgDisplay.innerText !== dataSet[index].bg) {
+            bgDisplay.innerText = dataSet[index].bg;
+          }
+
+          // Update Nav Dots
+          dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === index);
+          });
+
+          // Hide scroll hint after first scroll
+          if(self.progress > 0.01) gsap.to(".scroll-hint", { opacity: 0, duration: 0.5 });
+        }
+      }
+    });
+
+    // 3D Animation Loop
+    dataSet.forEach((_, i) => {
+      const targets = gsap.utils.toArray(".project-" + i);
+      const startTime = i * 3; 
+
+      masterTl.to(targets, {
+        z: 0,
+        opacity: 1,
+        duration: 2,
+        ease: "power2.out"
+      }, startTime)
+      .to(targets, {
+        z: 1500,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power2.in"
+      }, startTime + 2.5);
+    });
+
+    // Parallax BG
+    gsap.to(bgDisplay, { y: -150, scrollTrigger: { trigger: ".spacer", scrub: true } });
+
+  </script>
+</body>
+</html>

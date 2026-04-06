@@ -1,0 +1,121 @@
+/* src/components/CSS/AboutMe.css */
+
+.am-section-root {
+  width: 100%;
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.am-container {
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* HEADER */
+.am-header-block {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.am-title {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.am-subtitle {
+  font-size: 16px;
+  color: #a1a1aa;
+}
+
+/* GRID */
+.am-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+/* LEFT */
+.am-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.am-description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #d4d4d8;
+}
+
+/* SKILLS */
+.am-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.am-skill-chip {
+  padding: 8px 14px;
+  background: #111;
+  border: 1px solid #27272a;
+  border-radius: 20px;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.am-skill-chip:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* RIGHT CARDS */
+.am-card-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.am-card {
+  background: #111;
+  border: 1px solid #27272a;
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.am-card:hover {
+  transform: translateY(-5px);
+  border-color: #fff;
+}
+
+.am-card-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.am-card-text {
+  font-size: 14px;
+  color: #a1a1aa;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .am-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .am-title {
+    font-size: 32px;
+  }
+
+  .am-section-root {
+    padding: 40px 15px;
+  }
+}
