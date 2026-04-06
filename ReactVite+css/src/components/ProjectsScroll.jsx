@@ -413,12 +413,29 @@ const ProjectsScroll = () => {
       dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
       dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
 
-      dot.onclick = () =>
-        gsap.to(window, {
-          scrollTo: { y: i * window.innerHeight * 1.2 },
-          duration: 1.5,
-          ease: "power2.inOut",
-        });
+      dot.onclick = () => {
+        // Calculate the relative timeline position
+        // Total duration is roughly 13.5s. Item 'i' appear finishes at 4 + i * 2.5
+        const targetTime = 4 + i * 2.5;
+        const targetProgress = Math.min(targetTime / 13.5, 1);
+        
+        // Find the top of the master-viewport
+        const viewport = document.querySelector(".master-viewport");
+        if (viewport) {
+          const rect = viewport.getBoundingClientRect();
+          const scrollTop = window.scrollY || document.documentElement.scrollTop;
+          const viewportTop = rect.top + scrollTop;
+          
+          // pin lasts for 6000px
+          const targetY = viewportTop + (targetProgress * 6000);
+          
+          gsap.to(window, {
+            scrollTo: { y: targetY },
+            duration: 1.5,
+            ease: "power2.inOut",
+          });
+        }
+      };
 
       navContainer.appendChild(dot);
 
@@ -443,16 +460,6 @@ const ProjectsScroll = () => {
       gsap.set([card, detail], { z: -i * GAP, opacity: 0 });
     });
 
-    // === IMPORTANT: Release control when projects finish ===
-    ScrollTrigger.create({
-      trigger: ".spacer",
-      start: "top bottom",
-      onEnter: () => {
-        gsap.set(".stage", { position: "relative", zIndex: 1 });
-        ScrollTrigger.refresh();
-      },
-    });
-
     ScrollTrigger.refresh();
 
     return () => {
@@ -473,9 +480,6 @@ const ProjectsScroll = () => {
        
         <div className="container" ref={wrapperRef} />
       </div>
-
-      {/* Tall spacer to push next sections down */}
-      {/* <div className="spacer" /> */}
     </>
   );
 };

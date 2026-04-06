@@ -61,9 +61,6 @@ function App() {
   return (
     <Layout>
       <HomePage />
-      {/* <ScrollExperience /> */}
-      <ProjectsScroll />
-      <AboutMe />
     </Layout>
   );
 }

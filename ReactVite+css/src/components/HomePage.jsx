@@ -7,6 +7,7 @@ import Home from "./home";
 import BentoGridSection from "./Bento_grid";
 import ScrollExperience from "./ScrollExperience";
 import ProjectsScroll from "./ProjectsScroll";
+import AboutMe from "./AboutMe";
 import { dataSet } from "../data/projectsData";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -21,7 +22,7 @@ const HomePage = () => {
         scrollTrigger: {
           trigger: ".master-viewport",
           start: "top top",
-          end: "+=8000", // 2000 for dive, 6000 for projects
+          end: "+=6000", // reduced from 8000 for smoother tighter scrolling
           pin: true,
           scrub: 1,
           onUpdate: (self) => {
@@ -101,8 +102,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Spacer for bottom if needed */}
-      <div style={{ height: '20vh', background: 'transparent' }}></div>
+      <AboutMe />
     </div>
   );
 };
