@@ -1,244 +1,199 @@
+/* ====================== ROOT ====================== */
 .about-page-root {
-  min-height: 100vh;
-  background-color: #020f16; /* Deep dark teal/black, matches app */
-  color: #e0e0e0;
-  font-family: 'Inter', sans-serif;
+  background: #000;
+  color: #fff;
+  font-family: system-ui, -apple-system, sans-serif;
+  width: 100%;
   overflow-x: hidden;
-  padding-top: 100px;
-  position: relative;
 }
 
-/* Background Gradients */
-.about-page-root::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(circle, rgba(0, 168, 255, 0.1) 0%, transparent 70%);
-  filter: blur(100px);
-  z-index: 0;
-}
-
-.about-page-root::after {
-  content: "";
-  position: absolute;
-  bottom: -20%;
-  right: -10%;
-  width: 60%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(144, 19, 254, 0.1) 0%, transparent 60%);
-  filter: blur(100px);
-  z-index: 0;
-}
-
-.about-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  position: relative;
-  z-index: 10;
+/* ====================== HERO ====================== */
+.about-hero {
   display: flex;
-  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  padding: 4rem 6rem;
   gap: 4rem;
 }
 
-/* Hero Section of About */
-.about-hero {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 3rem;
-  align-items: center;
-}
-
-.about-avatar-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
+.about-image-wrap {
+  flex: 1;
+  height: 600px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
-.about-avatar-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
-}
-
-.avatar-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  object-fit: cover;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
-}
-
-.about-name {
-  font-size: 2.5rem;
-  margin: 0;
-  color: #fff;
-  letter-spacing: -0.5px;
-}
-
-.about-role {
-  color: #00d2ff;
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-top: 0.5rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.about-stats {
-  display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+.scribble-container {
   width: 100%;
-  justify-content: center;
+  height: 100%;
 }
 
-.stat-item {
-  display: flex;
-  flex-direction: column;
+.scribble-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.stat-num {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
+.scribble-line {
+  fill: none;
+  stroke: white;
+  stroke-width: 165;
+  stroke-dasharray: 30000;
+  stroke-dashoffset: 30000;
+  animation: scribbleLoop 7s ease-in-out infinite alternate;
 }
 
-.stat-label {
-  font-size: 0.8rem;
-  color: #888;
-  text-transform: uppercase;
+@keyframes scribbleLoop {
+  from { stroke-dashoffset: 30000; }
+  to { stroke-dashoffset: 0; }
+}
+
+.about-bio-card {
+  flex: 1.2;
 }
 
 .about-bio {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #b0c4de;
+  font-size: 1.3rem;
+  color: #ccc;
+  line-height: 1.6;
 }
 
-.about-bio span {
-  color: #fff;
-  font-weight: 500;
+/* ====================== TIMELINE SECTION ====================== */
+.timeline-section {
+  width: 100%;
+  padding: 100px 5%;
+  border-top: 1px solid #222;
+  box-sizing: border-box;
 }
 
-/* Skills Masonry */
-.about-skills-section {
+.timeline-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2px minmax(0, 1fr);
+  max-width: 1400px;
+  margin: 0 auto;
+
+  /* 🔥 critical fix for divider */
+  align-items: stretch;
+}
+
+/* LEFT & RIGHT COLUMNS */
+.timeline-column {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+
+  /* min-width: 0; */
 }
 
-.skills-title {
-  font-size: 2rem;
-  color: #fff;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+/* CENTER DIVIDER (FIXED) */
+.timeline-divider {
+  width: 2px;
+  background: linear-gradient(to bottom, #333, #00ff9d, #333);
+
+  /* 🔥 makes divider full height */
+  align-self: stretch;
 }
 
-.skills-title::after {
-  content: "";
-  height: 1px;
-  flex: 1;
-  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+/* TITLES */
+.section-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 40px;
 }
 
-.skills-grid-new {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+/* CONTENT BLOCK */
+.section-content {
+  position: relative;
+  padding-left: 30px;
+  max-width: 420px;
 }
 
-.skill-card-modern {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  padding: 2rem;
-  transition: all 0.3s ease;
+/* TEXT */
+.section-content h3 {
+  font-size: 1.9rem;
+  margin-bottom: 10px;
+  background: linear-gradient(170deg, #fff, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.skill-card-modern:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(0, 210, 255, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.skill-card-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.skill-card-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(0, 210, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  color: #00d2ff;
-}
-
-.skill-card-title {
-  font-size: 1.2rem;
-  color: #fff;
-  margin: 0;
-}
-
-.skill-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.skill-chip {
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  font-size: 0.9rem;
-  color: #ccc;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.skill-chip:hover {
-  background: rgba(0, 210, 255, 0.1);
-  color: #00d2ff;
-}
-
-.skill-chip svg {
+.section-content p {
+  color: #999;
   font-size: 1rem;
+  line-height: 1.6;
 }
 
+/* DOT */
+.section-content::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  background: #00ff9d;
+  border-radius: 50%;
+}
+
+/* OPTIONAL: slight right shift for visual balance */
+.right-education {
+  transform: translateX(40px);
+}
+
+/* ====================== RESPONSIVE ====================== */
 @media (max-width: 900px) {
   .about-hero {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .about-image-wrap {
+    width: 100%;
+    height: 400px;
+  }
+
+  .timeline-container {
     grid-template-columns: 1fr;
   }
+
+  .timeline-divider {
+    display: none;
+  }
+
+  
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .section-content {
+    padding-left: 25px;
+  }
+}
+
+/* STACK OVERLAY FIX */
+.about-section {
+  position: relative;
+  z-index: 1;
+  background: #000;
+}
+
+.about-section:nth-of-type(2) {
+  z-index: 2;
+}
+
+.about-section:nth-of-type(3) {
+  z-index: 3;
+}
+
+.about-section:nth-of-type(4) {
+  z-index: 4;
+}
+
+/* GitHub Card */
+.github-card {
+  padding: 30px;
+  background: #111;
+  border-radius: 20px;
+  overflow-x: auto;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }

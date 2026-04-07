@@ -251,19 +251,6 @@ const BentoGridSection = () => (
           <div className="bento-e-meta">
             <span className="bento-e-name">Your Name</span>
             <span className="bento-e-role">Frontend Developer</span>
-            <div className="bento-e-stats">
-              <div className="bento-e-stat">
-                <span className="bento-e-stat-num">2+</span>
-                <span className="bento-e-stat-label">Years</span>
-              </div>
-              <div className="bento-e-divider" />
-              <div className="bento-e-stat">
-                <span className="bento-e-stat-num">10+</span>
-                <span className="bento-e-stat-label">Projects</span>
-              </div>
-              {/* <div className="bento-e-divider" /> */}
-              
-            </div>
           </div>
         </div>
         {/* Decorative blobs */}

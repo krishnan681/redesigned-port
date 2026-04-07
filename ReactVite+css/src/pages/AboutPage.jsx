@@ -1,136 +1,110 @@
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
-
+import { GitHubCalendar } from "react-github-calendar";
 import "../CSS/AboutPage.css";
-
-// Icons reused
-import { FaReact, FaHtml5, FaCss3Alt, FaBootstrap, FaNodeJs } from "react-icons/fa";
-import { SiJavascript, SiFlutter, SiExpo, SiSupabase, SiPostman, SiCpanel } from "react-icons/si";
-import { TbBrandReactNative } from "react-icons/tb";
-import { DiAndroid } from "react-icons/di";
-import { FiCode, FiSmartphone, FiDatabase, FiPenTool } from "react-icons/fi";
 
 const AboutPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  };
-
   return (
     <div className="about-page-root">
-      <motion.div
-        className="about-container"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Hero Area */}
-        <div className="about-hero">
-          {/* Avatar Card */}
-          <motion.div className="about-avatar-card" variants={itemVariants}>
-            <img src="https://picsum.photos/seed/suresh/300/300" alt="Suresh Profile" className="avatar-image" />
-            <h1 className="about-name">Suresh</h1>
-            <p className="about-role">Frontend Web Developer</p>
+      {/* HERO SECTION */}
+      <section className="about-hero">
+        <div className="about-image-wrap">
+          <div className="scribble-container">
+            <svg viewBox="0 0 1500 1062" className="scribble-svg">
+              <defs>
+                <mask id="scribbleMask">
+                  <rect width="100%" height="100%" fill="black" />
+                  <polyline
+                    points="0,154 131,0 0,348 269,0 0,562 437,0 0,766 565,14 0,1062 719,0 289,1062 843,0 543,1062 995,0 729,1062 1161,0 947,1062 1307,0 1143,1062 1500,162 1299,1062 1500,830"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="165"
+                    className="scribble-line"
+                  />
+                </mask>
+              </defs>
+              <image
+                href="https://i.pinimg.com/736x/3d/01/7f/3d017f4f7d517ee17018d81515b28b7f.jpg"
+                width="1500"
+                height="1062"
+                preserveAspectRatio="xMidYMid cover"
+                mask="url(#scribbleMask)"
+              />
+            </svg>
+          </div>
+        </div>
+        <div className="about-bio-card">
+          <p className="about-bio">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            I am a developer focused on crafting clean interfaces and robust codebases.
+          </p>
+        </div>
+      </section>
 
-            <div className="about-stats">
-              <div className="stat-item">
-                <span className="stat-num">1.8</span>
-                <span className="stat-label">Years Exp</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-num">20+</span>
-                <span className="stat-label">Projects</span>
-              </div>
+      {/* TIMELINE SECTION */}
+      <section className="timeline-section">
+        <div className="timeline-container">
+
+          {/* LEFT SIDE - EXPERIENCE */}
+          <div className="timeline-column left-experience">
+            <h2 className="section-title">Experience</h2>
+            <div className="section-content">
+              <h3>Frontend Developer</h3>
+              <p>Built modern responsive UI with performance optimization.</p>
             </div>
-          </motion.div>
+            <div className="section-content">
+              <h3>React Native Developer</h3>
+              <p>Developed cross-platform mobile apps.</p>
+            </div>
+            <div className="section-content">
+              <h3>Freelancer</h3>
+              <p>Delivered custom dashboards and applications.</p>
+            </div>
+          </div>
 
-          {/* Bio Text */}
-          <motion.div className="about-bio-card" variants={itemVariants}>
-            <p className="about-bio">
-              Hello! I'm a passionate <span>Frontend Web Developer</span> with professional experience since September 2024. I specialize in designing and developing responsive, highly interactive web applications that leave a lasting impression.
-              <br /><br />
-              My journey involves pushing the boundaries of web development, seamlessly fusing clean logic with premium <span>dynamic UI designs</span>. Whether it's crafting cinematic scrolling experiences or architecting robust mobile apps, I bring a unique blend of creativity and technical rigor to every project I touch.
-            </p>
-          </motion.div>
+          {/* CENTER DIVIDER */}
+          <div className="timeline-divider"></div>
+
+          {/* RIGHT SIDE - EDUCATION */}
+          <div className="timeline-column right-education">
+            <h2 className="section-title">Education</h2>
+            <div className="section-content">
+              <h3>B.Sc Computer Science</h3>
+              <p>Strong foundation in algorithms and system design.</p>
+            </div>
+            <div className="section-content">
+              <h3>Full Stack Development</h3>
+              <p>Hands-on experience building scalable applications.</p>
+            </div>
+            <div className="section-content">
+              <h3>UI/UX Design</h3>
+              <p>Focused on intuitive and engaging user experiences.</p>
+            </div>
+          </div>
+
         </div>
 
-        {/* Skills Section */}
-        <motion.div className="about-skills-section" variants={itemVariants}>
-          <h2 className="skills-title">Technical Arsenal</h2>
-
-          <div className="skills-grid-new">
-            {/* Frontend */}
-            <motion.div className="skill-card-modern" variants={itemVariants}>
-              <div className="skill-card-header">
-                <div className="skill-card-icon"><FiCode /></div>
-                <h3 className="skill-card-title">Frontend Development</h3>
-              </div>
-              <div className="skill-chips">
-                <span className="skill-chip"><FaReact /> React.js</span>
-                <span className="skill-chip"><SiJavascript /> JavaScript</span>
-                <span className="skill-chip"><FaHtml5 /> HTML5</span>
-                <span className="skill-chip"><FaCss3Alt /> CSS3</span>
-                <span className="skill-chip"><FaBootstrap /> Bootstrap</span>
-              </div>
-            </motion.div>
-
-            {/* Mobile */}
-            <motion.div className="skill-card-modern" variants={itemVariants}>
-              <div className="skill-card-header">
-                <div className="skill-card-icon"><FiSmartphone /></div>
-                <h3 className="skill-card-title">Mobile Ecosystem</h3>
-              </div>
-              <div className="skill-chips">
-                <span className="skill-chip"><TbBrandReactNative /> React Native</span>
-                <span className="skill-chip"><SiFlutter /> Flutter</span>
-                <span className="skill-chip"><SiExpo /> Expo</span>
-                <span className="skill-chip"><DiAndroid /> Android Studio</span>
-              </div>
-            </motion.div>
-
-            {/* Backend & DB */}
-            <motion.div className="skill-card-modern" variants={itemVariants}>
-              <div className="skill-card-header">
-                <div className="skill-card-icon"><FiDatabase /></div>
-                <h3 className="skill-card-title">Backend & Data</h3>
-              </div>
-              <div className="skill-chips">
-                <span className="skill-chip"><FaNodeJs /> Node.js</span>
-                <span className="skill-chip"><SiSupabase /> Supabase</span>
-                <span className="skill-chip"><SiPostman /> APIs</span>
-              </div>
-            </motion.div>
-
-            {/* Design */}
-            <motion.div className="skill-card-modern" variants={itemVariants}>
-              <div className="skill-card-header">
-                <div className="skill-card-icon"><FiPenTool /></div>
-                <h3 className="skill-card-title">Creative & DevOps</h3>
-              </div>
-              <div className="skill-chips">
-                <span className="skill-chip">Figma</span>
-                <span className="skill-chip">Photoshop</span>
-                <span className="skill-chip">Illustrator</span>
-                <span className="skill-chip">Git / GitHub</span>
-                <span className="skill-chip"><SiCpanel /> cPanel</span>
-              </div>
-            </motion.div>
+        {/* GITHUB (FREE) */}
+        <section className="about-section">
+          <div className="section-left">
+            <h2 className="section-title">GitHub</h2>
+            
           </div>
-        </motion.div>
-
-      </motion.div>
+          <div className="section-right">
+            <div className="github-card">
+              <GitHubCalendar
+                username="krishnan681"
+                blockSize={16}
+                blockMargin={6}
+                fontSize={16}
+              />
+            </div>
+          </div>
+        </section>
+      </section>
     </div>
   );
 };
