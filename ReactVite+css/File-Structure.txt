@@ -15,6 +15,7 @@
 │   │   │   │   ├── 🎨 star_background.css
 │   │   │   │   └── 🎨 terminal.css
 │   │   │   ├── 🎨 AboutMe.css
+│   │   │   ├── 🎨 AboutPage.css
 │   │   │   ├── 🎨 BentoGrid.css
 │   │   │   ├── 🎨 ProjectsScroll.css
 │   │   │   ├── 🎨 ScrollExperience.css
@@ -50,6 +51,10 @@
 │   │   │   └── 📄 home.jsx
 │   │   ├── 📁 data/
 │   │   │   └── 📄 projectsData.js
+│   │   ├── 📁 pages/
+│   │   │   ├── 📄 AboutPage.jsx
+│   │   │   ├── 📄 LinksPage.jsx
+│   │   │   └── 📄 ProjectsPage.jsx
 │   │   ├── 🎨 App.css
 │   │   ├── 📄 App.jsx
 │   │   ├── 🎨 index.css

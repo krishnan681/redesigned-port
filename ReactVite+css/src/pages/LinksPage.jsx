@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Footer from "../components/Footer";
 
 const LinksPage = () => {
   useEffect(() => {
@@ -12,7 +11,7 @@ const LinksPage = () => {
         <h1 style={{ textAlign: "center", color: "white", marginTop: "100px", fontFamily: "sans-serif" }}>Important Links</h1>
         {/* Placeholder for future links */}
       </div>
-      <Footer />
+
     </div>
   );
 };

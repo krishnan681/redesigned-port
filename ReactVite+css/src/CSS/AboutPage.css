@@ -40,7 +40,7 @@
   stroke-width: 165;
   stroke-dasharray: 30000;
   stroke-dashoffset: 30000;
-  animation: scribbleLoop 7s ease-in-out infinite alternate;
+  animation: scribbleLoop 3.5s ease-in-out infinite alternate;
 }
 
 @keyframes scribbleLoop {

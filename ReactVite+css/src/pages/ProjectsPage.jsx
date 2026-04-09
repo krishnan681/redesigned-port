@@ -1,151 +1,259 @@
-import React, { useEffect, useRef } from "react";
+// import React, { useEffect, useRef } from "react";
+// import "../CSS/ProjectsPage.css";
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// gsap.registerPlugin(ScrollTrigger);
+
+// const projects = [
+//   {
+//     title: "Portfolio Website",
+//     desc: "Modern portfolio with animations and smooth UI.",
+//     img: "/assets/images/bento-a.png",
+//     code: "#",
+//     live: "#",
+//   },
+//   {
+//     title: "Admin Dashboard",
+//     desc: "Full-stack dashboard with analytics and CRUD.",
+//     img: "/assets/images/download.webp",
+//     code: "#",
+//     live: "#",
+//   },
+//   {
+//     title: "Flutter App",
+//     desc: "Cross-platform mobile UI with smooth UX.",
+//     img: "/assets/images/profile.png",
+//     code: "#",
+//     live: "#",
+//   },
+// ];
+
+// const ProjectsPage = () => {
+//   const containerRef = useRef(null);
+
+//   useEffect(() => {
+//     const ctx = gsap.context(() => {
+//       const cards = gsap.utils.toArray(".project-card");
+
+//       // TIMELINE (stagger animation)
+//       const tl = gsap.timeline({
+//         scrollTrigger: {
+//           trigger: containerRef.current,
+//           start: "top 80%",
+//           toggleActions: "play none none reverse",
+//         },
+//       });
+
+//       tl.from(cards, {
+//         opacity: 0,
+//         y: 100,
+//         scale: 0.9,
+//         duration: 1,
+//         ease: "power4.out",
+//         stagger: 0.2,
+//       });
+
+//       // OPTIONAL: subtle parallax on scroll
+//       cards.forEach((card, i) => {
+//         gsap.to(card, {
+//           y: -20,
+//           scrollTrigger: {
+//             trigger: card,
+//             start: "top bottom",
+//             scrub: 1,
+//           },
+//         });
+//       });
+//     }, containerRef);
+
+//     return () => ctx.revert(); // cleanup
+//   }, []);
+
+//   return (
+//     <div className="projects-page" ref={containerRef}>
+//       <h1 className="projects-title">Projects</h1>
+
+//       <div className="projects-grid">
+//         {projects.map((proj, index) => (
+//           <div className="project-card" key={index}>
+//             <div className="project-image">
+//               <img src={proj.img} alt={proj.title} />
+//               <div className="image-overlay"></div>
+//             </div>
+
+//             <div className="project-content">
+//               <h2>{proj.title}</h2>
+//               <p>{proj.desc}</p>
+
+//               <div className="project-buttons">
+//                 <a href={proj.code}>View Code</a>
+//                 <a href={proj.live}>Live Demo</a>
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ProjectsPage;
+
+
+
+
+
+
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import Lenis from "@studio-freight/lenis";
-import "../CSS/ProjectsScroll.css";
-import { dataSet } from "../data/projectsData";
+import "../CSS/ProjectsPage.css";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
-const ProjectsPage = () => {
-  const containerRef = useRef(null);
-  const wrapperRef = useRef(null);
-  const navRef = useRef(null);
+const projects = [
+  {
+    id: 1,
+    title: "Orbit Dashboard",
+    description: "A real-time analytics platform with live data streaming, customizable widgets, and multi-tenant architecture. Built for scale and performance at the edge.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    tags: ["React", "WebSocket", "Node.js"],
+    codeUrl: "#",
+    demoUrl: "#",
+  },
+  {
+    id: 2,
+    title: "Luminary AI",
+    description: "An intelligent writing assistant powered by large language models. Features contextual suggestions, tone analysis, and collaborative document editing.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+    tags: ["Next.js", "OpenAI", "Prisma"],
+    codeUrl: "#",
+    demoUrl: "#",
+  },
+  {
+    id: 3,
+    title: "Phantom Store",
+    description: "A headless e-commerce engine with blazing-fast SSR, animated product galleries, and a frictionless checkout flow optimized for conversion.",
+    image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&q=80",
+    tags: ["Next.js", "Stripe", "Postgres"],
+    codeUrl: "#",
+    demoUrl: "#",
+  },
+  {
+    id: 4,
+    title: "Terrain Maps",
+    description: "An interactive geospatial visualization tool for exploring topographic data in 3D. Supports custom map layers, route plotting, and elevation profiling.",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    tags: ["Three.js", "MapboxGL", "Python"],
+    codeUrl: "#",
+    demoUrl: "#",
+  },
+];
+
+export default function ProjectsPage() {
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
+  const cardsRef   = useRef([]);
+  const lineRef    = useRef(null);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    const wrapper = wrapperRef.current;
-    const navContainer = navRef.current;
-    const container = containerRef.current;
-
-    if (!wrapper || !navContainer || !container) return;
-
-    // Use a similar approach to the homepage but isolated
-    const lenis = new Lenis({
-      duration: 1.4,
-      smoothWheel: true,
-      smoothTouch: false,
-      lerp: 0.08,
-    });
-
-    lenis.on("scroll", ScrollTrigger.update);
-    const rafFn = (time) => lenis.raf(time * 1000);
-    gsap.ticker.add(rafFn);
-    gsap.ticker.lagSmoothing(0);
-
-    wrapper.innerHTML = "";
-    navContainer.innerHTML = '<div class="nav-line"></div>';
-
-    const GAP = 1800;
-    const totalHeight = 6000; // Same as master viewport
-
-    dataSet.forEach((item, i) => {
-      const isOdd = i % 2 === 0;
-
-      const dot = document.createElement("div");
-      dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
-      dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
-
-      dot.onclick = () => {
-        // Timeline goes from 0 to 13.5s. Item i starts at 2 + i*2.5
-        const targetProgress = Math.min((2 + i * 2.5) / 13.5, 1);
-        const rect = container.getBoundingClientRect();
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const targetY = rect.top + scrollTop + (targetProgress * totalHeight);
-        
-        gsap.to(window, {
-          scrollTo: { y: targetY },
-          duration: 1.5,
-          ease: "power2.inOut",
-        });
-      };
-
-      navContainer.appendChild(dot);
-
-      const card = document.createElement("div");
-      card.className = `viewport-item card project-${i}`;
-      card.style.left = isOdd ? "8%" : "52%";
-      card.innerHTML = `<div class="card-inner"><img src="${item.image}" /></div>`;
-
-      const detail = document.createElement("div");
-      detail.className = `viewport-item details project-${i}`;
-      detail.style.left = isOdd ? "58%" : "8%";
-      detail.innerHTML = `
-        <h2>${item.title}</h2>
-        <p class="main-desc">${item.desc}</p>
-        <ul class="features">${item.features.map((f) => `<li>${f}</li>`).join("")}</ul>
-        <div class="tech-stack">${item.tech.map((t) => `<span class="tech-tag">${t}</span>`).join("")}</div>
-      `;
-
-      wrapper.appendChild(card);
-      wrapper.appendChild(detail);
-
-      gsap.set([card, detail], { z: -1000, opacity: 0 }); // Initialize scaled out
-    });
-
     const ctx = gsap.context(() => {
-      const masterTl = gsap.timeline({
+      gsap.fromTo(headingRef.current,
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out",
+          scrollTrigger: { trigger: headingRef.current, start: "top 85%" } }
+      );
+
+      gsap.fromTo(lineRef.current,
+        { scaleX: 0, transformOrigin: "left center" },
+        { scaleX: 1, duration: 1.2, ease: "power3.out",
+          scrollTrigger: { trigger: lineRef.current, start: "top 85%" } }
+      );
+
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".projects-standalone-viewport",
-          start: "top top",
-          end: "+=" + totalHeight,
-          pin: true,
-          scrub: 1,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            const pProg = progress; // Direct mapping instead of phase 1/2
-            const index = Math.min(Math.floor(pProg * dataSet.length), dataSet.length - 1);
-            const dots = document.querySelectorAll(".nav-dot");
-            dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
-          }
-        }
+          trigger: sectionRef.current,
+          start: "top 70%",
+          end: "bottom 20%",
+          scrub: false,
+        },
       });
+      tl.fromTo(cardsRef.current,
+        { opacity: 0, y: 80, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.85, ease: "power3.out", stagger: 0.15 }
+      );
 
-      // No dive phase, jump straight to project phase mapping
-      masterTl.to(".projects-3d-root", { opacity: 1, scale: 1, duration: 0.1 }); 
-
-      dataSet.forEach((_, i) => {
-        const targets = `.project-${i}`;
-        const startTime = i * 2.5; 
-
-        // Appear
-        masterTl.to(targets, { z: 0, opacity: 1, duration: 2, ease: "power2.out" }, startTime);
-
-        // Disappear (Fly past)
-        masterTl.to(targets, { z: 1500, opacity: 0, duration: 1.5, ease: "power2.in" }, startTime + 2.5);
+      cardsRef.current.forEach((card) => {
+        if (!card) return;
+        const img = card.querySelector(".pf__card-img-inner");
+        gsap.to(img, {
+          yPercent: -12, ease: "none",
+          scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.5 },
+        });
       });
+    }, sectionRef);
 
-    }, containerRef);
-
-    ScrollTrigger.refresh();
-
-    return () => {
-      lenis.destroy();
-      gsap.ticker.remove(rafFn);
-      ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={containerRef} style={{ minHeight: '100vh', position: 'relative', backgroundColor: "#020F16" }}>
-      <div className="projects-standalone-viewport" style={{
-        position: 'relative',
-        height: '100vh',
-        width: '100%',
-        overflow: 'hidden'
-      }}>
-        <div className="nav-container" ref={navRef} style={{ position: "absolute", zIndex: 100, top: "80px" }}>
-          <div className="nav-line" />
-        </div>
+    <div className="pf__root">
+      <div className="pf__orb pf__orb--lime" />
+      <div className="pf__orb pf__orb--indigo" />
+      <div className="pf__dot-grid" />
 
-        <div className="stage projects-3d-root" style={{ opacity: 0 }}>
-          <div className="container" ref={wrapperRef} />
+      <section className="pf__section" ref={sectionRef}>
+        <header className="pf__header">
+          <p className="pf__eyebrow">Selected Work</p>
+          <h2 className="pf__headline" ref={headingRef}>
+            Projects that <br />
+            <span className="pf__headline-ghost">define the craft</span>
+          </h2>
+          <div className="pf__rule" ref={lineRef} />
+        </header>
+
+        <div className="pf__grid">
+          {projects.map((project, i) => (
+            <article
+              className="pf__card"
+              key={project.id}
+              ref={(el) => (cardsRef.current[i] = el)}
+            >
+              <div className="pf__card-img-wrap">
+                <div className="pf__card-img-inner" style={{ backgroundImage: `url(${project.image})` }} />
+                <div className="pf__card-img-veil" />
+                <div className="pf__card-chips">
+                  {project.tags.map((tag) => (
+                    <span className="pf__chip" key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pf__card-body">
+                <div className="pf__card-num">0{i + 1}</div>
+                <h3 className="pf__card-name">{project.title}</h3>
+                <p className="pf__card-blurb">{project.description}</p>
+                <div className="pf__card-cta">
+                  <a href={project.codeUrl} className="pf__btn pf__btn--outline">
+                    <span className="pf__btn-ico">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                      </svg>
+                    </span>
+                    View Code
+                  </a>
+                  <a href={project.demoUrl} className="pf__btn pf__btn--solid">
+                    Live Demo
+                    <span className="pf__btn-arrow">&#x2197;</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
-      </div>
+      </section>
     </div>
   );
-};
-
-export default ProjectsPage;
+}
