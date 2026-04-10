@@ -641,98 +641,9 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* CUSTOM CURSOR */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(59, 130, 246, 0.15);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(99, 102, 241, 0.4);
-
-  color: #fff;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-
-  /* KEY FIX: translate here so JS left/top positions the CENTER of the cursor */
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease;
-}
-
-.custom-cursor.active {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-}
-
-/* FIX stacking issue */
-.custom-cursor {
-  z-index: 999999;
-}
-
-/* FIX pointer issues with 3D */
+/* Ensure normal pointer over viewport items if default overridden */
 .viewport-item {
   pointer-events: auto;
-}
-
-
-/* ================= CUSTOM CURSOR ================= */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 999999;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  background: rgba(59, 130, 246, 0.12);
-  backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(99, 102, 241, 0.6);
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
-
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-
-  transform: translate(-50%, -50%) scale(0.6);
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.custom-cursor.active {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-  background: rgba(59, 130, 246, 0.18);
-  border-color: rgba(99, 102, 241, 0.9);
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
-}
-
-/* Hide default cursor when hovering cards */
-.viewport-item.card,
-.viewport-item.card2 {
-  cursor: none !important;
 }
 
 /* Optional: Slight lift effect on cards when hovered */

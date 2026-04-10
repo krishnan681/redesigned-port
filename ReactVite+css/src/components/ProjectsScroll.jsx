@@ -501,14 +501,12 @@ import { dataSet } from "../data/projectsData";
 const ProjectsScroll = () => {
   const wrapperRef = useRef(null);
   const navRef = useRef(null);
-  const cursorRef = useRef(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const navContainer = navRef.current;
-    const cursor = cursorRef.current;
 
-    if (!wrapper || !navContainer || !cursor) return;
+    if (!wrapper || !navContainer) return;
 
     /* LENIS */
     const lenis = new Lenis({
@@ -587,61 +585,22 @@ const ProjectsScroll = () => {
       wrapper.appendChild(card2);
       wrapper.appendChild(detail);
 
-      gsap.set([card, card2, detail], { z: -i * GAP, opacity: 0 });
+      gsap.set([card, card2, detail], { z: -i * GAP, autoAlpha: 0 });
 
-      /* CURSOR + CLICK */
-      [card, card2].forEach((el) => {
-        el.addEventListener("mouseenter", () => {
-          cursor.innerHTML = item.link ? `<span>View Live →</span>` : `<span>View Project</span>`;
-          cursor.classList.add("active");
-        });
+      /* CURSOR STATE PREP FOR CARDS */
+      // Removing the click-to-nav behavior from cards per user request
+      // (They must use the View Live button in details instead)
 
-        el.addEventListener("mouseleave", () => {
-          cursor.classList.remove("active");
-          cursor.innerHTML = `<span>View Project</span>`;
+      // Fix navigation for "View Live" button in details
+      const viewLiveBtn = detail.querySelector(".view-live-btn");
+      if (viewLiveBtn) {
+        viewLiveBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.open(item.link, "_blank", "noopener,noreferrer");
         });
-
-        el.addEventListener("click", (e) => {
-          if (item.link) {
-            e.stopPropagation();
-            window.open(item.link, "_blank", "noopener,noreferrer");
-          }
-        });
-      });
+      }
     });
-
-    /* CURSOR FOLLOW */
-    if (window.innerWidth >= 768) {
-      let mouseX = window.innerWidth / 2;
-      let mouseY = window.innerHeight / 2;
-      let posX = mouseX;
-      let posY = mouseY;
-      let rafId;
-
-      const onMouseMove = (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      };
-
-      window.addEventListener("mousemove", onMouseMove);
-
-      const animateCursor = () => {
-        posX += (mouseX - posX) * 0.12;
-        posY += (mouseY - posY) * 0.12;
-        cursor.style.left = `${posX}px`;
-        cursor.style.top = `${posY}px`;
-        rafId = requestAnimationFrame(animateCursor);
-      };
-
-      rafId = requestAnimationFrame(animateCursor);
-
-      cursor._cleanup = () => {
-        window.removeEventListener("mousemove", onMouseMove);
-        cancelAnimationFrame(rafId);
-      };
-    } else {
-      cursor.style.display = "none";
-    }
 
     ScrollTrigger.refresh();
 
@@ -649,19 +608,11 @@ const ProjectsScroll = () => {
       lenis.destroy();
       gsap.ticker.remove(rafFn);
       ScrollTrigger.getAll().forEach(t => t.kill());
-      if (cursor._cleanup) cursor._cleanup();
     };
   }, []);
 
   return (
     <>
-      {createPortal(
-        <div className="custom-cursor" ref={cursorRef}>
-          <span>View Project</span>
-        </div>,
-        document.body
-      )}
-
       <div className="nav-container" ref={navRef}>
         <div className="nav-line" />
       </div>

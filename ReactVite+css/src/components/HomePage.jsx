@@ -71,10 +71,10 @@ const HomePage = () => {
         const startTime = 2 + (i * 2.5); // Start after dive (2s)
 
         // Appear
-        masterTl.to(targets, { z: 0, opacity: 1, duration: 2, ease: "power2.out" }, startTime);
+        masterTl.to(targets, { z: 0, autoAlpha: 1, duration: 2, ease: "power2.out" }, startTime);
 
         // Disappear (Fly past)
-        masterTl.to(targets, { z: 1500, opacity: 0, duration: 1.5, ease: "power2.in" }, startTime + 2.5);
+        masterTl.to(targets, { z: 1500, autoAlpha: 0, duration: 1.5, ease: "power2.in" }, startTime + 2.5);
       });
 
     }, containerRef);
