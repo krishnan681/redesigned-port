@@ -38,8 +38,7 @@ const AboutPage = () => {
         </div>
         <div className="about-bio-card">
           <p className="about-bio">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            I am a developer focused on crafting clean interfaces and robust codebases.
+            Frontend Developer crafting immersive digital experiences. Merging technical performance with aesthetic precision to build the future of web interfaces.
           </p>
         </div>
       </section>
@@ -91,7 +90,7 @@ const AboutPage = () => {
         <section className="about-section">
           <div className="section-left">
             <h2 className="section-title">GitHub</h2>
-            
+
           </div>
           <div className="section-right">
             <div className="github-card">

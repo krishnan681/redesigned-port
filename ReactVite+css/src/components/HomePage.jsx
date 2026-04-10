@@ -51,6 +51,10 @@ const HomePage = () => {
         ease: "power2.in"
       }, "start");
 
+      masterTl.set(".layer-1-wrapper", {
+        pointerEvents: "none"
+      }, "start+=2");
+
       // Zoom IN the Projects (Simulate camera entering)
       masterTl.to(".projects-3d-root", {
         opacity: 1,
@@ -93,7 +97,7 @@ const HomePage = () => {
         }}>
 
           {/* Layer 1: Scroll Experience (Top) */}
-          <div style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
+          <div className="layer-1-wrapper" style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
             <ScrollExperience />
           </div>
 

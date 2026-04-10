@@ -418,17 +418,17 @@
 //         // Total duration is roughly 13.5s. Item 'i' appear finishes at 4 + i * 2.5
 //         const targetTime = 4 + i * 2.5;
 //         const targetProgress = Math.min(targetTime / 13.5, 1);
-        
+
 //         // Find the top of the master-viewport
 //         const viewport = document.querySelector(".master-viewport");
 //         if (viewport) {
 //           const rect = viewport.getBoundingClientRect();
 //           const scrollTop = window.scrollY || document.documentElement.scrollTop;
 //           const viewportTop = rect.top + scrollTop;
-          
+
 //           // pin lasts for 6000px
 //           const targetY = viewportTop + (targetProgress * 6000);
-          
+
 //           gsap.to(window, {
 //             scrollTo: { y: targetY },
 //             duration: 1.5,
@@ -475,9 +475,9 @@
 //         <div className="nav-line" />
 //       </div>
 
-    
+
 //       <div className="stage projects-3d-root">
-       
+
 //         <div className="container" ref={wrapperRef} />
 //       </div>
 //     </>
@@ -491,6 +491,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Lenis from "@studio-freight/lenis";
+import { createPortal } from "react-dom";
 import "../CSS/ProjectsScroll.css";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -567,8 +568,16 @@ const ProjectsScroll = () => {
       const detail = document.createElement("div");
       detail.className = `viewport-item details project-${i}`;
       detail.style.left = isOdd ? "58%" : "6%";
+
+      const linkButtonHtml = item.link
+        ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="view-live-btn">View Live</a>`
+        : '';
+
       detail.innerHTML = `
-        <h2>${item.title}</h2>
+        <div class="title-container">
+          <h2>${item.title}</h2>
+          ${linkButtonHtml}
+        </div>
         <p class="main-desc">${item.desc}</p>
         <ul class="features">${item.features.map(f => `<li>${f}</li>`).join("")}</ul>
         <div class="tech-stack">${item.tech.map(t => `<span class="tech-tag">${t}</span>`).join("")}</div>
@@ -646,9 +655,12 @@ const ProjectsScroll = () => {
 
   return (
     <>
-      <div className="custom-cursor" ref={cursorRef}>
-        <span>View Project</span>
-      </div>
+      {createPortal(
+        <div className="custom-cursor" ref={cursorRef}>
+          <span>View Project</span>
+        </div>,
+        document.body
+      )}
 
       <div className="nav-container" ref={navRef}>
         <div className="nav-line" />
