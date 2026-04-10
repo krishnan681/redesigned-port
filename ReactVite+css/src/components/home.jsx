@@ -92,12 +92,16 @@
 // };
 
 // export default Home;
-import React, { useEffect, useRef } from 'react';
+
+
+import React, { useEffect, useRef,useState } from 'react';
 import '../CSS/home.css';
+import ConnectModal from './UI/ConnectModal';
 
 const Home = () => {
   const starsRef = useRef(null);
   const earthRef = useRef(null);
+  const [showModal, setShowModal] = useState(false);
 
   // ====================== STARS CANVAS ======================
   useEffect(() => {
@@ -260,7 +264,7 @@ const Home = () => {
 
       const cx = W * 0.5;
       const arcTopY = H * 0.3;
-      const R = (cx * cx + arcTopY * arcTopY) / (2 * arcTopY); 
+      const R = (cx * cx + arcTopY * arcTopY) / (2 * arcTopY);
       const cy = R;
 
       const glowCX = cx;
@@ -299,7 +303,7 @@ const Home = () => {
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       const bodyGrad = ctx.createRadialGradient(cx, cy - R * 0.12, 0, cx, cy, R);
       bodyGrad.addColorStop(0, "#0e0e1a"); // --bg-surface
-      bodyGrad.addColorStop(0.5, "#070710"); 
+      bodyGrad.addColorStop(0.5, "#070710");
       bodyGrad.addColorStop(1, "#000000"); // --bg-void
       ctx.fillStyle = bodyGrad;
       ctx.fill();
@@ -394,16 +398,17 @@ const Home = () => {
           interactive experiences
         </h1>
         <h2 className="hero-body">
-          Hello World, I'm Joe, a passionate frontend developer
+          Hello World, I'm Gopal, a passionate frontend developer
         </h2>
       </div>
 
       <div className="connect-btn-wrapper">
-        <button className="connect-btn">
+        <button className="connect-btn" onClick={() => setShowModal(true)}>
           Let's Connect
           <span className="arrow" />
         </button>
       </div>
+      {showModal && <ConnectModal onClose={() => setShowModal(false)} />}
     </section>
   );
 };
