@@ -366,6 +366,126 @@
 // export default ProjectsScroll;
 
 
+// import React, { useEffect, useRef } from "react";
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+// import Lenis from "@studio-freight/lenis";
+// import "../CSS/ProjectsScroll.css";
+
+// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+// import { dataSet } from "../data/projectsData";
+
+// const ProjectsScroll = () => {
+//   const wrapperRef = useRef(null);
+//   const bgTextRef = useRef(null);
+//   const navRef = useRef(null);
+
+//   useEffect(() => {
+//     const wrapper = wrapperRef.current;
+//     const navContainer = navRef.current;
+
+//     if (!wrapper || !navContainer) return;
+
+//     const lenis = new Lenis({
+//       duration: 1.4,
+//       smoothWheel: true,
+//       smoothTouch: false,
+//       lerp: 0.08,
+//     });
+
+//     lenis.on("scroll", ScrollTrigger.update);
+
+//     const rafFn = (time) => lenis.raf(time * 1000);
+//     gsap.ticker.add(rafFn);
+//     gsap.ticker.lagSmoothing(0);
+
+//     wrapper.innerHTML = "";
+//     navContainer.innerHTML = '<div class="nav-line"></div>';
+
+//     const GAP = 1800;
+
+//     dataSet.forEach((item, i) => {
+//       const isOdd = i % 2 === 0;
+
+//       const dot = document.createElement("div");
+//       dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
+//       dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
+
+//       dot.onclick = () => {
+//         // Calculate the relative timeline position
+//         // Total duration is roughly 13.5s. Item 'i' appear finishes at 4 + i * 2.5
+//         const targetTime = 4 + i * 2.5;
+//         const targetProgress = Math.min(targetTime / 13.5, 1);
+        
+//         // Find the top of the master-viewport
+//         const viewport = document.querySelector(".master-viewport");
+//         if (viewport) {
+//           const rect = viewport.getBoundingClientRect();
+//           const scrollTop = window.scrollY || document.documentElement.scrollTop;
+//           const viewportTop = rect.top + scrollTop;
+          
+//           // pin lasts for 6000px
+//           const targetY = viewportTop + (targetProgress * 6000);
+          
+//           gsap.to(window, {
+//             scrollTo: { y: targetY },
+//             duration: 1.5,
+//             ease: "power2.inOut",
+//           });
+//         }
+//       };
+
+//       navContainer.appendChild(dot);
+
+//       const card = document.createElement("div");
+//       card.className = `viewport-item card project-${i}`;
+//       card.style.left = isOdd ? "8%" : "52%";
+//       card.innerHTML = `<div class="card-inner"><img src="${item.image}" /></div>`;
+
+//       const detail = document.createElement("div");
+//       detail.className = `viewport-item details project-${i}`;
+//       detail.style.left = isOdd ? "58%" : "8%";
+//       detail.innerHTML = `
+//         <h2>${item.title}</h2>
+//         <p class="main-desc">${item.desc}</p>
+//         <ul class="features">${item.features.map((f) => `<li>${f}</li>`).join("")}</ul>
+//         <div class="tech-stack">${item.tech.map((t) => `<span class="tech-tag">${t}</span>`).join("")}</div>
+//       `;
+
+//       wrapper.appendChild(card);
+//       wrapper.appendChild(detail);
+
+//       gsap.set([card, detail], { z: -i * GAP, opacity: 0 });
+//     });
+
+//     ScrollTrigger.refresh();
+
+//     return () => {
+//       lenis.destroy();
+//       gsap.ticker.remove(rafFn);
+//       ScrollTrigger.getAll().forEach((t) => t.kill());
+//     };
+//   }, []);
+
+//   return (
+//     <>
+//       <div className="nav-container" ref={navRef} style={{ position: "absolute", zIndex: 100 }}>
+//         <div className="nav-line" />
+//       </div>
+
+    
+//       <div className="stage projects-3d-root">
+       
+//         <div className="container" ref={wrapperRef} />
+//       </div>
+//     </>
+//   );
+// };
+
+// export default ProjectsScroll;
+
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -379,15 +499,17 @@ import { dataSet } from "../data/projectsData";
 
 const ProjectsScroll = () => {
   const wrapperRef = useRef(null);
-  const bgTextRef = useRef(null);
   const navRef = useRef(null);
+  const cursorRef = useRef(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const navContainer = navRef.current;
+    const cursor = cursorRef.current;
 
-    if (!wrapper || !navContainer) return;
+    if (!wrapper || !navContainer || !cursor) return;
 
+    /* LENIS */
     const lenis = new Lenis({
       duration: 1.4,
       smoothWheel: true,
@@ -396,11 +518,11 @@ const ProjectsScroll = () => {
     });
 
     lenis.on("scroll", ScrollTrigger.update);
-
     const rafFn = (time) => lenis.raf(time * 1000);
     gsap.ticker.add(rafFn);
     gsap.ticker.lagSmoothing(0);
 
+    /* BUILD DOM */
     wrapper.innerHTML = "";
     navContainer.innerHTML = '<div class="nav-line"></div>';
 
@@ -409,75 +531,130 @@ const ProjectsScroll = () => {
     dataSet.forEach((item, i) => {
       const isOdd = i % 2 === 0;
 
+      /* NAV DOT */
       const dot = document.createElement("div");
       dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
       dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
 
       dot.onclick = () => {
-        // Calculate the relative timeline position
-        // Total duration is roughly 13.5s. Item 'i' appear finishes at 4 + i * 2.5
-        const targetTime = 4 + i * 2.5;
-        const targetProgress = Math.min(targetTime / 13.5, 1);
-        
-        // Find the top of the master-viewport
-        const viewport = document.querySelector(".master-viewport");
-        if (viewport) {
-          const rect = viewport.getBoundingClientRect();
-          const scrollTop = window.scrollY || document.documentElement.scrollTop;
-          const viewportTop = rect.top + scrollTop;
-          
-          // pin lasts for 6000px
-          const targetY = viewportTop + (targetProgress * 6000);
-          
-          gsap.to(window, {
-            scrollTo: { y: targetY },
-            duration: 1.5,
-            ease: "power2.inOut",
-          });
-        }
+        const targetProgress = Math.min((4 + i * 2.5) / 13.5, 1);
+        const viewport = document.querySelector(".master-viewport") || wrapper;
+        const rect = viewport.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const targetY = rect.top + scrollTop + targetProgress * 6000;
+
+        gsap.to(window, {
+          scrollTo: { y: targetY },
+          duration: 1.5,
+          ease: "power2.inOut",
+        });
       };
 
       navContainer.appendChild(dot);
 
+      /* CARDS */
       const card = document.createElement("div");
       card.className = `viewport-item card project-${i}`;
-      card.style.left = isOdd ? "8%" : "52%";
-      card.innerHTML = `<div class="card-inner"><img src="${item.image}" /></div>`;
+      card.style.left = isOdd ? "5%" : "50%";
+      card.innerHTML = `<div class="card-inner"><img src="${item.image}" alt="${item.title}" /></div>`;
 
+      const card2 = document.createElement("div");
+      card2.className = `viewport-item card2 project-${i}`;
+      card2.style.left = isOdd ? "28%" : "73%";
+      card2.innerHTML = `<div class="card-inner"><img src="${item.imageMobile ?? item.image}" alt="${item.title}" /></div>`;
+
+      /* DETAILS */
       const detail = document.createElement("div");
       detail.className = `viewport-item details project-${i}`;
-      detail.style.left = isOdd ? "58%" : "8%";
+      detail.style.left = isOdd ? "58%" : "6%";
       detail.innerHTML = `
         <h2>${item.title}</h2>
         <p class="main-desc">${item.desc}</p>
-        <ul class="features">${item.features.map((f) => `<li>${f}</li>`).join("")}</ul>
-        <div class="tech-stack">${item.tech.map((t) => `<span class="tech-tag">${t}</span>`).join("")}</div>
+        <ul class="features">${item.features.map(f => `<li>${f}</li>`).join("")}</ul>
+        <div class="tech-stack">${item.tech.map(t => `<span class="tech-tag">${t}</span>`).join("")}</div>
       `;
 
       wrapper.appendChild(card);
+      wrapper.appendChild(card2);
       wrapper.appendChild(detail);
 
-      gsap.set([card, detail], { z: -i * GAP, opacity: 0 });
+      gsap.set([card, card2, detail], { z: -i * GAP, opacity: 0 });
+
+      /* CURSOR + CLICK */
+      [card, card2].forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          cursor.innerHTML = item.link ? `<span>View Live →</span>` : `<span>View Project</span>`;
+          cursor.classList.add("active");
+        });
+
+        el.addEventListener("mouseleave", () => {
+          cursor.classList.remove("active");
+          cursor.innerHTML = `<span>View Project</span>`;
+        });
+
+        el.addEventListener("click", (e) => {
+          if (item.link) {
+            e.stopPropagation();
+            window.open(item.link, "_blank", "noopener,noreferrer");
+          }
+        });
+      });
     });
+
+    /* CURSOR FOLLOW */
+    if (window.innerWidth >= 768) {
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let posX = mouseX;
+      let posY = mouseY;
+      let rafId;
+
+      const onMouseMove = (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      };
+
+      window.addEventListener("mousemove", onMouseMove);
+
+      const animateCursor = () => {
+        posX += (mouseX - posX) * 0.12;
+        posY += (mouseY - posY) * 0.12;
+        cursor.style.left = `${posX}px`;
+        cursor.style.top = `${posY}px`;
+        rafId = requestAnimationFrame(animateCursor);
+      };
+
+      rafId = requestAnimationFrame(animateCursor);
+
+      cursor._cleanup = () => {
+        window.removeEventListener("mousemove", onMouseMove);
+        cancelAnimationFrame(rafId);
+      };
+    } else {
+      cursor.style.display = "none";
+    }
 
     ScrollTrigger.refresh();
 
     return () => {
       lenis.destroy();
       gsap.ticker.remove(rafFn);
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      ScrollTrigger.getAll().forEach(t => t.kill());
+      if (cursor._cleanup) cursor._cleanup();
     };
   }, []);
 
   return (
     <>
-      <div className="nav-container" ref={navRef} style={{ position: "absolute", zIndex: 100 }}>
+      <div className="custom-cursor" ref={cursorRef}>
+        <span>View Project</span>
+      </div>
+
+      <div className="nav-container" ref={navRef}>
         <div className="nav-line" />
       </div>
 
-    
       <div className="stage projects-3d-root">
-       
         <div className="container" ref={wrapperRef} />
       </div>
     </>
