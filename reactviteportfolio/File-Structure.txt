@@ -1,5 +1,10 @@
 
-├── 📁 ReactVite+css/
+├── 📁 reactviteportfolio/
+│   ├── 📁 .vercel/
+│   │   ├── 📄 README.txt
+│   │   └── ⚙️ project.json
+│   ├── 📁 api/
+│   │   └── 📄 send-email.js
 │   ├── 📁 public/
 │   │   ├── 📁 assets/
 │   │   │   └── 📁 stones/
@@ -10,6 +15,7 @@
 │   │   ├── 📁 CSS/
 │   │   │   ├── 📁 UI-CSS/
 │   │   │   │   ├── 🎨 Aurora.css
+│   │   │   │   ├── 🎨 ConnectModal.css
 │   │   │   │   ├── 🎨 LightRays.css
 │   │   │   │   ├── 🎨 RotatingText.css
 │   │   │   │   ├── 🎨 star_background.css
@@ -17,6 +23,8 @@
 │   │   │   ├── 🎨 AboutMe.css
 │   │   │   ├── 🎨 AboutPage.css
 │   │   │   ├── 🎨 BentoGrid.css
+│   │   │   ├── 🎨 LinksPage.css
+│   │   │   ├── 🎨 ProjectsPage.css
 │   │   │   ├── 🎨 ProjectsScroll.css
 │   │   │   ├── 🎨 ScrollExperience.css
 │   │   │   ├── 🎨 footer.css
@@ -37,6 +45,7 @@
 │   │   │   │   └── 📄 navbar.jsx
 │   │   │   ├── 📁 UI/
 │   │   │   │   ├── 📄 Aurora.jsx
+│   │   │   │   ├── 📄 ConnectModal.jsx
 │   │   │   │   ├── 📄 LightRays.jsx
 │   │   │   │   ├── 📄 RotatingText.jsx
 │   │   │   │   ├── 📄 SplitText.jsx
@@ -69,3 +78,4 @@
 │   └── 📄 vite.config.js
 ├── 🌐 index8.html
 └── 🌐 index9.html
+
