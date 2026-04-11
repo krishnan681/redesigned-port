@@ -1,81 +1,75 @@
-
-├── 📁 reactviteportfolio/
-│   ├── 📁 .vercel/
-│   │   ├── 📄 README.txt
-│   │   └── ⚙️ project.json
-│   ├── 📁 api/
-│   │   └── 📄 send-email.js
-│   ├── 📁 public/
-│   │   ├── 📁 assets/
-│   │   │   └── 📁 stones/
-│   │   │       ├── 🖼️ stone1.png
-│   │   │       └── 🖼️ stone2.png
-│   │   └── 🖼️ vite.svg
-│   ├── 📁 src/
-│   │   ├── 📁 CSS/
-│   │   │   ├── 📁 UI-CSS/
-│   │   │   │   ├── 🎨 Aurora.css
-│   │   │   │   ├── 🎨 ConnectModal.css
-│   │   │   │   ├── 🎨 LightRays.css
-│   │   │   │   ├── 🎨 RotatingText.css
-│   │   │   │   ├── 🎨 star_background.css
-│   │   │   │   └── 🎨 terminal.css
-│   │   │   ├── 🎨 AboutMe.css
-│   │   │   ├── 🎨 AboutPage.css
-│   │   │   ├── 🎨 BentoGrid.css
-│   │   │   ├── 🎨 LinksPage.css
-│   │   │   ├── 🎨 ProjectsPage.css
-│   │   │   ├── 🎨 ProjectsScroll.css
-│   │   │   ├── 🎨 ScrollExperience.css
-│   │   │   ├── 🎨 footer.css
-│   │   │   ├── 🎨 home.css
-│   │   │   └── 🎨 navbar.css
-│   │   ├── 📁 assets/
-│   │   │   ├── 📁 images/
-│   │   │   │   ├── 🖼️ bento-a.png
-│   │   │   │   ├── 🖼️ download.webp
-│   │   │   │   └── 🖼️ profile.png
-│   │   │   ├── 📁 lottie/
-│   │   │   │   ├── ⚙️ RobotSaludando.json
-│   │   │   │   └── ⚙️ cta-circle.json
-│   │   │   └── 🖼️ react.svg
-│   │   ├── 📁 components/
-│   │   │   ├── 📁 Layout/
-│   │   │   │   ├── 📄 layout.jsx
-│   │   │   │   └── 📄 navbar.jsx
-│   │   │   ├── 📁 UI/
-│   │   │   │   ├── 📄 Aurora.jsx
-│   │   │   │   ├── 📄 ConnectModal.jsx
-│   │   │   │   ├── 📄 LightRays.jsx
-│   │   │   │   ├── 📄 RotatingText.jsx
-│   │   │   │   ├── 📄 SplitText.jsx
-│   │   │   │   ├── 📄 TerminalSplash.jsx
-│   │   │   │   └── 📄 star_background.jsx
-│   │   │   ├── 📄 AboutMe.jsx
-│   │   │   ├── 📄 Bento_grid.jsx
-│   │   │   ├── 📄 Footer.jsx
-│   │   │   ├── 📄 HomePage.jsx
-│   │   │   ├── 📄 ProjectsScroll.jsx
-│   │   │   ├── 📄 ScrollExperience.jsx
-│   │   │   └── 📄 home.jsx
-│   │   ├── 📁 data/
-│   │   │   └── 📄 projectsData.js
-│   │   ├── 📁 pages/
-│   │   │   ├── 📄 AboutPage.jsx
-│   │   │   ├── 📄 LinksPage.jsx
-│   │   │   └── 📄 ProjectsPage.jsx
-│   │   ├── 🎨 App.css
-│   │   ├── 📄 App.jsx
-│   │   ├── 🎨 index.css
-│   │   └── 📄 main.jsx
-│   ├── ⚙️ .gitignore
-│   ├── 📄 File-Structure.txt
-│   ├── 📝 README.md
-│   ├── 📄 eslint.config.js
-│   ├── 🌐 index.html
-│   ├── ⚙️ package-lock.json
-│   ├── ⚙️ package.json
-│   └── 📄 vite.config.js
-├── 🌐 index8.html
-└── 🌐 index9.html
-
+ 
+├── 📁 api/
+│   └── 📄 send-email.js
+├── 📁 public/
+│   ├── 📁 assets/
+│   │   └── 📁 stones/
+│   │       ├── 🖼️ stone1.png
+│   │       └── 🖼️ stone2.png
+│   └── 🖼️ vite.svg
+├── 📁 src/
+│   ├── 📁 CSS/
+│   │   ├── 📁 UI-CSS/
+│   │   │   ├── 🎨 Aurora.css
+│   │   │   ├── 🎨 ConnectModal.css
+│   │   │   ├── 🎨 LightRays.css
+│   │   │   ├── 🎨 RotatingText.css
+│   │   │   ├── 🎨 star_background.css
+│   │   │   └── 🎨 terminal.css
+│   │   ├── 🎨 AboutMe.css
+│   │   ├── 🎨 AboutPage.css
+│   │   ├── 🎨 BentoGrid.css
+│   │   ├── 🎨 LinksPage.css
+│   │   ├── 🎨 ProjectsPage.css
+│   │   ├── 🎨 ProjectsScroll.css
+│   │   ├── 🎨 ScrollExperience.css
+│   │   ├── 🎨 footer.css
+│   │   ├── 🎨 home.css
+│   │   └── 🎨 navbar.css
+│   ├── 📁 assets/
+│   │   ├── 📁 images/
+│   │   │   ├── 🖼️ bento-a.png
+│   │   │   ├── 🖼️ download.webp
+│   │   │   └── 🖼️ profile.png
+│   │   ├── 📁 lottie/
+│   │   │   ├── ⚙️ RobotSaludando.json
+│   │   │   └── ⚙️ cta-circle.json
+│   │   └── 🖼️ react.svg
+│   ├── 📁 components/
+│   │   ├── 📁 Layout/
+│   │   │   ├── 📄 layout.jsx
+│   │   │   └── 📄 navbar.jsx
+│   │   ├── 📁 UI/
+│   │   │   ├── 📄 Aurora.jsx
+│   │   │   ├── 📄 ConnectModal.jsx
+│   │   │   ├── 📄 LightRays.jsx
+│   │   │   ├── 📄 RotatingText.jsx
+│   │   │   ├── 📄 SplitText.jsx
+│   │   │   ├── 📄 TerminalSplash.jsx
+│   │   │   └── 📄 star_background.jsx
+│   │   ├── 📄 AboutMe.jsx
+│   │   ├── 📄 Bento_grid.jsx
+│   │   ├── 📄 Footer.jsx
+│   │   ├── 📄 HomePage.jsx
+│   │   ├── 📄 ProjectsScroll.jsx
+│   │   ├── 📄 ScrollExperience.jsx
+│   │   └── 📄 home.jsx
+│   ├── 📁 data/
+│   │   └── 📄 projectsData.js
+│   ├── 📁 pages/
+│   │   ├── 📄 AboutPage.jsx
+│   │   ├── 📄 LinksPage.jsx
+│   │   └── 📄 ProjectsPage.jsx
+│   ├── 🎨 App.css
+│   ├── 📄 App.jsx
+│   ├── 🎨 index.css
+│   └── 📄 main.jsx
+├── ⚙️ .gitignore
+├── 📄 File-Structure.txt
+├── 📝 README.md
+├── 📄 eslint.config.js
+├── 🌐 index.html
+├── ⚙️ package-lock.json
+├── ⚙️ package.json
+└── 📄 vite.config.js
+ 

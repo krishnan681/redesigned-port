@@ -261,8 +261,8 @@ const [showModal, setShowModal] = useState(false);
 
           </div>
           <div className="bento-e-meta">
-            <span className="bento-e-name">Your Name</span>
-            <span className="bento-e-role">Frontend Developer</span>
+            <span className="bento-e-name">Gopalakrishnan</span>
+            <span className="bento-e-role">Frontend Web Developer</span>
           </div>
         </div>
         {/* Decorative blobs */}
@@ -341,11 +341,11 @@ const [showModal, setShowModal] = useState(false);
             <span className="arrow" />
           </button>
 
-          {showModal && <ConnectModal onClose={() => setShowModal(false)} />}
           <span className="avail-badge">Available for work</span>
         </div>
       </TiltCard>
 
+      {showModal && <ConnectModal onClose={() => setShowModal(false)} />}
     </div>
   </section>
   );
