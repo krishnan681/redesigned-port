@@ -46,7 +46,7 @@ const Navbar = () => {
       <nav className="nav-wrapper">
         {/* Logo outside the glass bar */}
         <Link to="/" className="nav-logo-left">
-          MyApp
+          <div className="logo-box">G</div>
         </Link>
 
         {/* Hamburger Icon for Mobile */}

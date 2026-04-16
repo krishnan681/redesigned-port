@@ -1,7 +1,8 @@
 /* The whole navbar wrapper */
 .nav-wrapper {
   position: fixed;
-  top: 20px;
+  top: 15px; /* Pushed slightly closer to the top for a sleeker profile */
+  min-height: 60px;
   left: 0;
   width: 100%;
   display: flex;
@@ -14,16 +15,29 @@
 .nav-logo-left {
   position: absolute;
   left: 40px;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 700;
   text-decoration: none;
   opacity: 0.95;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .nav-logo-left:hover {
   opacity: 1;
+  transform: scale(1.05);
+}
+
+.logo-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3ea2ff 0%, #1e58ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(62, 162, 255, 0.4);
 }
 
 /* Glassmorphism bar */

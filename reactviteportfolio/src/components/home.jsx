@@ -263,7 +263,7 @@ const Home = () => {
       ctx.clearRect(0, 0, W, H);
 
       const cx = W * 0.5;
-      const arcTopY = W < 768 ? H * 0.15 : H * 0.3;
+      const arcTopY = W < 768 ? W * 0.15 : H * 0.3; // Base on Width for mobile to prevent pointy steep curves 
       const R = (cx * cx + arcTopY * arcTopY) / (2 * arcTopY);
       const cy = R;
 
@@ -393,8 +393,8 @@ const Home = () => {
 
       <div className="hero-content">
         <h1 className="hero-title">
-          Your vision, my code — let’s <br />
-          turn static concepts into <br />
+          Your vision, my code — let’s <br className="desktop-break" />
+          turn static concepts into <br className="desktop-break" />
           interactive experiences
         </h1>
         <h2 className="hero-body">

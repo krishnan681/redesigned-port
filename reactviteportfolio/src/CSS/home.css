@@ -340,7 +340,10 @@ background: linear-gradient(
 @media (max-width: 768px) {
   .hero-title {
     font-size: clamp(48px, 9vw, 64px);
-    line-height: +1.1;
+    line-height: 1.1;
+  }
+  .desktop-break {
+    display: none;
   }
   .hero-body {
     font-size: clamp(15px, 2.5vw, 18px);

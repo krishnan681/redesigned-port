@@ -350,7 +350,7 @@
    right: -10px;
    width: 200px;
    height: 200px;
-   opacity: 0.9;
+   /* opacity: 0.9; */
  }
 
  /* Location pill */
@@ -859,11 +859,6 @@
      padding: 28px 28px 0;
    }
 
-   .bento-a-lottie {
-     width: 130px;
-     height: 130px;
-     opacity: 0.5;
-   }
 
    .bento-b-inner,
    .bento-c-content,
@@ -902,13 +897,16 @@
    .tech-row {
      gap: 6px;
    }
-   
+
    .tech-pill {
      padding: 5px 10px;
      font-size: 10px;
    }
 
    .bento-a-lottie {
-     display: none;
+     /* width: 100px; */
+     /* height: 100px; */
+     /* opacity: 0.4; */
+     /* display: block; */
    }
  }
