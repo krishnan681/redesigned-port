@@ -59,6 +59,13 @@
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  .floating-image {
+    max-width: 40vw !important;
+    height: auto !important;
+  }
+}
+
 /* Updated: Centered using Absolute positioning since parent is no longer Flex */
 .glass-modal {
   position: absolute;

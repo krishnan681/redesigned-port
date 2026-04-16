@@ -335,3 +335,34 @@ background: linear-gradient(
   0%, 100% { opacity: 0.4; transform: scaleY(1); }
   50% { opacity: 0.8; transform: scaleY(1.35); }
 }
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: clamp(48px, 9vw, 64px);
+    line-height: +1.1;
+  }
+  .hero-body {
+    font-size: clamp(15px, 2.5vw, 18px);
+  }
+  .hero-content {
+    padding-top: 15vh;
+  }
+  .connect-btn-wrapper {
+    bottom: 8vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(38px, 12vw, 48px);
+  }
+  .hero-body {
+    font-size: 14px;
+    max-width: 90vw;
+  }
+  .connect-btn {
+    padding: 14px 32px;
+    font-size: 14px;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import "../CSS/ScrollExperience.css";
 import ProjectsScroll from "./ProjectsScroll";
@@ -19,9 +19,16 @@ const images = [
 const ScrollExperience = () => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [showProjects, setShowProjects] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const cameraRef = useRef(null);
   const stageRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleMouseMove = (e) => {
     const x = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -71,7 +78,7 @@ const ScrollExperience = () => {
                 src={img.src}
                 className="floating-image"
                 style={{
-                  width: img.size,
+                  width: isMobile ? img.size * 0.45 : img.size,
                   top: img.top,
                   bottom: img.bottom,
                   left: img.left,

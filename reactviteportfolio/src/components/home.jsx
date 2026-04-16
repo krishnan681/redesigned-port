@@ -263,7 +263,7 @@ const Home = () => {
       ctx.clearRect(0, 0, W, H);
 
       const cx = W * 0.5;
-      const arcTopY = H * 0.3;
+      const arcTopY = W < 768 ? H * 0.15 : H * 0.3;
       const R = (cx * cx + arcTopY * arcTopY) / (2 * arcTopY);
       const cy = R;
 

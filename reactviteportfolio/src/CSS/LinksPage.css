@@ -541,17 +541,31 @@
 }
 
 /* ── Responsive ───────────────────────────────────────────── */
-@media (max-width: 520px) {
+@media (max-width: 768px) {
     .social-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    .contact-headline {
+        font-size: clamp(2rem, 5vw, 3rem);
+    }
+    
+    .form-card {
+        padding: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-grid {
+        grid-template-columns: 1fr;
+    }
 
     .contact-content {
-        padding: 80px 20px 60px;
+        padding: 80px 16px 60px;
     }
 
     .form-card {
-        padding: 24px 20px;
+        padding: 20px 16px;
     }
 
     .form-footer {

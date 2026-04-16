@@ -642,28 +642,56 @@ body {
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .card {
-    width: 55vw;
-    height: 35vw;
-    margin-top: -40vw;
+    width: 90vw;
+    height: 50vw;
+    margin-top: -65vw;
     left: 5% !important;
   }
 
   .card2 {
-    width: 25vw;
-    height: 35vw;
-    margin-top: -10vw;
-    left: 5% !important;
+    display: none !important;
   }
 
   .details {
     width: 90vw;
-    margin-top: -27.5vw;
+    margin-top: -5vw;
     left: 5% !important;
     padding: 1.5rem;
   }
 
   .nav-container {
     right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 90vw;
+    height: 60vw;
+    margin-top: -75vw;
+  }
+
+  .card2 {
+    display: none !important;
+  }
+
+  .details {
+    width: 90vw;
+    margin-top: -5vw;
+    padding: 1.25rem;
+  }
+
+  .details h2 {
+    font-size: 1.5rem;
+  }
+
+  .main-desc {
+    font-size: 0.95rem;
+  }
+
+  .nav-container {
+    right: 10px;
+    transform: scale(0.8) translateY(-50%);
   }
 }
 

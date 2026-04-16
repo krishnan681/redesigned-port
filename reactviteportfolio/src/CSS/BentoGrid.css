@@ -871,3 +871,44 @@
      padding: 28px;
    }
  }
+
+ @media (max-width: 480px) {
+   .bento-grid-section {
+     padding: 60px 16px 80px;
+   }
+
+   .bento-e-photo {
+     width: 80px;
+     height: 80px;
+   }
+
+   .bento-e-name {
+     font-size: 16px;
+   }
+
+   .bento-a-content,
+   .bento-b-inner,
+   .bento-c-content,
+   .bento-d-content {
+     padding: 20px;
+   }
+
+   .bento-a-content h2,
+   .bento-c-text h2,
+   .bento-d-headline {
+     font-size: 20px;
+   }
+
+   .tech-row {
+     gap: 6px;
+   }
+   
+   .tech-pill {
+     padding: 5px 10px;
+     font-size: 10px;
+   }
+
+   .bento-a-lottie {
+     display: none;
+   }
+ }
