@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import "../../CSS/navbar.css";
 
 const LinkedInIcon = () => (
@@ -23,6 +24,8 @@ const EmailIcon = () => (
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(true);
+  const [greetingText, setGreetingText] = useState("");
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -31,6 +34,21 @@ const Navbar = () => {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
+  useEffect(() => {
+    // Generate Greeting
+    const hour = new Date().getHours();
+    if (hour < 12) setGreetingText("Good morning.");
+    else if (hour < 18) setGreetingText("Good afternoon.");
+    else setGreetingText("Good evening.");
+
+    // Dismiss greeting and show nav after sequence
+    const timer = setTimeout(() => {
+      setShowGreeting(false);
+    }, 2800);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -44,25 +62,51 @@ const Navbar = () => {
   return (
     <>
       <nav className="nav-wrapper">
-        {/* Logo outside the glass bar */}
-        <Link to="/" className="nav-logo-left">
-          <div className="logo-box">G</div>
-        </Link>
+        <AnimatePresence mode="wait">
+          {showGreeting ? (
+            <motion.div
+              layoutId="nav-morph-pill"
+              key="greeting"
+              className="navbar-greeting-box"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+                {greetingText}
+              </motion.span>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="nav-content"
+              className="nav-inner-content"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              {/* Logo outside the glass bar */}
+              <Link to="/" className="nav-logo-left">
+                <div className="logo-box">G</div>
+              </Link>
 
-        {/* Hamburger Icon for Mobile */}
-        <button className={`hamburger ${menuOpen ? "open" : ""}`} onClick={toggleMenu} aria-label="Toggle menu">
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-        </button>
+              {/* Hamburger Icon for Mobile */}
+              <button className={`hamburger ${menuOpen ? "open" : ""}`} onClick={toggleMenu} aria-label="Toggle menu">
+                <span className="hamburger-line"></span>
+                <span className="hamburger-line"></span>
+                <span className="hamburger-line"></span>
+              </button>
 
-        {/* Desktop Navigation */}
-        <div className="glass-nav desktop-nav">
-          <NavLink to="/" className="nav-link">Home</NavLink>
-          <NavLink to="/about" className="nav-link">About</NavLink>
-          <NavLink to="/projects" className="nav-link">Projects</NavLink>
-          <NavLink to="/links" className="nav-link">Contact Me</NavLink>
-        </div>
+              {/* Desktop Navigation */}
+              <motion.div layoutId="nav-morph-pill" className="glass-nav desktop-nav">
+                <NavLink to="/" className="nav-link">Home</NavLink>
+                <NavLink to="/about" className="nav-link">About</NavLink>
+                <NavLink to="/projects" className="nav-link">Projects</NavLink>
+                <NavLink to="/links" className="nav-link">Contact Me</NavLink>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Mobile Bottom Sheet & Overlay */}

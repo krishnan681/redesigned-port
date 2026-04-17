@@ -11,6 +11,31 @@
   z-index: 9000;
 }
 
+/* Greeting Block */
+.navbar-greeting-box {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Inner content block wrappers */
+.nav-inner-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative; /* Maintain flow for absolute children */
+}
+
 /* Logo outside on the left */
 .nav-logo-left {
   position: absolute;
@@ -107,14 +132,29 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  .hamburger {
-    display: flex;
+  .nav-inner-content {
+    background: rgba(255, 255, 255, 0.08); /* Frosted Glass Base */
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 10px 24px;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-between; /* Space out Logo and Hamburger */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   }
 
+  /* Reset absolute positions to flow within the flex pill */
   .nav-logo-left {
-    left: 20px;
+    position: static;
   }
   
+  .hamburger {
+    display: flex;
+    position: static; /* Overrides absolute right */
+  }
+
   /* Hide desktop nav */
   .desktop-nav {
     display: none;
@@ -163,11 +203,11 @@
     bottom: -100%;
     left: 0;
     width: 100%;
-    background: rgba(10, 10, 15, 0.6);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+    background: rgba(35, 35, 35, 0.45);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
     border-radius: 32px 32px 0 0;
     padding: 16px 24px 40px;
     z-index: 10000;
