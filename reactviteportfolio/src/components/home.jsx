@@ -94,9 +94,12 @@
 // export default Home;
 
 
-import React, { useEffect, useRef,useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../CSS/home.css';
 import ConnectModal from './UI/ConnectModal';
+import LiquidTextElement from './UI/LiquidTextElement';
+
+import RotatingText from './UI/RotatingText';
 
 const Home = () => {
   const starsRef = useRef(null);
@@ -392,13 +395,24 @@ const Home = () => {
       <canvas ref={earthRef} id="earth" />
 
       <div className="hero-content">
-        <h1 className="hero-title">
-          Your vision, my code — let’s <br className="desktop-break" />
-          turn static concepts into <br className="desktop-break" />
-          interactive experiences
-        </h1>
-        <h2 className="hero-body">
-          Hello World, I'm Gopal, a passionate frontend developer
+        <LiquidTextElement />
+        <h2 className="hero-body" style={{ fontSize: '1.2rem' }}>
+          Hello World, I'm Gopal, a passionate{" "}
+          <RotatingText
+            texts={['frontend developer', 'Designer']}
+            mainClassName="rotating-text-role"
+            staggerFrom="last"
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "-120%" }}
+            staggerDuration={0.025}
+            splitLevelClassName="rotating-text-split"
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            rotationInterval={2000}
+            splitBy="characters"
+            auto
+            loop
+          />
         </h2>
       </div>
 

@@ -270,7 +270,7 @@
  .bento-e-role {
    font-family: var(--font-mono);
    font-size: 11px;
-   color: var(--accent-soft);
+   color: whitesmoke;
    letter-spacing: 0.08em;
    text-transform: uppercase;
  }

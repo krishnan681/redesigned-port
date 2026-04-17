@@ -7,7 +7,7 @@
   --accent-mid2: #c89eff;
   --accent-end: #8f5ae8;
   --dark-card: #0a0a0a;
-  
+
   /* Skills Accent Colors */
   --accent-blue: #0ea5e9;
   --accent-purple: #a855f7;
@@ -59,7 +59,7 @@
   font-weight: 700;
   color: #000000;
   /* color: #f8f9fa; */
- 
+
 }
 
 .yrs-experience {
@@ -124,7 +124,7 @@
 
 .skills-main-title {
   font-size: 48px;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 900;
   color: #ffffff;
   /* color: #111; */
@@ -252,10 +252,24 @@
 
 /* --- RESPONSIVE --- */
 @media (max-width: 992px) {
-  .am-wrapper { flex-direction: column; align-items: center; }
-  .am-left-box { width: 100%; max-width: 400px; height: 350px; }
-  .skills-grid-wrapper { grid-template-columns: 1fr; }
-  .skills-main-title { font-size: 36px; }
+  .am-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .am-left-box {
+    width: 100%;
+    max-width: 400px;
+    height: 350px;
+  }
+
+  .skills-grid-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-main-title {
+    font-size: 36px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -263,14 +277,24 @@
     padding: 60px 20px;
     gap: 60px;
   }
+
   .yrs {
     font-size: 220px;
-    top: 50px;
-    left: 40px;
+    top: 70px;
+    left: 55px;
   }
+
+
+  .yrs-experience {
+    font-size: 16px;
+    right: 90px;
+    bottom: 50px;
+  }
+
   .am-right-box {
     padding: 30px;
   }
+
   .am-title {
     font-size: 28px;
   }
@@ -281,32 +305,41 @@
     padding: 40px 16px;
     gap: 40px;
   }
+
   .am-left-box {
     height: 300px;
   }
+
   .yrs {
+
     font-size: 160px;
     top: 60px;
-    left: 30px;
+    left: 90px;
   }
+
   .yrs-experience {
     font-size: 16px;
-    right: 15px;
-    bottom: 20px;
+    right: 90px;
+    bottom: 50px;
   }
+
   .am-right-box {
     padding: 24px 20px;
   }
+
   .am-title {
     font-size: 24px;
     margin-bottom: 5px;
   }
+
   .am-intro {
     font-size: 16px;
   }
+
   .am-text {
     font-size: 14px;
   }
+
   .skills-main-title {
     font-size: 28px;
   }
@@ -328,7 +361,7 @@
   transition: 0.3s ease;
 }
 
-.talkbtn{
+.talkbtn {
   background: linear-gradient(135deg, #8f5ae8, #c89eff);
   color: white;
   padding: 12px 24px;

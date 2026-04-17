@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import '../../CSS/UI-CSS/ConnectModal.css';
 
 const ConnectModal = ({ onClose }) => {
@@ -79,15 +80,13 @@ const ConnectModal = ({ onClose }) => {
     }
   };
 
-  return (
+  return createPortal(
     <div className="cm-overlay" onClick={handleOverlayClick} onKeyDown={handleKeyDown}>
       <div className="cm-modal" role="dialog" aria-modal="true" aria-label="Contact modal">
-
-        {/* Header */}
+        {/* ... (rest of the modal content) ... */}
         <div className="cm-header">
           <div className="cm-header-text">
             <h2 className="cm-title">LET'S BUILD SOMETHING TOGETHER</h2>
-
           </div>
           <button className="cm-close" onClick={onClose} aria-label="Close modal">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -96,10 +95,7 @@ const ConnectModal = ({ onClose }) => {
           </button>
         </div>
 
-        {/* Bento Grid */}
         <div className="cm-bento">
-
-          {/* Chat Card — full width */}
           <div className="cm-card cm-card-chat">
             <div className="cm-chat-messages">
               {messages.map((msg, i) => (
@@ -134,15 +130,9 @@ const ConnectModal = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Contact Card */}
           <div className="cm-card cm-card-contact">
             <p className="cm-section-label">Contact</p>
-
-
-            <a
-              className="cm-contact-opt"
-              href="mailto:gopalakrishnan0614@gmail.com"
-            >
+            <a className="cm-contact-opt" href="mailto:gopalakrishnan0614@gmail.com">
               <div className="cm-opt-icon cm-opt-icon-mail">
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                   <rect x="1" y="3" width="13" height="9" rx="2" stroke="#0284c7" strokeWidth="1.2" />
@@ -157,11 +147,9 @@ const ConnectModal = ({ onClose }) => {
             </a>
           </div>
 
-          {/* Social Card */}
           <div className="cm-card cm-card-social">
             <p className="cm-section-label">Socials</p>
             <div className="cm-social-links">
-
               <a className="cm-social-link" href="https://www.linkedin.com/in/gopalakrishnan-b-5357b4228/" target="_blank" rel="noreferrer">
                 <div className="cm-social-icon cm-si-li">
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -171,9 +159,6 @@ const ConnectModal = ({ onClose }) => {
                 <span className="cm-social-name">LinkedIn</span>
                 <span className="cm-social-arrow">↗</span>
               </a>
-
-
-
               <a className="cm-social-link" href="https://github.com/krishnan681" target="_blank" rel="noreferrer">
                 <div className="cm-social-icon cm-si-gh">
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -183,13 +168,12 @@ const ConnectModal = ({ onClose }) => {
                 <span className="cm-social-name">GitHub</span>
                 <span className="cm-social-arrow">↗</span>
               </a>
-
             </div>
           </div>
-
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
