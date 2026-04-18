@@ -552,15 +552,33 @@ const ProjectsScroll = () => {
       navContainer.appendChild(dot);
 
       /* CARDS */
+      const arrowSvg = `
+        <svg class="card-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+
       const card = document.createElement("div");
-      card.className = `viewport-item card project-${i}`;
+      card.className = `viewport-item card project-${i % 4}`; // Cycle through 4 gradients
       card.style.left = isOdd ? "5%" : "50%";
-      card.innerHTML = `<div class="card-inner"><img src="${item.image}" alt="${item.title}" /></div>`;
+      card.innerHTML = `
+        <div class="card-header">
+          <p>${item.cardDesc ?? item.desc}</p>
+          ${arrowSvg}
+        </div>
+        <div class="card-inner">
+          <img src="${item.image}" alt="${item.title}" />
+        </div>
+      `;
 
       const card2 = document.createElement("div");
-      card2.className = `viewport-item card2 project-${i}`;
+      card2.className = `viewport-item card2 project-${i % 4}`;
       card2.style.left = isOdd ? "28%" : "73%";
-      card2.innerHTML = `<div class="card-inner"><img src="${item.imageMobile ?? item.image}" alt="${item.title}" /></div>`;
+      card2.innerHTML = `
+        <div class="card-inner2">
+          <img src="${item.imageMobile ?? item.image}" alt="${item.title}" />
+        </div>
+      `;
 
       /* DETAILS */
       const detail = document.createElement("div");

@@ -55,23 +55,25 @@
 
 export const dataSet = [
   {
-    title: "Next Ventures",
-    bg: "NEXT",
-    desc: "A full-stack startup discovery platform built with Next.js 15, featuring Partial Pre-Rendering, GitHub OAuth authentication, and a Sanity CMS-powered content pipeline for pitches and founders.",
+    title: "ConferConnect",
+    bg: "CONFERENCE",
+    cardDesc: "A complete conference management platform for events.",
+    desc: "ConferConnect is a static and interactive web application designed to showcase the schedule, speakers, and services of a fictional conference. The project leverages modern web technologies to create an engaging user experience with smooth animations and responsive design.",
     features: [
-      "Partial Pre-Rendering (PPR) for instant page loads",
-      "GitHub OAuth via NextAuth.js",
-      "Sanity Studio CMS for dynamic pitch content",
-      "Server Actions & live view counters",
+      "Interactive conference schedule display system",
+      "Speaker profiles with dynamic presentation",
+      "User-friendly navigation and layout",
+      "Bootstrap-based modern UI components",
     ],
-    tech: ["Next.js 15", "React 19", "Sanity CMS", "NextAuth.js", "TypeScript", "Tailwind CSS"],
+    tech: ["HTML", "CSS", "JAVASCRIPT", "BOOTSTRAP"],
     image: "https://picsum.photos/seed/101/800/600",
     imageMobile: "https://picsum.photos/seed/101/400/700",
-    link: "https://your-next-ventures-url.com",
+    link: "https://conferconnect.netlify.app/",
   },
   {
     title: "Nova Mobile",
     bg: "NOVA",
+    cardDesc: "Seamless personal finance tracking via cross-platform app.",
     desc: "A cross-platform personal finance tracking app with animated charts, biometric authentication, and an offline-first architecture. Built in Flutter for both Android and iOS with a clean Material 3 design system.",
     features: [
       "Biometric login (fingerprint / Face ID)",
@@ -87,6 +89,7 @@ export const dataSet = [
   {
     title: "CyberMesh",
     bg: "CYBER",
+    cardDesc: "Real-time decentralized monitoring with low-latency Rust relay.",
     desc: "A real-time decentralized networking dashboard with live node monitoring, smart contract interaction, and an integrated terminal. Rust powers the backend relay while a TypeScript frontend keeps latency under 50ms.",
     features: [
       "Live node health monitoring with WebSockets",
@@ -102,6 +105,7 @@ export const dataSet = [
   {
     title: "FitPulse",
     bg: "PULSE",
+    cardDesc: "Smart health companion app with adaptive training.",
     desc: "A health & workout companion app with adaptive training plans, native sensor integration (accelerometer, GPS), and offline workout logging. Designed with Flutter for seamless performance on both platforms.",
     features: [
       "Adaptive training plans via ML model",
