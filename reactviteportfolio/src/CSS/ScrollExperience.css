@@ -13,15 +13,17 @@
 
 .experience-root {
   position: relative;
-  height: 100vh;        /* only viewport height */
-  overflow: hidden;    /* internal animations */
+  height: 100vh;
+  /* only viewport height */
+  overflow: hidden;
+  /* internal animations */
 }
 
 
 .stars-overlay {
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     radial-gradient(1px 1px at 15% 25%, #fff, transparent),
     radial-gradient(1px 1px at 45% 65%, #fff, transparent),
     radial-gradient(2px 2px at 85% 15%, #fff, transparent),
@@ -76,7 +78,7 @@
   /* Half of width/height for perfect center */
   margin-top: -160px;
   margin-left: -160px;
-  
+
   z-index: 100;
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(40px) saturate(160%);
@@ -97,9 +99,19 @@
   margin-bottom: 50px;
 }
 
-.edge-icon {
-  width: 38px;
-  height: 38px;
+
+.center-image {
+  width: 360px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .brand-name {
