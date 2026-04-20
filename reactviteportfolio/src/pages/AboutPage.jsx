@@ -50,18 +50,21 @@ const AboutPage = () => {
           {/* LEFT SIDE - EXPERIENCE */}
           <div className="timeline-column left-experience">
             <h2 className="section-title">Experience</h2>
+
             <div className="section-content">
+              <h3>Signpost Celfon.in Technology</h3>
               <h3>Frontend Developer</h3>
-              <p>Built modern responsive UI with performance optimization.</p>
+              <ul className="exp-list">
+                <li>Developed responsive and high-performance user interfaces</li>
+                <li>Implemented smooth animations and interactive UI</li>
+                <li>Collaborated on scalable frontend architecture</li>
+                <li>Optimized performance and rendering</li>
+                <li>Bridged design and development workflows</li>
+                <li>Created a design book with diverse UI systems</li>
+              </ul>
             </div>
-            <div className="section-content">
-              <h3>React Native Developer</h3>
-              <p>Developed cross-platform mobile apps.</p>
-            </div>
-            <div className="section-content">
-              <h3>Freelancer</h3>
-              <p>Delivered custom dashboards and applications.</p>
-            </div>
+
+
           </div>
 
           {/* CENTER DIVIDER */}
@@ -70,17 +73,21 @@ const AboutPage = () => {
           {/* RIGHT SIDE - EDUCATION */}
           <div className="timeline-column right-education">
             <h2 className="section-title">Education</h2>
+
             <div className="section-content">
               <h3>B.Sc Computer Science</h3>
-              <p>Strong foundation in algorithms and system design.</p>
+              <p>
+                Built a strong foundation in core computer science concepts including
+                data structures, algorithms, database systems, and software engineering principles.
+              </p>
             </div>
+
             <div className="section-content">
-              <h3>Full Stack Development</h3>
-              <p>Hands-on experience building scalable applications.</p>
-            </div>
-            <div className="section-content">
-              <h3>UI/UX Design</h3>
-              <p>Focused on intuitive and engaging user experiences.</p>
+              <h3>MCA (Master of Computer Applications)</h3>
+              <p>
+                Advanced specialization in full-stack development, system architecture,
+                and scalable application design with a focus on real-world problem solving.
+              </p>
             </div>
           </div>
 
