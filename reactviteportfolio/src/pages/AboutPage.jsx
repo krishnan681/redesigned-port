@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 import "../CSS/AboutPage.css";
 
+import Meimg from "../assets/images/Me.jpg";
+
 const AboutPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,11 +28,19 @@ const AboutPage = () => {
                   />
                 </mask>
               </defs>
-              <image
+              {/* <image
                 href="https://i.pinimg.com/736x/3d/01/7f/3d017f4f7d517ee17018d81515b28b7f.jpg"
                 width="1500"
                 height="1062"
                 preserveAspectRatio="xMidYMid cover"
+                mask="url(#scribbleMask)"
+              /> */}
+
+              <image
+                href={Meimg}
+                width="1500"
+                height="1062"
+                preserveAspectRatio="xMidYMid slice"
                 mask="url(#scribbleMask)"
               />
             </svg>
@@ -38,7 +48,9 @@ const AboutPage = () => {
         </div>
         <div className="about-bio-card">
           <p className="about-bio">
-            Frontend Developer crafting immersive digital experiences. Merging technical performance with aesthetic precision to build the future of web interfaces.
+            Frontend Developer crafting immersive digital experiences. Merging
+            technical performance with aesthetic precision to build the future
+            of web interfaces.
           </p>
         </div>
       </section>
@@ -46,7 +58,6 @@ const AboutPage = () => {
       {/* TIMELINE SECTION */}
       <section className="timeline-section">
         <div className="timeline-container">
-
           {/* LEFT SIDE - EXPERIENCE */}
           <div className="timeline-column left-experience">
             <h2 className="section-title">Experience</h2>
@@ -55,7 +66,9 @@ const AboutPage = () => {
               <h3>Signpost Celfon.in Technology</h3>
               <h3>Frontend Developer</h3>
               <ul className="exp-list">
-                <li>Developed responsive and high-performance user interfaces</li>
+                <li>
+                  Developed responsive and high-performance user interfaces
+                </li>
                 <li>Implemented smooth animations and interactive UI</li>
                 <li>Collaborated on scalable frontend architecture</li>
                 <li>Optimized performance and rendering</li>
@@ -63,8 +76,6 @@ const AboutPage = () => {
                 <li>Created a design book with diverse UI systems</li>
               </ul>
             </div>
-
-
           </div>
 
           {/* CENTER DIVIDER */}
@@ -77,27 +88,27 @@ const AboutPage = () => {
             <div className="section-content">
               <h3>B.Sc Computer Science</h3>
               <p>
-                Built a strong foundation in core computer science concepts including
-                data structures, algorithms, database systems, and software engineering principles.
+                Built a strong foundation in core computer science concepts
+                including data structures, algorithms, database systems, and
+                software engineering principles.
               </p>
             </div>
 
             <div className="section-content">
               <h3>MCA (Master of Computer Applications)</h3>
               <p>
-                Advanced specialization in full-stack development, system architecture,
-                and scalable application design with a focus on real-world problem solving.
+                Advanced specialization in full-stack development, system
+                architecture, and scalable application design with a focus on
+                real-world problem solving.
               </p>
             </div>
           </div>
-
         </div>
 
         {/* GITHUB (FREE) */}
         <section className="about-section">
           <div className="section-left">
             <h2 className="section-title">GitHub</h2>
-
           </div>
           <div className="section-right">
             <div className="github-card">
