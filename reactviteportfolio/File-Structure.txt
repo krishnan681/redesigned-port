@@ -1,96 +1,104 @@
 
-├── 📁 api/
-│   └── 📄 send-email.js
-├── 📁 public/
-│   ├── 📁 assets/
-│   │   └── 📁 stones/
-│   │       ├── 🖼️ stone1.png
-│   │       └── 🖼️ stone2.png
-│   └── 🖼️ vite.svg
-├── 📁 src/
-│   ├── 📁 CSS/
-│   │   ├── 📁 UI-CSS/
-│   │   │   ├── 🎨 Aurora.css
-│   │   │   ├── 🎨 ConnectModal.css
-│   │   │   ├── 🎨 LightRays.css
-│   │   │   ├── 🎨 RotatingText.css
-│   │   │   ├── 🎨 star_background.css
-│   │   │   └── 🎨 terminal.css
-│   │   ├── 🎨 AboutMe.css
-│   │   ├── 🎨 AboutPage.css
-│   │   ├── 🎨 BentoGrid.css
-│   │   ├── 🎨 GreetingOverlay.css
-│   │   ├── 🎨 LinksPage.css
-│   │   ├── 🎨 ProjectsPage.css
-│   │   ├── 🎨 ProjectsScroll.css
-│   │   ├── 🎨 ScrollExperience.css
-│   │   ├── 🎨 footer.css
-│   │   ├── 🎨 home.css
-│   │   └── 🎨 navbar.css
-│   ├── 📁 assets/
-│   │   ├── 📁 images/
-│   │   │   ├── 📁 BookNovel/
-│   │   │   │   ├── 🖼️ BookNovel.png
-│   │   │   │   └── 🖼️ Mobile_BookNovel.png
-│   │   │   ├── 📁 ConferConnect/
-│   │   │   │   ├── 🖼️ ConferConnect.png
-│   │   │   │   └── 🖼️ Mobile_ConferConnect.png
-│   │   │   ├── 📁 InteriorDesigns/
-│   │   │   │   ├── 🖼️ InteriorDesigns.png
-│   │   │   │   └── 🖼️ Mobile_InteriorDesigns.png
-│   │   │   ├── 📁 ScrollExperience_images/
-│   │   │   │   ├── 🖼️ 1.jpg
-│   │   │   │   ├── 🖼️ 2.jpg
-│   │   │   │   ├── 🖼️ 3.jpg
-│   │   │   │   ├── 🖼️ 4.png
-│   │   │   │   ├── 🖼️ 5.png
-│   │   │   │   ├── 🖼️ 6.png
-│   │   │   │   └── 🖼️ 7.png
-│   │   │   ├── 🖼️ bento-a.png
-│   │   │   ├── 🖼️ download.webp
-│   │   │   └── 🖼️ profile.png
-│   │   ├── 📁 lottie/
-│   │   │   ├── ⚙️ RobotSaludando.json
-│   │   │   └── ⚙️ cta-circle.json
-│   │   └── 🖼️ react.svg
-│   ├── 📁 components/
-│   │   ├── 📁 Layout/
-│   │   │   ├── 📄 layout.jsx
-│   │   │   └── 📄 navbar.jsx
-│   │   ├── 📁 UI/
-│   │   │   ├── 📄 Aurora.jsx
-│   │   │   ├── 📄 ConnectModal.jsx
-│   │   │   ├── 📄 GreetingOverlay.jsx
-│   │   │   ├── 📄 LightRays.jsx
-│   │   │   ├── 📄 LiquidTextElement.jsx
-│   │   │   ├── 📄 RotatingText.jsx
-│   │   │   ├── 📄 SplitText.jsx
-│   │   │   ├── 📄 TerminalSplash.jsx
-│   │   │   └── 📄 star_background.jsx
-│   │   ├── 📄 AboutMe.jsx
-│   │   ├── 📄 Bento_grid.jsx
-│   │   ├── 📄 Footer.jsx
-│   │   ├── 📄 HomePage.jsx
-│   │   ├── 📄 ProjectsScroll.jsx
-│   │   ├── 📄 ScrollExperience.jsx
-│   │   └── 📄 home.jsx
-│   ├── 📁 data/
-│   │   └── 📄 projectsData.js
-│   ├── 📁 pages/
-│   │   ├── 📄 AboutPage.jsx
-│   │   ├── 📄 LinksPage.jsx
-│   │   └── 📄 ProjectsPage.jsx
-│   ├── 📁 utils/
-│   │   └── 📄 LiquidTextManager.js
-│   ├── 🎨 App.css
-│   ├── 📄 App.jsx
-│   ├── 🎨 index.css
-│   └── 📄 main.jsx
-├── ⚙️ .gitignore
-├── 📄 File-Structure.txt
-├── 📝 README.md
-├── 📄 eslint.config.js
-├── 🌐 index.html
-├── ⚙️ package-lock.json
-├── ⚙️ package.json
-└── 📄 vite.config.js
+├── 📁 reactviteportfolio/
+│   ├── 📁 .vercel/
+│   │   ├── 📄 README.txt
+│   │   └── ⚙️ project.json
+│   ├── 📁 api/
+│   │   └── 📄 send-email.js
+│   ├── 📁 public/
+│   │   ├── 📁 assets/
+│   │   │   └── 📁 stones/
+│   │   │       ├── 🖼️ stone1.png
+│   │   │       └── 🖼️ stone2.png
+│   │   └── 🖼️ vite.svg
+│   ├── 📁 src/
+│   │   ├── 📁 CSS/
+│   │   │   ├── 📁 UI-CSS/
+│   │   │   │   ├── 🎨 Aurora.css
+│   │   │   │   ├── 🎨 ConnectModal.css
+│   │   │   │   ├── 🎨 LightRays.css
+│   │   │   │   ├── 🎨 RotatingText.css
+│   │   │   │   ├── 🎨 star_background.css
+│   │   │   │   └── 🎨 terminal.css
+│   │   │   ├── 🎨 AboutMe.css
+│   │   │   ├── 🎨 AboutPage.css
+│   │   │   ├── 🎨 BentoGrid.css
+│   │   │   ├── 🎨 GreetingOverlay.css
+│   │   │   ├── 🎨 LinksPage.css
+│   │   │   ├── 🎨 ProjectsPage.css
+│   │   │   ├── 🎨 ProjectsScroll.css
+│   │   │   ├── 🎨 ScrollExperience.css
+│   │   │   ├── 🎨 footer.css
+│   │   │   ├── 🎨 home.css
+│   │   │   └── 🎨 navbar.css
+│   │   ├── 📁 assets/
+│   │   │   ├── 📁 images/
+│   │   │   │   ├── 📁 BookNovel/
+│   │   │   │   │   ├── 🖼️ BookNovel.png
+│   │   │   │   │   └── 🖼️ Mobile_BookNovel.png
+│   │   │   │   ├── 📁 ConferConnect/
+│   │   │   │   │   ├── 🖼️ ConferConnect.png
+│   │   │   │   │   └── 🖼️ Mobile_ConferConnect.png
+│   │   │   │   ├── 📁 InteriorDesigns/
+│   │   │   │   │   ├── 🖼️ InteriorDesigns.png
+│   │   │   │   │   └── 🖼️ Mobile_InteriorDesigns.png
+│   │   │   │   ├── 📁 ScrollExperience_images/
+│   │   │   │   │   ├── 🖼️ 1.jpg
+│   │   │   │   │   ├── 🖼️ 2.jpg
+│   │   │   │   │   ├── 🖼️ 3.png
+│   │   │   │   │   ├── 🖼️ 4.jpg
+│   │   │   │   │   ├── 🖼️ 5.png
+│   │   │   │   │   ├── 🖼️ 6.png
+│   │   │   │   │   └── 🖼️ 7.png
+│   │   │   │   ├── 🖼️ ME.jpg
+│   │   │   │   ├── 🖼️ bento-a.png
+│   │   │   │   ├── 🖼️ download.webp
+│   │   │   │   ├── 🖼️ profile.png
+│   │   │   │   └── 🖼️ scroll.png
+│   │   │   ├── 📁 lottie/
+│   │   │   │   ├── ⚙️ RobotSaludando.json
+│   │   │   │   └── ⚙️ cta-circle.json
+│   │   │   └── 🖼️ react.svg
+│   │   ├── 📁 components/
+│   │   │   ├── 📁 Layout/
+│   │   │   │   ├── 📄 layout.jsx
+│   │   │   │   └── 📄 navbar.jsx
+│   │   │   ├── 📁 UI/
+│   │   │   │   ├── 📄 Aurora.jsx
+│   │   │   │   ├── 📄 ConnectModal.jsx
+│   │   │   │   ├── 📄 GreetingOverlay.jsx
+│   │   │   │   ├── 📄 LightRays.jsx
+│   │   │   │   ├── 📄 LiquidTextElement.jsx
+│   │   │   │   ├── 📄 RotatingText.jsx
+│   │   │   │   ├── 📄 SplitText.jsx
+│   │   │   │   ├── 📄 TerminalSplash.jsx
+│   │   │   │   └── 📄 star_background.jsx
+│   │   │   ├── 📄 AboutMe.jsx
+│   │   │   ├── 📄 Bento_grid.jsx
+│   │   │   ├── 📄 Footer.jsx
+│   │   │   ├── 📄 HomePage.jsx
+│   │   │   ├── 📄 ProjectsScroll.jsx
+│   │   │   ├── 📄 ScrollExperience.jsx
+│   │   │   └── 📄 home.jsx
+│   │   ├── 📁 data/
+│   │   │   └── 📄 projectsData.js
+│   │   ├── 📁 pages/
+│   │   │   ├── 📄 AboutPage.jsx
+│   │   │   ├── 📄 LinksPage.jsx
+│   │   │   └── 📄 ProjectsPage.jsx
+│   │   ├── 📁 utils/
+│   │   │   └── 📄 LiquidTextManager.js
+│   │   ├── 🎨 App.css
+│   │   ├── 📄 App.jsx
+│   │   ├── 🎨 index.css
+│   │   └── 📄 main.jsx
+│   ├── ⚙️ .gitignore
+│   ├── 📄 File-Structure.txt
+│   ├── 📝 README.md
+│   ├── 📄 eslint.config.js
+│   ├── 🌐 index.html
+│   ├── ⚙️ package-lock.json
+│   ├── ⚙️ package.json
+│   └── 📄 vite.config.js
+├── 🌐 index8.html
+└── 🌐 index9.html

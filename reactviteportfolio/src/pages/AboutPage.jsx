@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 import "../CSS/AboutPage.css";
 
-import Meimg from "../assets/images/Me.jpg";
+import Meimg from "../assets/images/ME.jpg";
 
 const AboutPage = () => {
   useEffect(() => {
