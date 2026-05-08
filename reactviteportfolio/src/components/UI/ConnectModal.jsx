@@ -537,180 +537,238 @@
 
 
 
-
-
-import React, { useState, useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import '../../CSS/UI-CSS/ConnectModal.css';
 
 const ConnectModal = ({ onClose }) => {
-  const [inputVal, setInputVal] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userName, setUserName] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [inputError, setInputError] = useState('');
+  const [inputVal, setInputVal] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
 
-  const [messages, setMessages] = useState([
-    { sender: 'You', text: 'Hey, I have a project idea!', type: 'user' },
-    { sender: 'Gopalakrishnan', text: 'Sounds great, tell me more…', type: 'them' },
-  ]);
+  const [emailError, setEmailError] = useState("");
+  const [inputError, setInputError] = useState("");
 
   const [isTyping, setIsTyping] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+
+  const [messages, setMessages] = useState([
+    {
+      sender: "You",
+      text: "Hey, I have a project idea!",
+      type: "user",
+    },
+    {
+      sender: "Gopalakrishnan",
+      text: "Sounds great, tell me more…",
+      type: "them",
+    },
+  ]);
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const emailRef = useRef(null);
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
+
     inputRef.current?.focus();
-    return () => { document.body.style.overflow = ''; };
-  }, []);
+
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
   }, [messages, isTyping]);
 
   const isValidEmail = (val) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
 
   const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) onClose();
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Escape') onClose();
-  };
-
-  const handleEmailChange = (e) => {
-    setUserEmail(e.target.value);
-    if (emailError) setEmailError('');
-  };
-
-  const handleInputChange = (e) => {
-    setInputVal(e.target.value);
-    if (inputError) setInputError('');
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
   };
 
   const handleSend = async () => {
+    if (isSending) return;
+
     let valid = true;
 
     if (!userEmail.trim()) {
-      setEmailError('Email is required to send a message.');
+      setEmailError("Email is required.");
       emailRef.current?.focus();
       valid = false;
     } else if (!isValidEmail(userEmail)) {
-      setEmailError('Please enter a valid email address.');
+      setEmailError("Enter a valid email address.");
       emailRef.current?.focus();
       valid = false;
     }
 
     if (!inputVal.trim()) {
-      setInputError('Message cannot be empty.');
+      setInputError("Message cannot be empty.");
       if (valid) inputRef.current?.focus();
       valid = false;
     }
 
     if (!valid) return;
 
+    const trimmedMessage = inputVal.trim();
+
     setMessages((prev) => [
       ...prev,
-      { sender: userName.trim() || 'You', text: inputVal.trim(), type: 'user' },
+      {
+        sender: userName.trim() || "You",
+        text: trimmedMessage,
+        type: "user",
+      },
     ]);
-    setInputVal('');
+
+    setInputVal("");
     setIsTyping(true);
+    setIsSending(true);
 
     try {
-      const res = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          name: userName,
-          email: userEmail,
-          message: inputVal.trim(),
+          name: userName.trim(),
+          email: userEmail.trim(),
+          message: trimmedMessage,
         }),
       });
 
-      if (!res.ok) throw new Error('Failed');
+      if (!res.ok) {
+        throw new Error("Failed");
+      }
 
       setTimeout(() => {
         setIsTyping(false);
+
         setMessages((prev) => [
           ...prev,
           {
-            sender: 'Gopalakrishnan',
+            sender: "Gopalakrishnan",
             text: "Message received! I'll get back to you soon 🚀",
-            type: 'them',
+            type: "them",
           },
         ]);
       }, 900);
-    } catch {
+    } catch (err) {
       setIsTyping(false);
+
       setMessages((prev) => [
         ...prev,
         {
-          sender: 'Gopalakrishnan',
-          text: 'Something went wrong. Try again later.',
-          type: 'them',
+          sender: "Gopalakrishnan",
+          text: "Something went wrong. Please try again later.",
+          type: "them",
         },
       ]);
+    } finally {
+      setIsSending(false);
     }
   };
 
   return createPortal(
-    <div className="cm-overlay" onClick={handleOverlayClick} onKeyDown={handleKeyDown}>
-      <div className="cm-modal" role="dialog" aria-modal="true" aria-label="Contact modal">
-
+    <div className="cm-overlay" onClick={handleOverlayClick}>
+      <div
+        className="cm-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="connect-modal-title"
+      >
         {/* HEADER */}
         <div className="cm-header">
-          <p className="cm-title">Let's build something together</p>
-          <button className="cm-close" onClick={onClose} aria-label="Close modal">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+          <p className="cm-title" id="connect-modal-title">
+            Let's build something together
+          </p>
+
+          <button
+            className="cm-close"
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            ✕
           </button>
         </div>
 
         <div className="cm-bento">
-
           {/* CHAT CARD */}
           <div className="cm-card cm-card-chat">
-
-            {/* USER FIELDS */}
             <div className="cm-fields">
               <input
                 type="text"
                 className="cm-input"
-                placeholder="Your name"
+                placeholder="Your name (optional)"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
+
               <div className="cm-field-wrap">
                 <input
                   ref={emailRef}
                   type="email"
-                  className={`cm-input${emailError ? ' cm-input-error' : ''}`}
+                  className={`cm-input ${
+                    emailError ? "cm-input-error" : ""
+                  }`}
                   placeholder="Your email *"
                   value={userEmail}
-                  onChange={handleEmailChange}
+                  onChange={(e) => {
+                    setUserEmail(e.target.value);
+                    setEmailError("");
+                  }}
                 />
-                {emailError && <p className="cm-error">{emailError}</p>}
+
+                {emailError && (
+                  <p className="cm-error">{emailError}</p>
+                )}
               </div>
             </div>
 
-            {/* MESSAGES */}
+            {/* CHAT */}
             <div className="cm-chat-messages">
               {messages.map((msg, i) => (
-                <div key={i} className={`cm-msg cm-msg-${msg.type}`}>
-                  <span className="cm-msg-label">{msg.sender}</span>
-                  <div className="cm-bubble">{msg.text}</div>
+                <div
+                  key={i}
+                  className={`cm-msg cm-msg-${msg.type}`}
+                >
+                  <span className="cm-msg-label">
+                    {msg.sender}
+                  </span>
+
+                  <div className="cm-bubble">
+                    {msg.text}
+                  </div>
                 </div>
               ))}
 
               {isTyping && (
                 <div className="cm-msg cm-msg-them">
-                  <span className="cm-msg-label">Gopalakrishnan</span>
+                  <span className="cm-msg-label">
+                    Gopalakrishnan
+                  </span>
+
                   <div className="cm-bubble cm-typing">
-                    <span /><span /><span />
+                    <span />
+                    <span />
+                    <span />
                   </div>
                 </div>
               )}
@@ -718,56 +776,91 @@ const ConnectModal = ({ onClose }) => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* INPUT ROW */}
+            {/* INPUT */}
             <div className="cm-input-row">
-              <div className="cm-field-wrap" style={{ flex: 1 }}>
+              <div className="cm-field-wrap cm-message-wrap">
                 <input
                   ref={inputRef}
                   type="text"
-                  className={`cm-input${inputError ? ' cm-input-error' : ''}`}
+                  className={`cm-input ${
+                    inputError ? "cm-input-error" : ""
+                  }`}
                   placeholder="Project, role, or just a hey"
                   value={inputVal}
-                  onChange={handleInputChange}
-                  onKeyDown={(e) => { if (e.key === 'Enter') handleSend(); }}
+                  onChange={(e) => {
+                    setInputVal(e.target.value);
+                    setInputError("");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSend();
+                    }
+                  }}
                 />
-                {inputError && <p className="cm-error">{inputError}</p>}
-              </div>
-              <button className="cm-send-btn" onClick={handleSend}>Send</button>
-            </div>
 
+                {inputError && (
+                  <p className="cm-error">{inputError}</p>
+                )}
+              </div>
+
+              <button
+                className="cm-send-btn"
+                onClick={handleSend}
+                disabled={isSending}
+              >
+                {isSending ? "Sending..." : "Send"}
+              </button>
+            </div>
           </div>
 
-          {/* CONTACT CARD */}
+          {/* CONTACT */}
           <div className="cm-card cm-card-contact">
             <p className="cm-section-label">Contact</p>
-            <a className="cm-contact-opt" href="mailto:gopalakrishnan0614@gmail.com">
-              <div className="cm-opt-icon cm-opt-icon-mail">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                  <rect x="1" y="3" width="13" height="9" rx="2" stroke="#0284c7" strokeWidth="1.2" />
-                  <path d="M1 5.5l6.5 4.5L14 5.5" stroke="#0284c7" strokeWidth="1.2" strokeLinecap="round" />
-                </svg>
-              </div>
+
+            <a
+              className="cm-contact-opt"
+              href="mailto:gopalakrishnan0614@gmail.com"
+            >
+              <div className="cm-opt-icon">✉</div>
+
               <div className="cm-opt-text">
-                <span className="cm-opt-title">Email me</span>
-                <span className="cm-opt-detail">gopalakrishnan0614@gmail.com</span>
+                <span className="cm-opt-title">
+                  Email me
+                </span>
+
+                <span className="cm-opt-detail">
+                  gopalakrishnan0614@gmail.com
+                </span>
               </div>
+
               <span className="cm-opt-arrow">↗</span>
             </a>
           </div>
 
-          {/* SOCIAL CARD */}
+          {/* SOCIAL */}
           <div className="cm-card cm-card-social">
             <p className="cm-section-label">Socials</p>
+
             <div className="cm-social-links">
-              <a className="cm-social-link" href="https://www.linkedin.com/in/gopalakrishnan-b-5357b4228/" target="_blank" rel="noreferrer">
-                <span className="cm-social-name">LinkedIn ↗</span>
+              <a
+                className="cm-social-link"
+                href="https://www.linkedin.com/in/gopalakrishnan-b-5357b4228/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn ↗
               </a>
-              <a className="cm-social-link" href="https://github.com/krishnan681" target="_blank" rel="noreferrer">
-                <span className="cm-social-name">GitHub ↗</span>
+
+              <a
+                className="cm-social-link"
+                href="https://github.com/krishnan681"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub ↗
               </a>
             </div>
           </div>
-
         </div>
       </div>
     </div>,
