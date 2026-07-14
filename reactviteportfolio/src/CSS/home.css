@@ -169,7 +169,7 @@ p {
   }
 } */
 
-/* new */
+/*  
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Syne:wght@400;700;800&display=swap");
 
 
@@ -180,7 +180,7 @@ p {
 
 
 :root {
-  /* --- HERO SECTION: SYNCED TO BENTO BLUE/INDIGO --- */
+  
   --accent-start: #f1f0ff;
   --accent-mid1: #a78bfa;
   --accent-mid2: #6366f1;
@@ -194,7 +194,7 @@ p {
   --btn-hover-border: #6366f1;
   --btn-shadow: rgba(99, 102, 241, 0.4);
 
-  /* --- BENTO GRID ORIGINALS --- */
+ 
   --bg-void: #000000;
   --bg-surface: #0e0e1a;
   --bg-raised: #13131f;
@@ -202,8 +202,7 @@ p {
   --text-secondary: #9492b8;
   --transition: cubic-bezier(0.23, 1, 0.32, 1);
 }
-
-/* Reset & Global */
+ 
 .hero *,
 .hero *::before,
 .hero *::after {
@@ -240,8 +239,7 @@ body {
   height: 70%;
   z-index: 2;
 }
-
-/* Hero Content */
+ 
 .hero-content {
   position: absolute;
   inset: 0;
@@ -254,18 +252,7 @@ body {
   pointer-events: none;
 }
 
-/* .hero-title,
-.hero-title-hidden {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(52px, 6vw, 110px);
-  letter-spacing: 0.01em;
-  line-height: 1.05;
-  text-align: center;
-  max-width: 90vw;
-  color: transparent;
-  pointer-events: none;
-} */
-
+ 
 
 .hero-title,
 .hero-title-hidden {
@@ -305,17 +292,15 @@ body {
   }
 }
 
-
-/* Hidden title for SEO/Accessibility inherits base styles but remains transparent */
-
+ 
 
 .hero-body {
   margin-top: 0px;
-  /* font-family: "Manrope", sans-serif; */
+ 
   font-family: "Chakra Petch", sans-serif;
   font-weight: 700;
   font-size: clamp(16px, 2.1vw, 27px);
-  /* font-weight: 400; */
+ 
   letter-spacing: 0.02em;
   text-align: center;
   line-height: 2;
@@ -325,11 +310,10 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
-  /* Forced Bento Secondary */
+   
   animation: rise 1.8s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-
-/* Connect Button */
+ 
 .connect-btn-wrapper {
   position: absolute;
   bottom: 12vh;
@@ -364,8 +348,7 @@ body {
   transform: scale(1.05);
   box-shadow: 0 0 35px var(--btn-shadow);
 }
-
-/* Animations */
+ 
 @keyframes pulse-glow {
 
   0%,
@@ -390,7 +373,7 @@ body {
   }
 }
 
-/* Scroll Hint Sync */
+ 
 .scroll-hint span {
   font-family: "Syne", sans-serif;
   font-size: 10px;
@@ -417,8 +400,7 @@ body {
     transform: scaleY(1.35);
   }
 }
-
-/* --- RESPONSIVE ADJUSTMENTS --- */
+ 
 @media (max-width: 768px) {
   .hero-title {
 
@@ -461,4 +443,387 @@ body {
     padding: 14px 32px;
     font-size: 14px;
   }
+} */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
 }
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: #fff;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-weight: 400;
+}
+
+.connect-btn {
+  margin-top: 2rem;
+  padding: 14px 30px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: #4f46e5;
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.connect-btn:hover {
+  background: #6366f1;
+}
+/* ============================
+   HERO CONTENT
+=============================*/
+
+.hero-content{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:min(900px,90%);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    z-index:10;
+
+}
+
+/* HELLO */
+
+.hero-greeting{
+
+    color:#8ea5ff;
+
+    text-transform:uppercase;
+
+    letter-spacing:8px;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+}
+
+ 
+
+/* NAME */
+
+.hero-name{
+
+    margin:0;
+
+    color:white;
+
+    font-size:clamp(4rem,9vw,7rem);
+
+    font-weight:900;
+
+    /* letter-spacing:-4px; */
+
+    /* line-height:.95; */
+
+    text-transform:uppercase;
+
+    text-shadow:
+    0 0 25px rgba(255,255,255,.15);
+
+}
+
+/* Divider */
+
+.hero-divider{
+
+    width:220px;
+
+    height:1px;
+
+    background:
+    linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.8),
+    transparent);
+
+    margin:28px 0;
+
+}
+
+.hero-divider.small{
+
+    width:170px;
+
+    margin:24px 0;
+
+}
+
+/* Role */
+
+.hero-role{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:50px;
+
+    font-size:2rem;
+
+    font-weight:600;
+
+    color:white;
+
+}
+
+/* Description */
+
+.hero-description{
+
+    max-width:700px;
+
+    padding:18px 28px;
+
+    background:rgba(5,12,30,.28);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    color:rgba(255,255,255,.88);
+
+    line-height:1.9;
+
+}
+
+/* Buttons */
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:18px;
+
+    margin-top:45px;
+
+    flex-wrap:wrap;
+
+}
+
+/* Primary */
+
+.primary-btn{
+
+    padding:16px 38px;
+
+    border:none;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+    135deg,
+    #6366f1,
+    #4f46e5);
+
+    transition:.35s;
+
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 18px 40px
+    rgba(99,102,241,.4);
+
+}
+
+/* Secondary */
+
+.secondary-btn{
+
+    padding:16px 38px;
+
+    border-radius:999px;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(15px);
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.secondary-btn:hover{
+
+    background:rgba(255,255,255,.1);
+
+    transform:translateY(-5px);
+
+}
+
+
+/* -------------------- Mobile -------------------- */
+
+@media (max-width:768px){
+
+    .hero-content{
+
+        top:48%;
+
+        width:92%;
+
+    }
+
+    .hero-greeting{
+
+        font-size:.75rem;
+
+        letter-spacing:5px;
+
+    }
+
+    .hero-intro{
+
+        font-size:.8rem;
+
+        letter-spacing:6px;
+
+    }
+
+    .hero-name{
+
+        font-size:clamp(1.4rem,9vw,3.8rem);
+
+        letter-spacing:-1px;
+
+    }
+
+    .hero-divider{
+
+        width:140px;
+
+        margin:18px 0;
+
+    }
+
+    .hero-role{
+
+        font-size:1.2rem;
+
+        min-height:36px;
+
+    }
+
+    .hero-description{
+
+        width:100%;
+
+        max-width:95%;
+
+        padding:14px 18px;
+
+        font-size:.9rem;
+
+        line-height:1.7;
+
+    }
+
+  
+
+}
+
+
+/* -------------------- Small Mobile -------------------- */
+
+@media (max-width:480px){
+
+
+    .hero-name{
+
+        font-size:1.9rem;
+
+        line-height:1.05;
+
+    }
+ 
+
+     
+  
+
+}
+
+
+/* -------------------- Very Small Phones -------------------- */
+
+@media (max-width:360px){
+
+    .hero-name{
+
+        font-size:1.9rem;
+
+    }
+ 
+
+}
+ 
