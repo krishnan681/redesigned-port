@@ -463,12 +463,14 @@ function Home() {
         </p>
 
         <div className="hero-buttons">
-          <button className="primary-btn">View Projects</button>
+          {/* <button className="-btn">View Projects</button> */}
 
-          <button className="secondary-btn" onClick={() => setShowModal(true)}>
+          <button className="primary-btn" onClick={() => setShowModal(true)}>
             Let's Connect
           </button>
         </div>
+       {showModal && <ConnectModal onClose={() => setShowModal(false)} />}
+
       </div>
     </section>
   );
