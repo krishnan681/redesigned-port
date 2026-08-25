@@ -1,78 +1,3 @@
-// import React from "react";
-// import "../CSS/AboutMe.css";
-
-// const AboutMe = () => {
-//   const skillGroups = [
-//     {
-//       title: "Core Technologies",
-//       skills: ["Next.js", "React.js", "TypeScript", "Tailwind CSS"],
-//     },
-//     {
-//       title: "Backend & Cloud",
-//       skills: ["Convex", "Firebase", "MongoDB", "Supabase"],
-//     },
-//     {
-//       title: "Development Tools",
-//       skills: ["Docker", "GitHub", "REST APIs", "Figma"],
-//     },
-//   ];
-
-//   return (
-//     <section className="am-section-root">
-//       <div className="am-wrapper">
-//         {/* LEFT RECTANGLE - Untouched as requested */}
-//         <div className="am-left-box">
-//           <div className="yrs">1.8</div>
-//           <div className="yrs-experience">years of Working Experience</div>
-//         </div>
-
-//         {/* RIGHT CONTENT AREA */}
-//         <div className="am-right-box">
-//           <div className="am-header">
-//             <h1 className="am-title">About Me</h1>
-//             <p className="am-intro">
-//               I'm Suresh <br />
-//               <span className="accent-text">Frontend Web Developer</span>
-//             </p>
-//             <p className="am-text">
-//               Frontend Web Developer with professional experience since August 2023 in designing and developing responsive web applications. Proficient in modern UI development and a passion for learning new web technologies.
-//             </p>
-//             <div className="am-actions">
-//               <button className="btn btn-primary">Download CV</button>
-//               <button className="btn btn-outline">Let's Talk</button>
-//             </div>
-//           </div>
-
-//           <hr className="am-divider" />
-
-//         </div>
-//       </div>
-
-//         {/* TOOLS & SKILLS SECTION */}
-//           <div className="am-skills-container">
-//             <h2 className="skills-main-title">Tools & Skills</h2>
-//             <div className="skills-grid">
-//               {skillGroups.map((group, index) => (
-//                 <div key={index} className="skill-group">
-//                   <h3>{group.title}</h3>
-//                   <div className="skill-tags">
-//                     {group.skills.map((skill) => (
-//                       <div key={skill} className="skill-item">
-//                         <span className="dot"></span>
-//                         {skill}
-//                       </div>
-//                     ))}
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//     </section>
-//   );
-// };
-
-// export default AboutMe;
-
 import React from "react";
 import "../CSS/AboutMe.css";
 
@@ -101,6 +26,19 @@ import { TbBrandReactNative } from "react-icons/tb";
 import { DiAndroid } from "react-icons/di";
 
 import cvPdf from "../assets/Resume/Gopalakrishnan-Resume.pdf.pdf";
+
+// Function to calculate exact working experience dynamically from joined date (October 2024)
+const getExperienceYears = () => {
+  const startDate = new Date(2024, 9, 1); // October 2024 (0-indexed month: 9 = October)
+  const currentDate = new Date();
+
+  const months =
+    (currentDate.getFullYear() - startDate.getFullYear()) * 12 +
+    (currentDate.getMonth() - startDate.getMonth());
+
+  const years = (months / 12).toFixed(1);
+  return parseFloat(years) > 0 ? years : "0.1";
+};
 
 const AboutMe = () => {
   const skillGroups = [
@@ -308,7 +246,7 @@ const AboutMe = () => {
       <div className="am-wrapper">
         {/* LEFT BOX */}
         <div className="am-left-box">
-          <div className="yrs">1.8</div>
+          <div className="yrs">{getExperienceYears()}</div>
           <div className="yrs-experience">years of Working Experience</div>
         </div>
 
@@ -320,7 +258,7 @@ const AboutMe = () => {
             <span className="accent-text">Frontend Web Developer</span>
           </p>
           <p className="am-text">
-            Frontend Web Developer with professional experience since September
+            Frontend Web Developer with professional experience since October
             2024 in designing and developing responsive web applications.
           </p>
           <div className="am-actions">

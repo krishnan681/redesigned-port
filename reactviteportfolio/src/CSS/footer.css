@@ -3,45 +3,37 @@
   width: 100%;
   background: #ffffff;
   color: #000000;
-  padding: 0 0 40px 0; /* No top padding so big text touches the top */
+  padding: 0 0 0 0;
   overflow: hidden;
-  font-family: serif; /* Matches the elegant serif look in your image */
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
-
 
 .footer-big-text {
   width: 100%;
-
-  /* background-color: #f8f9fa;  */
   background-color: #000000; 
   text-align: center;
   line-height: 0.8;
   position: relative;
-  margin-bottom: 60px;
-  overflow: hidden; /* Ensures no overflow from giant letters */
+  margin-bottom: 40px;
+  overflow: hidden;
 }
 
 .footer-big-text h1 {
   margin: 0;
-  font-family: "Arial Black", sans-serif;
+  font-family: "Arial Black", Gadget, sans-serif;
   font-weight: 900;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
   font-style: italic;
   position: relative;
   top: 20px;
   color: #ffffff;
-  /* color: #000; */
   background: #ffffff;
-  /* background: #000; */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 16vw; /* Scales perfectly with screen width */
-  font-family: "Arial Black", Gadget, sans-serif; /* Heavy, bold font */
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
+  font-size: 16vw;
 }
 
 /* 3. The Grid Layout */
@@ -50,8 +42,10 @@
   margin: auto;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  padding: 40px 40px 0; /* 👈 adds top spacing */
+  padding: 30px 40px 0;
   gap: 20px;
+  position: relative;
+  z-index: 2;
 }
 
 /* 4. Column Specific Styles */
@@ -63,9 +57,10 @@
 }
 
 .sub-text {
-  color: #000000;
+  color: #333333;
   font-size: 0.9rem;
   margin-top: 8px;
+  line-height: 1.5;
 }
 
 .footer-center,
@@ -80,50 +75,83 @@
   color: #000000;
   text-decoration: none;
   font-size: 0.95rem;
+  font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .footer-center a:hover,
 .footer-right a:hover {
-  color: #000000;
+  color: #555555;
   text-decoration: underline;
 }
 
-/* 5. Copyright Section */
+/* 5. Copyright Section (Placed Above Crowd Canvas) */
 .footer-bottom {
-  margin-top: 80px;
+  margin-top: 50px;
+  margin-bottom: 10px;
   text-align: center;
-  color: #000000;
-  font-size: 12px;
-  font-family: sans-serif; /* Copyright usually looks better in sans-serif */
+  color: #666666;
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
 }
 
-/* 6. Responsive Design */
+/* 6. Animated Crowd Canvas Section (At the Very Bottom) */
+.footer-crowd-wrapper {
+  position: relative;
+  width: 100%;
+  height: 290px;
+  overflow: hidden;
+  margin-top: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+}
+
+.footer-crowd-canvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 7. Responsive Design */
 @media (max-width: 768px) {
   .footer-container {
-    grid-template-columns: 1fr; /* Stack columns on mobile */
+    grid-template-columns: 1fr;
     text-align: left;
-    gap: 40px;
+    gap: 30px;
   }
 
   .footer-big-text h1 {
-    font-size: 20vw; /* Slightly smaller for mobile readability */
+    font-size: 20vw;
   }
 
   .footer-bottom {
-    margin-top: 40px;
+    margin-top: 35px;
+    margin-bottom: 8px;
+  }
+
+  .footer-crowd-wrapper {
+    height: 220px;
   }
 }
 
 @media (max-width: 480px) {
   .footer-container {
-    padding: 30px 20px 0;
-    gap: 30px;
+    padding: 20px 20px 0;
+    gap: 24px;
   }
   .footer-big-text h1 {
     font-size: 18vw;
   }
   .footer-big-text {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+  }
+  .footer-crowd-wrapper {
+    height: 190px;
   }
 }

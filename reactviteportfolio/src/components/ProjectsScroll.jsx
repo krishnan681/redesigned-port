@@ -1,644 +1,362 @@
-// import React, { useEffect, useRef } from "react";
-// import gsap from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-// import "../CSS/ProjectsScroll.css";
-
-// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-// import { dataSet } from "../data/projectsData";
-
-// const ProjectsScroll = () => {
-//   const wrapperRef = useRef(null);
-//   const bgTextRef = useRef(null);
-//   const navRef = useRef(null);
-
-//   useEffect(() => {
-//     const wrapper = wrapperRef.current;
-//     const bgText = bgTextRef.current;
-//     const navContainer = navRef.current;
-
-//     // Safety check
-//     if (!wrapper || !navContainer) return;
-
-//     // Clear previous elements
-//     wrapper.innerHTML = "";
-//     navContainer.innerHTML = '<div class="nav-line"></div>';
-
-//     dataSet.forEach((item, i) => {
-//       const isOdd = i % 2 === 0;
-
-//       const dot = document.createElement("div");
-//       dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
-//       dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
-//       dot.onclick = () =>
-//         gsap.to(window, {
-//           scrollTo: i * (document.body.scrollHeight / dataSet.length),
-//           duration: 2,
-//         });
-//       navContainer.appendChild(dot);
-
-//       const card = document.createElement("div");
-//       card.className = `viewport-item card project-${i}`;
-//       card.style.left = isOdd ? "8%" : "52%";
-//       card.innerHTML = `
-//         <div class="card-inner">
-//           <img src="https://picsum.photos/seed/${i + 100}/800/600" />
-//         </div>
-//       `;
-
-//       const detail = document.createElement("div");
-//       detail.className = `viewport-item details project-${i}`;
-//       detail.style.left = isOdd ? "58%" : "8%";
-//       detail.innerHTML = `
-//         <h2>${item.title}</h2>
-//         <p class="main-desc">${item.desc}</p>
-//         <ul class="features">
-//           ${item.features.map((f) => `<li>${f}</li>`).join("")}
-//         </ul>
-//         <div class="tech-stack">
-//           ${item.tech.map((t) => `<span class="tech-tag">${t}</span>`).join("")}
-//         </div>
-//       `;
-
-//       wrapper.appendChild(card);
-//       wrapper.appendChild(detail);
-//       gsap.set([card, detail], { z: -5000, opacity: 0 });
-//     });
-
-//     const dots = gsap.utils.toArray(".nav-dot");
-
-//     // We no longer need an internal timeline here as HomePage master timeline handles it.
-//     // However, we still want the bgText update logic if possible? 
-//     // Actually, HomePage handles bgText in its onUpdate too.
-
-//     return () => {
-//       ScrollTrigger.getAll().forEach(t => t.kill());
-//     };
-//   }, []);
-
-//   return (
-//     <>
-//       <div className="nav-container" ref={navRef} style={{ position: 'absolute', zIndex: 100 }}>
-//         <div className="nav-line" />
-//       </div>
-
-//       <div className="scroll-hint">Scroll to Explore</div>
-
-//       <div className="stage projects-3d-root" style={{ opacity: 0 }}>
-//         <div className="bg-text" ref={bgTextRef}>
-//           NEXT
-//         </div>
-//         <div className="container" ref={wrapperRef} />
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ProjectsScroll;
-
-
-// import React, { useEffect, useRef } from "react";
-// import gsap from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-// import "../CSS/ProjectsScroll.css";
-// import { dataSet } from "../data/projectsData";
-
-// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-// const ProjectsScroll = () => {
-//   const wrapperRef = useRef(null);
-//   const navRef = useRef(null);
-
-//   useEffect(() => {
-//     const wrapper = wrapperRef.current;
-//     const navContainer = navRef.current;
-
-//     if (!wrapper || !navContainer) return;
-
-//     wrapper.innerHTML = "";
-//     navContainer.innerHTML = '<div class="nav-line"></div>';
-
-//     const sectionHeight = window.innerHeight;
-
-//     dataSet.forEach((item, i) => {
-//       const isOdd = i % 2 === 0;
-
-//       // 🔹 NAV DOT
-//       const dot = document.createElement("div");
-//       dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
-//       dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
-
-//       dot.onclick = () => {
-//         gsap.to(window, {
-//           scrollTo: {
-//             y: i * sectionHeight,
-//           },
-//           duration: 1.5,
-//           ease: "power3.inOut",
-//         });
-//       };
-
-//       navContainer.appendChild(dot);
-
-//       // 🔹 CARD
-//       const card = document.createElement("div");
-//       card.className = `viewport-item card`;
-//       card.style.left = isOdd ? "8%" : "52%";
-
-//       card.innerHTML = `
-//         <div class="card-inner">
-//           <img src="https://picsum.photos/seed/${i + 100}/800/600" />
-//         </div>
-//       `;
-
-//       // 🔹 DETAILS
-//       const detail = document.createElement("div");
-//       detail.className = `viewport-item details`;
-//       detail.style.left = isOdd ? "58%" : "8%";
-
-//       detail.innerHTML = `
-//         <h2>${item.title}</h2>
-//         <p class="main-desc">${item.desc}</p>
-//         <ul class="features">
-//           ${item.features.map((f) => `<li>${f}</li>`).join("")}
-//         </ul>
-//         <div class="tech-stack">
-//           ${item.tech.map((t) => `<span class="tech-tag">${t}</span>`).join("")}
-//         </div>
-//       `;
-
-//       wrapper.appendChild(card);
-//       wrapper.appendChild(detail);
-
-//       // 🔹 Initial State
-//       gsap.set([card, detail], { z: -3000, opacity: 0 });
-
-//       // 🔥 SCROLL ANIMATION
-//       gsap.to([card, detail], {
-//         z: 0,
-//         opacity: 1,
-//         ease: "power2.out",
-//         scrollTrigger: {
-//           trigger: wrapper,
-//           start: `${i * 100}% top`,
-//           end: `${(i + 1) * 100}% top`,
-//           scrub: true,
-//         },
-//       });
-
-//       // 🔹 NAV ACTIVE STATE
-//       ScrollTrigger.create({
-//         trigger: wrapper,
-//         start: `${i * 100}% top`,
-//         end: `${(i + 1) * 100}% top`,
-//         onEnter: () => updateActiveDot(i),
-//         onEnterBack: () => updateActiveDot(i),
-//       });
-//     });
-
-//     function updateActiveDot(index) {
-//       const dots = document.querySelectorAll(".nav-dot");
-//       dots.forEach((d, i) => {
-//         d.classList.toggle("active", i === index);
-//       });
-//     }
-
-//     return () => {
-//       ScrollTrigger.getAll().forEach((t) => t.kill());
-//     };
-//   }, []);
-
-//   return (
-//     <>
-//       <div className="nav-container" ref={navRef} />
-
-//       <div className="stage">
-//         <div className="bg-text">PROJECTS</div>
-//         <div className="container" ref={wrapperRef} />
-//       </div>
-
-//       {/* SCROLL SPACE */}
-//       <div className="spacer" />
-//     </>
-//   );
-// };
-
-// export default ProjectsScroll;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useRef } from "react";
-// import gsap from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-// import "../CSS/ProjectsScroll.css";
-
-// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-// import { dataSet } from "../data/projectsData";
-
-// const ProjectsScroll = () => {
-//   const wrapperRef = useRef(null);
-//   const bgTextRef = useRef(null);
-//   const navRef = useRef(null);
-
-//   useEffect(() => {
-//     const wrapper = wrapperRef.current;
-//     const bgText = bgTextRef.current;
-//     const navContainer = navRef.current;
-
-//     if (!wrapper || !navContainer) return;
-
-//     // ✅ Smooth scroll setup
-//     gsap.to(window, {
-//       scrollTo: { y: 0 },
-//       duration: 0,
-//     });
-
-//     ScrollTrigger.normalizeScroll(true);
-//     ScrollTrigger.config({
-//       ignoreMobileResize: true,
-//     });
-
-//     // Clear previous elements
-//     wrapper.innerHTML = "";
-//     navContainer.innerHTML = '<div class="nav-line"></div>';
-
-//     const GAP = 1800; // ✅ spacing between sections
-
-//     dataSet.forEach((item, i) => {
-//       const isOdd = i % 2 === 0;
-
-//       // ✅ NAV DOT
-//       const dot = document.createElement("div");
-//       dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
-//       dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
-
-//       dot.onclick = () =>
-//         gsap.to(window, {
-//           scrollTo: {
-//             y: i * window.innerHeight * 1.2, // ✅ fixed spacing scroll
-//           },
-//           duration: 1.5,
-//           ease: "power2.inOut",
-//         });
-
-//       navContainer.appendChild(dot);
-
-//       // ✅ CARD
-//       const card = document.createElement("div");
-//       card.className = `viewport-item card project-${i}`;
-//       card.style.left = isOdd ? "8%" : "52%";
-//       card.innerHTML = `
-//         <div class="card-inner">
-//           <img src="${item.image}" />
-//         </div>
-//       `;
-
-//       // ✅ DETAILS
-//       const detail = document.createElement("div");
-//       detail.className = `viewport-item details project-${i}`;
-//       detail.style.left = isOdd ? "58%" : "8%";
-//       detail.innerHTML = `
-//         <h2>${item.title}</h2>
-//         <p class="main-desc">${item.desc}</p>
-//         <ul class="features">
-//           ${item.features.map((f) => `<li>${f}</li>`).join("")}
-//         </ul>
-//         <div class="tech-stack">
-//           ${item.tech.map((t) => `<span class="tech-tag">${t}</span>`).join("")}
-//         </div>
-//       `;
-
-//       wrapper.appendChild(card);
-//       wrapper.appendChild(detail);
-
-//       // ✅ APPLY 3D GAP
-//       gsap.set([card, detail], {
-//         z: -i * GAP,
-//         opacity: 0,
-//       });
-//     });
-
-//     return () => {
-//       ScrollTrigger.getAll().forEach((t) => t.kill());
-//     };
-//   }, []);
-
-//   return (
-//     <>
-//       <div
-//         className="nav-container"
-//         ref={navRef}
-//         style={{ position: "absolute", zIndex: 100 }}
-//       >
-//         <div className="nav-line" />
-//       </div>
-
-//       <div className="scroll-hint">Scroll to Explore</div>
-
-//       <div className="stage projects-3d-root" style={{ opacity: 0 }}>
-//         <div className="bg-text" ref={bgTextRef}>
-//           NEXT
-//         </div>
-//         <div className="container" ref={wrapperRef} />
-//       </div>
-
-//       {/* ✅ IMPORTANT: SCROLL SPACE */}
-//       <div className="spacer" />
-//     </>
-//   );
-// };
-
-// export default ProjectsScroll;
-
-
-// import React, { useEffect, useRef } from "react";
-// import gsap from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-// import Lenis from "@studio-freight/lenis";
-// import "../CSS/ProjectsScroll.css";
-
-// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-// import { dataSet } from "../data/projectsData";
-
-// const ProjectsScroll = () => {
-//   const wrapperRef = useRef(null);
-//   const bgTextRef = useRef(null);
-//   const navRef = useRef(null);
-
-//   useEffect(() => {
-//     const wrapper = wrapperRef.current;
-//     const navContainer = navRef.current;
-
-//     if (!wrapper || !navContainer) return;
-
-//     const lenis = new Lenis({
-//       duration: 1.4,
-//       smoothWheel: true,
-//       smoothTouch: false,
-//       lerp: 0.08,
-//     });
-
-//     lenis.on("scroll", ScrollTrigger.update);
-
-//     const rafFn = (time) => lenis.raf(time * 1000);
-//     gsap.ticker.add(rafFn);
-//     gsap.ticker.lagSmoothing(0);
-
-//     wrapper.innerHTML = "";
-//     navContainer.innerHTML = '<div class="nav-line"></div>';
-
-//     const GAP = 1800;
-
-//     dataSet.forEach((item, i) => {
-//       const isOdd = i % 2 === 0;
-
-//       const dot = document.createElement("div");
-//       dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
-//       dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
-
-//       dot.onclick = () => {
-//         // Calculate the relative timeline position
-//         // Total duration is roughly 13.5s. Item 'i' appear finishes at 4 + i * 2.5
-//         const targetTime = 4 + i * 2.5;
-//         const targetProgress = Math.min(targetTime / 13.5, 1);
-
-//         // Find the top of the master-viewport
-//         const viewport = document.querySelector(".master-viewport");
-//         if (viewport) {
-//           const rect = viewport.getBoundingClientRect();
-//           const scrollTop = window.scrollY || document.documentElement.scrollTop;
-//           const viewportTop = rect.top + scrollTop;
-
-//           // pin lasts for 6000px
-//           const targetY = viewportTop + (targetProgress * 6000);
-
-//           gsap.to(window, {
-//             scrollTo: { y: targetY },
-//             duration: 1.5,
-//             ease: "power2.inOut",
-//           });
-//         }
-//       };
-
-//       navContainer.appendChild(dot);
-
-//       const card = document.createElement("div");
-//       card.className = `viewport-item card project-${i}`;
-//       card.style.left = isOdd ? "8%" : "52%";
-//       card.innerHTML = `<div class="card-inner"><img src="${item.image}" /></div>`;
-
-//       const detail = document.createElement("div");
-//       detail.className = `viewport-item details project-${i}`;
-//       detail.style.left = isOdd ? "58%" : "8%";
-//       detail.innerHTML = `
-//         <h2>${item.title}</h2>
-//         <p class="main-desc">${item.desc}</p>
-//         <ul class="features">${item.features.map((f) => `<li>${f}</li>`).join("")}</ul>
-//         <div class="tech-stack">${item.tech.map((t) => `<span class="tech-tag">${t}</span>`).join("")}</div>
-//       `;
-
-//       wrapper.appendChild(card);
-//       wrapper.appendChild(detail);
-
-//       gsap.set([card, detail], { z: -i * GAP, opacity: 0 });
-//     });
-
-//     ScrollTrigger.refresh();
-
-//     return () => {
-//       lenis.destroy();
-//       gsap.ticker.remove(rafFn);
-//       ScrollTrigger.getAll().forEach((t) => t.kill());
-//     };
-//   }, []);
-
-//   return (
-//     <>
-//       <div className="nav-container" ref={navRef} style={{ position: "absolute", zIndex: 100 }}>
-//         <div className="nav-line" />
-//       </div>
-
-
-//       <div className="stage projects-3d-root">
-
-//         <div className="container" ref={wrapperRef} />
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ProjectsScroll;
-
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import Lenis from "@studio-freight/lenis";
-import { createPortal } from "react-dom";
+import { dataSet } from "../data/projectsData";
 import "../CSS/ProjectsScroll.css";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-import { dataSet } from "../data/projectsData";
+const projectAtmospheres = [
+  {
+    watermark: "CONFERENCE",
+    category: "Full-Stack Web App",
+  },
+  {
+    watermark: "NOVEL ARCHIVE",
+    category: "Interactive Storytelling",
+  },
+  {
+    watermark: "INTERIOR DESIGN",
+    category: "Architecture & Design",
+  },
+];
 
 const ProjectsScroll = () => {
-  const wrapperRef = useRef(null);
-  const navRef = useRef(null);
+  const sectionRef = useRef(null);
+  const cardsRef = useRef([]);
+  const bgLayersRef = useRef([]);
+  const watermarkRef = useRef(null);
+  const [activeIdx, setActiveIdx] = useState(0);
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const navContainer = navRef.current;
+    const section = sectionRef.current;
+    if (!section) return;
 
-    if (!wrapper || !navContainer) return;
+    const cards = cardsRef.current.filter(Boolean);
+    const bgLayers = bgLayersRef.current.filter(Boolean);
+    if (cards.length === 0) return;
 
-    /* LENIS */
-    const lenis = new Lenis({
-      duration: 1.4,
-      smoothWheel: true,
-      smoothTouch: false,
-      lerp: 0.08,
-    });
+    const totalCards = cards.length;
 
-    lenis.on("scroll", ScrollTrigger.update);
-    const rafFn = (time) => lenis.raf(time * 1000);
-    gsap.ticker.add(rafFn);
-    gsap.ticker.lagSmoothing(0);
-
-    /* BUILD DOM */
-    wrapper.innerHTML = "";
-    navContainer.innerHTML = '<div class="nav-line"></div>';
-
-    const GAP = 1800;
-
-    dataSet.forEach((item, i) => {
-      const isOdd = i % 2 === 0;
-
-      /* NAV DOT */
-      const dot = document.createElement("div");
-      dot.className = `nav-dot ${i === 0 ? "active" : ""}`;
-      dot.innerHTML = `<span class="nav-label">${item.title}</span>`;
-
-      dot.onclick = () => {
-        const targetProgress = Math.min((4 + i * 2.5) / 13.5, 1);
-        const viewport = document.querySelector(".master-viewport") || wrapper;
-        const rect = viewport.getBoundingClientRect();
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const targetY = rect.top + scrollTop + targetProgress * 6000;
-
-        gsap.to(window, {
-          scrollTo: { y: targetY },
-          duration: 1.5,
-          ease: "power2.inOut",
+    // Set initial card & gradient layer states
+    cards.forEach((card, i) => {
+      if (i === 0) {
+        gsap.set(card, {
+          yPercent: 0,
+          scale: 1,
+          opacity: 1,
+          filter: "brightness(1)",
+          zIndex: 10,
+          pointerEvents: "auto",
         });
-      };
-
-      navContainer.appendChild(dot);
-
-      /* CARDS */
-      const arrowSvg = `
-        <svg class="card-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      `;
-
-      const card = document.createElement("div");
-      card.className = `viewport-item card project-${i % 4}`; // Cycle through 4 gradients
-      card.style.left = isOdd ? "5%" : "50%";
-      card.innerHTML = `
-        <div class="card-header">
-          <p>${item.cardDesc ?? item.desc}</p>
-          ${arrowSvg}
-        </div>
-        <div class="card-inner">
-          <img src="${item.image}" alt="${item.title}" />
-        </div>
-      `;
-
-      const card2 = document.createElement("div");
-      card2.className = `viewport-item card2 project-${i % 4}`;
-      card2.style.left = isOdd ? "28%" : "73%";
-      card2.innerHTML = `
-        <div class="card-inner2">
-          <img src="${item.imageMobile ?? item.image}" alt="${item.title}" />
-        </div>
-      `;
-
-      /* DETAILS */
-      const detail = document.createElement("div");
-      detail.className = `viewport-item details project-${i}`;
-      detail.style.left = isOdd ? "58%" : "6%";
-
-      const linkButtonHtml = item.link
-        ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="view-live-btn">View Live</a>`
-        : '';
-
-      detail.innerHTML = `
-        <div class="title-container">
-          <h2>${item.title}</h2>
-          ${linkButtonHtml}
-        </div>
-        <p class="main-desc">${item.desc}</p>
-        <ul class="features">${item.features.map(f => `<li>${f}</li>`).join("")}</ul>
-        <div class="tech-stack">${item.tech.map(t => `<span class="tech-tag">${t}</span>`).join("")}</div>
-      `;
-
-      wrapper.appendChild(card);
-      wrapper.appendChild(card2);
-      wrapper.appendChild(detail);
-
-      gsap.set([card, card2, detail], { z: -i * GAP, autoAlpha: 0 });
-
-      /* CURSOR STATE PREP FOR CARDS */
-      // Removing the click-to-nav behavior from cards per user request
-      // (They must use the View Live button in details instead)
-
-      // Fix navigation for "View Live" button in details
-      const viewLiveBtn = detail.querySelector(".view-live-btn");
-      if (viewLiveBtn) {
-        viewLiveBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          window.open(item.link, "_blank", "noopener,noreferrer");
+      } else {
+        gsap.set(card, {
+          yPercent: 125,
+          scale: 0.94,
+          opacity: 0,
+          filter: "brightness(1)",
+          zIndex: 10 + i,
+          pointerEvents: "none",
         });
       }
     });
 
+    // Set initial background gradient layer
+    bgLayers.forEach((layer, i) => {
+      gsap.set(layer, { opacity: i === 0 ? 1 : 0 });
+    });
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: `+=${totalCards * 1100}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const rawProgress = self.progress * (totalCards - 1);
+            const currentIdx = Math.min(Math.round(rawProgress), totalCards - 1);
+            setActiveIdx(currentIdx);
+
+            cards.forEach((c, idx) => {
+              if (c) {
+                c.style.pointerEvents = idx === currentIdx ? "auto" : "none";
+              }
+            });
+          },
+        },
+      });
+
+      for (let i = 1; i < totalCards; i++) {
+        const currentCard = cards[i];
+        const atmo = projectAtmospheres[i] || projectAtmospheres[0];
+
+        // Scale down and dim preceding cards
+        for (let j = 0; j < i; j++) {
+          const depth = i - j;
+          const targetScale = Math.max(1 - depth * 0.05, 0.85);
+          const targetY = -depth * 18;
+          const targetBrightness = Math.max(1 - depth * 0.3, 0.35);
+
+          tl.to(
+            cards[j],
+            {
+              scale: targetScale,
+              y: targetY,
+              filter: `brightness(${targetBrightness})`,
+              duration: 1,
+              ease: "power2.out",
+            },
+            `stack-${i}`
+          );
+        }
+
+        // Slide current card in
+        tl.to(
+          currentCard,
+          {
+            yPercent: 0,
+            scale: 1,
+            opacity: 1,
+            filter: "brightness(1)",
+            duration: 1,
+            ease: "power2.out",
+          },
+          `stack-${i}`
+        );
+
+        // Smooth cross-fade to current project's high-opacity gradient layer
+        if (bgLayers[i - 1]) {
+          tl.to(
+            bgLayers[i - 1],
+            { opacity: 0, duration: 1, ease: "power1.inOut" },
+            `stack-${i}`
+          );
+        }
+        if (bgLayers[i]) {
+          tl.to(
+            bgLayers[i],
+            { opacity: 1, duration: 1, ease: "power1.inOut" },
+            `stack-${i}`
+          );
+        }
+
+        // Watermark transition
+        if (watermarkRef.current) {
+          tl.to(
+            watermarkRef.current,
+            {
+              opacity: 0,
+              duration: 0.25,
+              onComplete: () => {
+                if (watermarkRef.current) {
+                  watermarkRef.current.innerText = atmo.watermark;
+                }
+              },
+            },
+            `stack-${i}`
+          ).to(
+            watermarkRef.current,
+            { opacity: 0.08, duration: 0.4 },
+            `stack-${i}+=0.25`
+          );
+        }
+      }
+    }, sectionRef);
+
     ScrollTrigger.refresh();
 
-    return () => {
-      lenis.destroy();
-      gsap.ticker.remove(rafFn);
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
+  const scrollToCard = (index) => {
+    if (!sectionRef.current) return;
+    const totalCards = dataSet.length;
+    const allTriggers = ScrollTrigger.getAll();
+    const trigger = allTriggers.find((st) => st.trigger === sectionRef.current);
+
+    if (trigger) {
+      const scrollStart = trigger.start;
+      const scrollTotal = trigger.end - trigger.start;
+      const targetScroll = scrollStart + (index / (totalCards - 1)) * scrollTotal;
+
+      gsap.to(window, {
+        scrollTo: targetScroll,
+        duration: 1.2,
+        ease: "power2.inOut",
+      });
+    }
+  };
+
+  const initialAtmo = projectAtmospheres[0];
+
   return (
-    <>
-      <div className="nav-container" ref={navRef}>
-        <div className="nav-line" />
+    <section className="projects-stack-section" id="projects" ref={sectionRef}>
+      {/* High-Opacity Gradient Layers for 60FPS Cross-Fading */}
+      <div
+        className="gradient-bg-layer layer-0"
+        ref={(el) => (bgLayersRef.current[0] = el)}
+      />
+      <div
+        className="gradient-bg-layer layer-1"
+        ref={(el) => (bgLayersRef.current[1] = el)}
+      />
+      <div
+        className="gradient-bg-layer layer-2"
+        ref={(el) => (bgLayersRef.current[2] = el)}
+      />
+
+      <div className="gradient-dark-vignette" />
+
+      <div className="projects-watermark-text" ref={watermarkRef}>
+        {initialAtmo.watermark}
       </div>
 
-      <div className="stage projects-3d-root">
-        <div className="container" ref={wrapperRef} />
+      <div className="projects-grid-overlay" />
+
+      {/* Header */}
+      <div className="projects-header-sticky">
+        <div className="projects-header-left">
+          <span className="projects-tagline">Featured Work</span>
+        </div>
+
+        <div className="projects-counter-badge">
+          {String(activeIdx + 1).padStart(2, "0")} / {String(dataSet.length).padStart(2, "0")}
+        </div>
       </div>
-    </>
+
+      {/* Cards Viewport */}
+      <div className="projects-viewport">
+        <div className="cards-stack-container">
+          {dataSet.map((project, i) => {
+            const atmo = projectAtmospheres[i] || projectAtmospheres[0];
+
+            return (
+              <article
+                className={`stack-card stack-card-${i}`}
+                key={project.title + i}
+                ref={(el) => (cardsRef.current[i] = el)}
+              >
+                {/* Left: Content Details */}
+                <div className="card-content-col">
+                  <div>
+                    <div className="card-header-meta">
+                      <span className="card-index-tag">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="card-category-tag">{atmo.category}</span>
+                    </div>
+
+                    <h3 className="card-title">{project.title}</h3>
+                    <p className="card-desc">{project.desc}</p>
+
+                    {project.features && (
+                      <ul className="card-features-list">
+                        {project.features.map((feature, fIdx) => (
+                          <li className="card-feature-item" key={fIdx}>
+                            <span className="feature-sparkle">✦</span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  <div>
+                    <div className="card-tech-wrapper">
+                      {project.tech.map((t, tIdx) => (
+                        <span className="card-tech-pill" key={tIdx}>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="card-action-row">
+                      {project.link ? (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="view-live-btn"
+                        >
+                          View Live
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7 17L17 7M17 7H7M17 7V17"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </a>
+                      ) : (
+                        <span className="view-live-btn" style={{ opacity: 0.6 }}>
+                          View Live
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Mockup Showcase */}
+                <div className="card-showcase-col">
+                  <div className="showcase-mockup-stage">
+                    <div className="mockup-desktop-frame">
+                      <div className="mockup-browser-bar">
+                        <span className="browser-dot red" />
+                        <span className="browser-dot yellow" />
+                        <span className="browser-dot green" />
+                        <span className="browser-address-pill" />
+                      </div>
+                      <div className="mockup-desktop-screen">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} Desktop View`}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mockup-mobile-frame">
+                      <div className="mockup-mobile-notch" />
+                      <div className="mockup-mobile-screen">
+                        <img
+                          src={project.imageMobile || project.image}
+                          alt={`${project.title} Mobile View`}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Floating Side Nav */}
+      <nav className="projects-side-nav" aria-label="Project Navigation">
+        {dataSet.map((project, i) => (
+          <div
+            key={i}
+            className={`side-nav-item ${i === activeIdx ? "active" : ""}`}
+            onClick={() => scrollToCard(i)}
+          >
+            <span className="side-nav-tooltip">{project.title}</span>
+            <div className="side-nav-dot" />
+          </div>
+        ))}
+      </nav>
+    </section>
   );
 };
 
