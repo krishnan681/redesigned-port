@@ -2,106 +2,85 @@ import RendererConfig from "./RendererConfig";
 import VideoLayer from "./VideoLayer";
 
 export default class HeroRenderer {
+  constructor(canvas, video) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");
+    this.videoLayer = new VideoLayer(video);
+    this.video = video;
 
-    constructor(canvas, video) {
+    this.pixelRatio = Math.min(
+      window.devicePixelRatio || 1,
+      RendererConfig.MAX_PIXEL_RATIO
+    );
 
-        this.canvas = canvas;
-        this.ctx = canvas.getContext("2d");
+    this.width = 0;
+    this.height = 0;
+    this.animationFrame = null;
+    this.isRunning = false;
 
-        this.videoLayer = new VideoLayer(video);
+    this.render = this.render.bind(this);
+    this.resize = this.resize.bind(this);
+  }
 
-        this.pixelRatio = Math.min(
-            window.devicePixelRatio,
-            RendererConfig.MAX_PIXEL_RATIO
-        );
+  start() {
+    this.resize();
+    window.addEventListener("resize", this.resize, { passive: true });
+    this.resume();
+  }
 
-        this.width = 0;
-        this.height = 0;
-
-        this.animationFrame = null;
-
-        this.render = this.render.bind(this);
-        this.resize = this.resize.bind(this);
-
+  pause() {
+    if (!this.isRunning) return;
+    this.isRunning = false;
+    if (this.animationFrame) {
+      cancelAnimationFrame(this.animationFrame);
+      this.animationFrame = null;
     }
-
-    start() {
-
-        this.resize();
-
-        window.addEventListener(
-            "resize",
-            this.resize
-        );
-
-        this.render();
-
+    if (this.video && !this.video.paused) {
+      this.video.pause();
     }
+  }
 
-    resize() {
-
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-
-        this.canvas.width =
-            this.width * this.pixelRatio;
-
-        this.canvas.height =
-            this.height * this.pixelRatio;
-
-        this.canvas.style.width =
-            this.width + "px";
-
-        this.canvas.style.height =
-            this.height + "px";
-
-        this.ctx.setTransform(
-            this.pixelRatio,
-            0,
-            0,
-            this.pixelRatio,
-            0,
-            0
-        );
-
+  resume() {
+    if (this.isRunning) return;
+    this.isRunning = true;
+    if (this.video && this.video.paused) {
+      this.video.play().catch(() => {});
     }
+    this.render();
+  }
 
-    render() {
+  resize() {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
 
-        this.ctx.fillStyle =
-            RendererConfig.BACKGROUND;
+    this.canvas.width = this.width * this.pixelRatio;
+    this.canvas.height = this.height * this.pixelRatio;
 
-        this.ctx.fillRect(
-            0,
-            0,
-            this.width,
-            this.height
-        );
+    this.canvas.style.width = this.width + "px";
+    this.canvas.style.height = this.height + "px";
 
-        this.videoLayer.draw(
-            this.ctx,
-            this.width,
-            this.height
-        );
+    this.ctx.setTransform(
+      this.pixelRatio,
+      0,
+      0,
+      this.pixelRatio,
+      0,
+      0
+    );
+  }
 
-        this.animationFrame =
-            requestAnimationFrame(
-                this.render
-            );
+  render() {
+    if (!this.isRunning) return;
 
-    }
+    this.ctx.fillStyle = RendererConfig.BACKGROUND;
+    this.ctx.fillRect(0, 0, this.width, this.height);
+    this.videoLayer.draw(this.ctx, this.width, this.height);
 
-    destroy() {
+    this.animationFrame = requestAnimationFrame(this.render);
+  }
 
-        cancelAnimationFrame(
-            this.animationFrame
-        );
-
-        window.removeEventListener(
-            "resize",
-            this.resize
-        );
-
-    }
-
+  destroy() {
+    this.pause();
+    window.removeEventListener("resize", this.resize);
+  }
 }

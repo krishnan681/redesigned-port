@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import "../../CSS/UI-CSS/terminal.css";
 
 const lines = [
@@ -15,28 +15,31 @@ const TerminalSplash = ({ onFinish }) => {
   const [lineIndex, setLineIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [fadeOut, setFadeOut] = useState(false); // 👈 NEW
-
-  const audioRef = useRef(null);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    audioRef.current = new Audio("/typing.mp3");
-    audioRef.current.volume = 0.2;
-
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "auto";
+    // Prevent touch scrolling during splash overlay
+    const handleTouchMove = (e) => {
+      if (!fadeOut) e.preventDefault();
     };
-  }, []);
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    return () => {
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [fadeOut]);
 
   useEffect(() => {
     if (lineIndex >= lines.length) {
-      setTimeout(() => {
-        setFadeOut(true); // 👈 trigger fade
-        setTimeout(onFinish, 500); // wait for fade
-      }, 500);
-      return;
+      const exitTimer = setTimeout(() => {
+        setFadeOut(true);
+        // Wait for exit transition to complete before unmounting
+        const finishTimer = setTimeout(() => {
+          onFinish?.();
+          window.dispatchEvent(new Event("resize"));
+        }, 800);
+        return () => clearTimeout(finishTimer);
+      }, 400);
+      return () => clearTimeout(exitTimer);
     }
 
     if (charIndex < lines[lineIndex].length) {
@@ -44,17 +47,12 @@ const TerminalSplash = ({ onFinish }) => {
         setCurrentLine((prev) => prev + lines[lineIndex][charIndex]);
         setCharIndex((prev) => prev + 1);
 
-        if (audioRef.current) {
-          audioRef.current.currentTime = 0;
-          audioRef.current.play().catch(() => {});
-        }
-
         const totalChars = lines.join("").length;
         const typedChars =
-          lines.slice(0, lineIndex).join("").length + charIndex;
+          lines.slice(0, lineIndex).join("").length + charIndex + 1;
 
-        setProgress(Math.floor((typedChars / totalChars) * 100));
-      }, 25);
+        setProgress(Math.min(100, Math.floor((typedChars / totalChars) * 100)));
+      }, 22);
 
       return () => clearTimeout(timeout);
     } else {
@@ -63,35 +61,43 @@ const TerminalSplash = ({ onFinish }) => {
         setCurrentLine("");
         setCharIndex(0);
         setLineIndex((prev) => prev + 1);
-      }, 300);
+      }, 220);
 
       return () => clearTimeout(timeout);
     }
   }, [charIndex, lineIndex, currentLine, onFinish]);
 
   return (
-    <div className={`terminal-wrapper ${fadeOut ? "fade-out" : ""}`}>
-
+    <aside
+      className={`terminal-wrapper ${fadeOut ? "fade-out" : ""}`}
+      aria-label="Loading sequence"
+      role="status"
+    >
       <div className="terminal-box">
         <div className="terminal-header">
-          <span className="dot red"></span>
-          <span className="dot yellow"></span>
-          <span className="dot green"></span>
+          <span className="dot red" />
+          <span className="dot yellow" />
+          <span className="dot green" />
+          <span className="terminal-header-title">system-init</span>
         </div>
 
-        {displayedText.map((line, i) => (
-          <div key={i} className="terminal-line">
-            {line}
-          </div>
-        ))}
+        <div className="terminal-content">
+          {displayedText.map((line, i) => (
+            <div key={i} className="terminal-line">
+              <span className="terminal-prompt">&gt;</span> {line}
+            </div>
+          ))}
 
-        <div className="terminal-line">
-          {currentLine}
-          <span className="cursor">|</span>
+          {lineIndex < lines.length && (
+            <div className="terminal-line active">
+              <span className="terminal-prompt">&gt;</span> {currentLine}
+              <span className="cursor">█</span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* FULL WIDTH LINE */}
+      {/* FULL WIDTH PROGRESS BAR */}
       <div className="progress-line">
         <div
           className="progress-line-fill"
@@ -99,10 +105,9 @@ const TerminalSplash = ({ onFinish }) => {
         />
       </div>
 
-      {/* % */}
+      {/* PERCENTAGE BADGE */}
       <div className="progress-outside">{progress}%</div>
-
-    </div>
+    </aside>
   );
 };
 

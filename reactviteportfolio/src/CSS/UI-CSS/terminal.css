@@ -2,41 +2,68 @@
 .terminal-wrapper {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at center, #0a0a0a, #000);
+  background: radial-gradient(circle at center, #0e0e14 0%, #000000 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 99999;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  will-change: opacity, transform;
+}
+
+/* ================= FADE OUT ================= */
+.terminal-wrapper.fade-out {
+  opacity: 0;
+  transform: scale(1.03) translateY(-10px);
+  filter: blur(4px);
+  pointer-events: none;
 }
 
 /* ================= TERMINAL BOX ================= */
 .terminal-box {
-  width: 460px;
+  width: 480px;
   max-width: 90%;
-  padding: 25px;
-
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(15px);
-
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  font-family: "Courier New", monospace;
-  color: #e5e7eb;
-
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+  min-height: 240px;
+  padding: 24px;
+  background: rgba(18, 18, 28, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: 'DM Mono', 'Courier New', monospace;
+  color: #e2e8f0;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(99, 102, 241, 0.08);
 }
 
 /* ================= HEADER DOTS ================= */
 .terminal-header {
   display: flex;
+  align-items: center;
   gap: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal-header-title {
+  margin-left: auto;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
 }
 
@@ -45,15 +72,35 @@
 .green { background: #27c93f; }
 
 /* ================= TEXT ================= */
+.terminal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .terminal-line {
-  margin-bottom: 6px;
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.terminal-line.active {
+  color: #818cf8;
+}
+
+.terminal-prompt {
+  color: #6366f1;
+  font-weight: bold;
+  margin-right: 6px;
 }
 
 /* ================= CURSOR ================= */
 .cursor {
-  margin-left: 5px;
-  animation: blink 1s infinite;
+  margin-left: 4px;
+  color: #818cf8;
+  animation: blink 0.9s infinite;
+  display: inline-block;
+  font-size: 13px;
 }
 
 @keyframes blink {
@@ -64,11 +111,13 @@
 /* ================= OUTSIDE % ================= */
 .progress-outside {
   position: absolute;
-  bottom: 20px;
-  right: 30px;
-  font-size: 36px;
-  font-weight: bold;
-  color: #60a5fa;
+  bottom: 28px;
+  right: 36px;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  color: #818cf8;
+  letter-spacing: -0.5px;
 }
 
 /* ================= FULL WIDTH PROGRESS ================= */
@@ -77,75 +126,29 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.05);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
 }
 
-/* 🌈 MAIN FILL */
+/* MAIN FILL */
 .progress-line-fill {
   height: 100%;
   position: relative;
   width: 0%;
-
   background: linear-gradient(
     90deg,
-    #00f0ff,
-    #60a5fa,
-    #a78bfa,
-    #22c55e,
-    #00f0ff
+    #6366f1,
+    #818cf8,
+    #38bdf8,
+    #6366f1
   );
-
   background-size: 200% 100%;
-  animation: gradientFlow 3s linear infinite;
-
-  transition: width 0.2s ease;
+  animation: gradientFlow 2.5s linear infinite;
+  transition: width 0.15s ease-out;
 }
 
-/* ✨ LIGHT SWEEP */
-.progress-line-fill::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -30%;
-  width: 30%;
-  height: 100%;
-
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.8),
-    transparent
-  );
-
-  animation: shine 1.5s infinite;
-}
-
-/* 🔥 GLOW */
-.progress-line-fill::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background: inherit;
-  filter: blur(8px);
-  opacity: 0.7;
-}
-
-/* ================= ANIMATIONS ================= */
 @keyframes gradientFlow {
   0% { background-position: 0% 50%; }
   100% { background-position: 200% 50%; }
-}
-
-@keyframes shine {
-  0% { left: -30%; }
-  100% { left: 100%; }
-}
-
-/* ================= FADE OUT ================= */
-.fade-out {
-  opacity: 0;
-  transition: opacity 0.5s ease;
 }

@@ -14,9 +14,9 @@ const imagesRow1 = [img1, img2, img3, img4, img5, img6, img7];
 const imagesRow2 = [img7, img6, img5, img4, img3, img2, img1];
 
 const ScrollExperience = () => {
-  // Repeating sets to guarantee seamless loop
-  const loopRow1 = [...imagesRow1, ...imagesRow1, ...imagesRow1, ...imagesRow1];
-  const loopRow2 = [...imagesRow2, ...imagesRow2, ...imagesRow2, ...imagesRow2];
+  // 2 sets are sufficient for seamless 50% translation loop
+  const loopRow1 = [...imagesRow1, ...imagesRow1];
+  const loopRow2 = [...imagesRow2, ...imagesRow2];
 
   return (
     <section className="vintage-carousel-section" id="visual-works">

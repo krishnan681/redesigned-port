@@ -1,116 +1,8 @@
-// import React, { useEffect, useRef } from "react";
-// import "../CSS/ProjectsPage.css";
-// import gsap from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-// gsap.registerPlugin(ScrollTrigger);
-
-// const projects = [
-//   {
-//     title: "Portfolio Website",
-//     desc: "Modern portfolio with animations and smooth UI.",
-//     img: "/assets/images/bento-a.png",
-//     code: "#",
-//     live: "#",
-//   },
-//   {
-//     title: "Admin Dashboard",
-//     desc: "Full-stack dashboard with analytics and CRUD.",
-//     img: "/assets/images/download.webp",
-//     code: "#",
-//     live: "#",
-//   },
-//   {
-//     title: "Flutter App",
-//     desc: "Cross-platform mobile UI with smooth UX.",
-//     img: "/assets/images/profile.png",
-//     code: "#",
-//     live: "#",
-//   },
-// ];
-
-// const ProjectsPage = () => {
-//   const containerRef = useRef(null);
-
-//   useEffect(() => {
-//     const ctx = gsap.context(() => {
-//       const cards = gsap.utils.toArray(".project-card");
-
-//       // TIMELINE (stagger animation)
-//       const tl = gsap.timeline({
-//         scrollTrigger: {
-//           trigger: containerRef.current,
-//           start: "top 80%",
-//           toggleActions: "play none none reverse",
-//         },
-//       });
-
-//       tl.from(cards, {
-//         opacity: 0,
-//         y: 100,
-//         scale: 0.9,
-//         duration: 1,
-//         ease: "power4.out",
-//         stagger: 0.2,
-//       });
-
-//       // OPTIONAL: subtle parallax on scroll
-//       cards.forEach((card, i) => {
-//         gsap.to(card, {
-//           y: -20,
-//           scrollTrigger: {
-//             trigger: card,
-//             start: "top bottom",
-//             scrub: 1,
-//           },
-//         });
-//       });
-//     }, containerRef);
-
-//     return () => ctx.revert(); // cleanup
-//   }, []);
-
-//   return (
-//     <div className="projects-page" ref={containerRef}>
-//       <h1 className="projects-title">Projects</h1>
-
-//       <div className="projects-grid">
-//         {projects.map((proj, index) => (
-//           <div className="project-card" key={index}>
-//             <div className="project-image">
-//               <img src={proj.img} alt={proj.title} />
-//               <div className="image-overlay"></div>
-//             </div>
-
-//             <div className="project-content">
-//               <h2>{proj.title}</h2>
-//               <p>{proj.desc}</p>
-
-//               <div className="project-buttons">
-//                 <a href={proj.code}>View Code</a>
-//                 <a href={proj.live}>Live Demo</a>
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ProjectsPage;
-
-
-
-
-
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { dataSet } from "../data/projectsData";
 import "../CSS/ProjectsPage.css";
-
-// ✅ import your dataset
-import { dataSet } from "../data/projectsData"; // adjust path if needed
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -120,7 +12,6 @@ export default function ProjectsPage() {
   const cardsRef = useRef([]);
   const lineRef = useRef(null);
 
-  // ✅ transform your dataset → UI format
   const projects = dataSet.map((item, i) => ({
     id: i + 1,
     title: item.title,
@@ -133,7 +24,7 @@ export default function ProjectsPage() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // heading animation
+      // Heading animation
       gsap.fromTo(
         headingRef.current,
         { opacity: 0, y: 40 },
@@ -149,7 +40,7 @@ export default function ProjectsPage() {
         }
       );
 
-      // line animation
+      // Line animation
       gsap.fromTo(
         lineRef.current,
         { scaleX: 0, transformOrigin: "left center" },
@@ -164,7 +55,7 @@ export default function ProjectsPage() {
         }
       );
 
-      // cards animation
+      // Cards animation
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -187,10 +78,11 @@ export default function ProjectsPage() {
         }
       );
 
-      // image parallax
+      // Image parallax
       cardsRef.current.forEach((card) => {
         if (!card) return;
         const img = card.querySelector(".pf__card-img-inner");
+        if (!img) return;
 
         gsap.to(img, {
           yPercent: -12,
@@ -210,7 +102,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="pf__root">
-      {/* background visuals */}
+      {/* Background visuals */}
       <div className="pf__orb pf__orb--lime" />
       <div className="pf__orb pf__orb--indigo" />
       <div className="pf__dot-grid" />
@@ -221,9 +113,7 @@ export default function ProjectsPage() {
 
           <h2 className="pf__headline" ref={headingRef}>
             Projects that <br />
-            <span className="pf__headline-ghost">
-              define the craft
-            </span>
+            <span className="pf__headline-ghost">define the craft</span>
           </h2>
 
           <div className="pf__rule" ref={lineRef} />
@@ -236,7 +126,7 @@ export default function ProjectsPage() {
               key={project.id}
               ref={(el) => (cardsRef.current[i] = el)}
             >
-              {/* image */}
+              {/* Image */}
               <div className="pf__card-img-wrap">
                 <div
                   className="pf__card-img-inner"
@@ -247,7 +137,7 @@ export default function ProjectsPage() {
 
                 <div className="pf__card-img-veil" />
 
-                {/* tags */}
+                {/* Tags */}
                 <div className="pf__card-chips">
                   {project.tags.map((tag) => (
                     <span className="pf__chip" key={tag}>
@@ -257,21 +147,16 @@ export default function ProjectsPage() {
                 </div>
               </div>
 
-              {/* content */}
+              {/* Content */}
               <div className="pf__card-body">
                 <div className="pf__card-num">
                   {String(i + 1).padStart(2, "0")}
                 </div>
 
-                <h3 className="pf__card-name">
-                  {project.title}
-                </h3>
+                <h3 className="pf__card-name">{project.title}</h3>
+                <p className="pf__card-blurb">{project.description}</p>
 
-                <p className="pf__card-blurb">
-                  {project.description}
-                </p>
-
-                {/* buttons */}
+                {/* Buttons */}
                 <div className="pf__card-cta">
                   <a
                     href={project.codeUrl}
@@ -289,9 +174,7 @@ export default function ProjectsPage() {
                     rel="noreferrer"
                   >
                     Live Demo
-                    <span className="pf__btn-arrow">
-                      &#x2197;
-                    </span>
+                    <span className="pf__btn-arrow">&#x2197;</span>
                   </a>
                 </div>
               </div>

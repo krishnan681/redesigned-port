@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
+import ProfilePhoto from "../../assets/images/profile.png";
 import "../../CSS/navbar.css";
 
 const LinkedInIcon = () => (
@@ -50,13 +51,16 @@ const Navbar = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll only when mobile menu is active
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
   return (
@@ -86,7 +90,7 @@ const Navbar = () => {
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               {/* Logo outside the glass bar */}
-              <Link to="/" className="nav-logo-left">
+              <Link to="/" className="nav-logo-left" aria-label="Gopalakrishnan Portfolio">
                 <div className="logo-box">G</div>
               </Link>
 
@@ -99,7 +103,23 @@ const Navbar = () => {
 
               {/* Desktop Navigation */}
               <motion.div layoutId="nav-morph-pill" className="glass-nav desktop-nav">
-                <NavLink to="/" className="nav-link">Home</NavLink>
+                <NavLink
+                  to="/"
+                  end
+                  className={({ isActive }) => `nav-link nav-avatar-link ${isActive ? "active" : ""}`}
+                  aria-label="Home"
+                  title="Home"
+                >
+                  <motion.div
+                    className="nav-avatar-circle"
+                    whileHover={{ scale: 1.12 }}
+                    whileTap={{ scale: 0.94 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  >
+                    <img src={ProfilePhoto} alt="Home profile" className="nav-avatar-img" />
+                    <span className="nav-avatar-pulse" />
+                  </motion.div>
+                </NavLink>
                 <NavLink to="/about" className="nav-link">About</NavLink>
                 <NavLink to="/projects" className="nav-link">Projects</NavLink>
                 <NavLink to="/links" className="nav-link">Contact Me</NavLink>
@@ -118,11 +138,17 @@ const Navbar = () => {
         <div className="sheet-bento-grid">
           {/* Main Navigation Block */}
           <div className="sheet-bento-card bento-nav">
-            <NavLink to="/" className="sheet-nav-link" onClick={closeMenu}>Home</NavLink>
+            <NavLink to="/" end className="sheet-nav-link sheet-avatar-link" onClick={closeMenu}>
+              <div className="sheet-avatar-circle">
+                <img src={ProfilePhoto} alt="Home" className="sheet-avatar-img" />
+              </div>
+              <span>Home</span>
+            </NavLink>
             <NavLink to="/about" className="sheet-nav-link" onClick={closeMenu}>About</NavLink>
             <NavLink to="/projects" className="sheet-nav-link" onClick={closeMenu}>Projects</NavLink>
             <NavLink to="/links" className="sheet-nav-link" onClick={closeMenu}>Contact Me</NavLink>
           </div>
+
 
           {/* Resume Block */}
           <a href="#" className="sheet-bento-card bento-resume" onClick={closeMenu}>

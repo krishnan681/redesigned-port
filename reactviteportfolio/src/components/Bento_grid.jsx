@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import Lottie from "lottie-react";
 import LightRays from "../components/UI/LightRays";
 import RobotSaludando from "../assets/lottie/RobotSaludando.json";
@@ -350,79 +350,5 @@ const [showModal, setShowModal] = useState(false);
   </section>
   );
 };
+
 export default BentoGridSection;
-
-
-
-
-
-
-
-
-
-
-
-// import "../CSS/BentoGrid.css";
-// import bentoImg from "../assets/images/bento-a.png";
-
-// const BentoGrid = () => {
-//   return (
-//     <div className="bento-container">
-
-//       {/* LEFT CARD */}
-//       <div className="bento-card card-1">
-//         <h2>
-//           Parth <span>Sharma</span>
-//         </h2>
-//         <p>Noida, IN • 06:20 PM</p>
-
-//         <div className="card-image">
-//           <img src={bentoImg} alt="visual" />
-//         </div>
-//       </div>
-
-//       {/* CENTER TOP */}
-//       <div className="bento-card card-2">
-//         <p className="tag">DETAIL-DRIVEN UI</p>
-//         <h1>
-//           Interfaces <br />
-//           <span>you can feel.</span>
-//         </h1>
-//         <p className="desc">
-//           I sweat spacing, timing, and feedback — the tiny stuff.
-//         </p>
-//       </div>
-
-//       {/* RIGHT CARD */}
-//       <div className="bento-card card-3">
-//         <div className="status">● Available for work</div>
-//         <h2>
-//           LET'S BUILD SOMETHING <br />
-//           <span>that actually works.</span>
-//         </h2>
-
-//         <button className="connect-btn">Connect Now →</button>
-//       </div>
-
-//       {/* BOTTOM LEFT */}
-//       <div className="bento-card card-4">
-//         <h3>Adaptable across time zones</h3>
-//         <p>Available globally</p>
-//       </div>
-
-//       {/* CENTER BIG CLOCK (fake visual) */}
-//       <div className="bento-card card-5">
-//         <div className="clock-circle"></div>
-//       </div>
-
-//       {/* BOTTOM RIGHT */}
-//       <div className="bento-card card-6">
-//         <h3>Projects</h3>
-//         <p>Interactive, modern, scalable builds.</p>
-//       </div>
-
-//     </div>
-//   );
-// };
-
-// export default BentoGrid;

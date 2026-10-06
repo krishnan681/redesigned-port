@@ -7,10 +7,7 @@ import {
   FaHtml5,
   FaCss3Alt,
   FaBootstrap,
-  FaGit,
-  FaGithub,
   FaNodeJs,
-  FaPaintBrush,
 } from "react-icons/fa";
 
 import {

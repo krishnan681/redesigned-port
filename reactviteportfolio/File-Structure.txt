@@ -1,4 +1,3 @@
- 
 ├── 📁 reactviteportfolio/
 │   ├── 📁 .vercel/
 │   │   ├── 📄 README.txt
@@ -6,10 +5,9 @@
 │   ├── 📁 api/
 │   │   └── 📄 send-email.js
 │   ├── 📁 public/
-│   │   ├── 📁 assets/
-│   │   │   └── 📁 stones/
-│   │   │       ├── 🖼️ stone1.png
-│   │   │       └── 🖼️ stone2.png
+│   │   ├── 📁 images/
+│   │   │   └── 📁 peeps/
+│   │   │       └── 🖼️ all-peeps.png
 │   │   ├── 🖼️ apple-touch-icon.png
 │   │   ├── 🖼️ favicon-96x96.png
 │   │   ├── 📄 favicon.ico
@@ -20,17 +18,14 @@
 │   ├── 📁 src/
 │   │   ├── 📁 CSS/
 │   │   │   ├── 📁 UI-CSS/
-│   │   │   │   ├── 🎨 Aurora.css
 │   │   │   │   ├── 🎨 ConnectModal.css
 │   │   │   │   ├── 🎨 HeroCanvas.css
 │   │   │   │   ├── 🎨 LightRays.css
 │   │   │   │   ├── 🎨 RotatingText.css
-│   │   │   │   ├── 🎨 star_background.css
 │   │   │   │   └── 🎨 terminal.css
 │   │   │   ├── 🎨 AboutMe.css
 │   │   │   ├── 🎨 AboutPage.css
 │   │   │   ├── 🎨 BentoGrid.css
-│   │   │   ├── 🎨 GreetingOverlay.css
 │   │   │   ├── 🎨 LinksPage.css
 │   │   │   ├── 🎨 ProjectsPage.css
 │   │   │   ├── 🎨 ProjectsScroll.css
@@ -61,16 +56,11 @@
 │   │   │   │   │   ├── 🖼️ 5.png
 │   │   │   │   │   ├── 🖼️ 6.png
 │   │   │   │   │   └── 🖼️ 7.png
-│   │   │   │   ├── 🖼️ bento-a.png
-│   │   │   │   ├── 🖼️ download.webp
-│   │   │   │   ├── 🖼️ profile.png
-│   │   │   │   └── 🖼️ scroll.png
+│   │   │   │   └── 🖼️ profile.png
 │   │   │   ├── 📁 lottie/
-│   │   │   │   ├── ⚙️ RobotSaludando.json
-│   │   │   │   └── ⚙️ cta-circle.json
-│   │   │   ├── 📁 video/
-│   │   │   │   └── 🎬 herosection.mp4
-│   │   │   └── 🖼️ react.svg
+│   │   │   │   └── ⚙️ RobotSaludando.json
+│   │   │   └── 📁 video/
+│   │   │       └── 🎬 herosection.mp4
 │   │   ├── 📁 components/
 │   │   │   ├── 📁 Layout/
 │   │   │   │   ├── 📄 layout.jsx
@@ -81,17 +71,11 @@
 │   │   │   │   │   ├── 📄 HeroRenderer.js
 │   │   │   │   │   ├── 📄 MathUtils.js
 │   │   │   │   │   ├── 📄 RendererConfig.js
-│   │   │   │   │   ├── 📄 VideoLayer.js
-│   │   │   │   │   └── 📄 index.js
-│   │   │   │   ├── 📄 Aurora.jsx
+│   │   │   │   │   └── 📄 VideoLayer.js
 │   │   │   │   ├── 📄 ConnectModal.jsx
-│   │   │   │   ├── 📄 GreetingOverlay.jsx
 │   │   │   │   ├── 📄 LightRays.jsx
-│   │   │   │   ├── 📄 LiquidTextElement.jsx
 │   │   │   │   ├── 📄 RotatingText.jsx
-│   │   │   │   ├── 📄 SplitText.jsx
-│   │   │   │   ├── 📄 TerminalSplash.jsx
-│   │   │   │   └── 📄 star_background.jsx
+│   │   │   │   └── 📄 TerminalSplash.jsx
 │   │   │   ├── 📄 AboutMe.jsx
 │   │   │   ├── 📄 Bento_grid.jsx
 │   │   │   ├── 📄 Footer.jsx
@@ -105,9 +89,6 @@
 │   │   │   ├── 📄 AboutPage.jsx
 │   │   │   ├── 📄 LinksPage.jsx
 │   │   │   └── 📄 ProjectsPage.jsx
-│   │   ├── 📁 utils/
-│   │   │   └── 📄 LiquidTextManager.js
-│   │   ├── 🎨 App.css
 │   │   ├── 📄 App.jsx
 │   │   ├── 🎨 index.css
 │   │   └── 📄 main.jsx
@@ -119,6 +100,3 @@
 │   ├── ⚙️ package-lock.json
 │   ├── ⚙️ package.json
 │   └── 📄 vite.config.js
-├── 🌐 index8.html
-└── 🌐 index9.html
- 
